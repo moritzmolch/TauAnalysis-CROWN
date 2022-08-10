@@ -545,7 +545,7 @@ mTdileptonMET = Producer(
 mt_1 = Producer(
     name="mt_1",
     call="quantities::mT({df}, {output}, {input})",
-    input=[q.p4_1, q.met_p4_recoilcorrected],
+    input=[q.p4_1, q.met_p4],
     output=[q.mt_1],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )

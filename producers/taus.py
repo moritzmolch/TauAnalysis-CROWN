@@ -190,6 +190,15 @@ GoodTauPtCut = Producer(
     output=[],
     scopes=["et", "mt", "tt"],
 )
+
+GoodTauPtCut1 = Producer(
+    name="GoodTauPtCut1",
+    call="physicsobject::CutPt({df}, {input}, {output}, {min_tau_pt})",
+    input=[nanoAOD.Tau_pt],
+    output=[],
+    scopes=["et", "mt", "tt"],
+)
+
 GoodTauEtaCut = Producer(
     name="GoodTauEtaCut",
     call="physicsobject::CutEta({df}, {input}, {output}, {max_tau_eta})",
@@ -227,6 +236,24 @@ GoodTaus = ProducerGroup(
         VsMuonTauIDCut,
     ],
 )
+
+GoodTaus1 = ProducerGroup(
+    name="GoodTaus1",
+    call="physicsobject::CombineMasks({df}, {output}, {input})",
+    input=[],
+    output=[q.good_taus_mask],
+    scopes=["et", "mt", "tt"],
+    subproducers=[
+        GoodTauPtCut1,
+        GoodTauEtaCut,
+        GoodTauDzCut,
+        GoodTauDMCut,
+        VsJetTauIDCut,
+        VsElectronTauIDCut,
+        VsMuonTauIDCut,
+    ],
+)
+
 NumberOfGoodTaus = Producer(
     name="NumberOfGoodTaus",
     call="quantities::NumberOfGoodLeptons({df}, {output}, {input})",

@@ -10,7 +10,7 @@ MTPairSelection = Producer(
     name="MTPairSelection",
     call="ditau_pairselection::mutau::PairSelection({df}, {input_vec}, {output}, {pairselection_min_dR})",
     input=[
-        q.Tau_pt_corrected,
+        nanoAOD.Tau_pt,
         nanoAOD.Tau_eta,
         nanoAOD.Tau_phi,
         nanoAOD.Tau_mass,
@@ -310,10 +310,10 @@ LVTau2 = Producer(
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
     input=[
         q.dileptonpair,
-        q.Tau_pt_corrected,
+        nanoAOD.Tau_pt,
         nanoAOD.Tau_eta,
         nanoAOD.Tau_phi,
-        q.Tau_mass_corrected,
+        nanoAOD.Tau_mass,
     ],
     output=[q.p4_2],
     scopes=["mt", "et", "tt"],

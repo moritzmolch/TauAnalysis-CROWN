@@ -6,6 +6,11 @@ from ..producers.muons import (
     MuonEtaCut,
     GoodMuonPtCut,
     GoodMuonEtaCut,
+    MuonDxyCut,
+    MuonDzCut,
+    MuonIDCut,
+    MuonIsoCut,
+    
 )
 from ..producers.electrons import (
     ElectronPtCut,
@@ -19,6 +24,18 @@ from code_generation.producer import (
     ExtendedVectorProducer,
 )
 
+# BaseMuons = ProducerGroup(
+#     name="BaseMuons",
+#     call="physicsobject::CombineMasks({df}, {output}, {input})",
+#     input=[],
+#     output=[q.base_muons_mask],
+#     scopes=["global"],
+#     subproducers=[
+#         MuonPtCut,
+#         MuonEtaCut,
+#     ],
+# )
+
 BaseMuons = ProducerGroup(
     name="BaseMuons",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
@@ -28,6 +45,10 @@ BaseMuons = ProducerGroup(
     subproducers=[
         MuonPtCut,
         MuonEtaCut,
+        MuonDxyCut,
+        MuonDzCut,
+        MuonIDCut,
+        MuonIsoCut,
     ],
 )
 
@@ -36,7 +57,7 @@ GoodMuons = ProducerGroup(
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[],
     output=[q.good_muons_mask],
-    scopes=["mm"],
+    scopes=["mm", "mt"],
     subproducers=[
         GoodMuonPtCut,
         GoodMuonEtaCut,
@@ -94,7 +115,7 @@ MuMuSingleMuonTriggerFlags_1 = ExtendedVectorProducer(
         nanoAOD.TriggerObject_phi,
     ],
     output="flagname_1",
-    scope=["mm"],
+    scope=["mm", "mt"],
     vec_config="singlemoun_trigger",
 )
 MuMuSingleMuonTriggerFlags_2 = ExtendedVectorProducer(
@@ -109,7 +130,7 @@ MuMuSingleMuonTriggerFlags_2 = ExtendedVectorProducer(
         nanoAOD.TriggerObject_phi,
     ],
     output="flagname_2",
-    scope=["mm"],
+    scope=["mm", "mt"],
     vec_config="singlemoun_trigger",
 )
 MuMuDoubleMuonTriggerFlags_1 = ExtendedVectorProducer(
@@ -305,4 +326,40 @@ ElectronIDs = ProducerGroup(
         ElectronID_WP80_1,
         ElectronID_WP80_2,
     ],
+)
+
+
+###########################
+## Tau
+###########################
+
+MuTauSingleTauTriggerFlags_1 = ExtendedVectorProducer(
+    name="MuTauGenerateSingleMuonTriggerFlags_1",
+    call='trigger::GenerateSingleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {etacut}, {trigger_particle_id}, {filterbit}, {max_deltaR_triggermatch} )',
+    input=[
+        q.p4_1,
+        nanoAOD.TriggerObject_bit,
+        nanoAOD.TriggerObject_id,
+        nanoAOD.TriggerObject_pt,
+        nanoAOD.TriggerObject_eta,
+        nanoAOD.TriggerObject_phi,
+    ],
+    output="flagname_1",
+    scope=["mm", "mt"],
+    vec_config="mutau_trigger",
+)
+MuTauSingleTauTriggerFlags_2 = ExtendedVectorProducer(
+    name="MuMuGenerateSingleTauTriggerFlags_2",
+    call='trigger::GenerateSingleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {etacut}, {trigger_particle_id}, {filterbit}, {max_deltaR_triggermatch} )',
+    input=[
+        q.p4_2,
+        nanoAOD.TriggerObject_bit,
+        nanoAOD.TriggerObject_id,
+        nanoAOD.TriggerObject_pt,
+        nanoAOD.TriggerObject_eta,
+        nanoAOD.TriggerObject_phi,
+    ],
+    output="flagname_2",
+    scope=["mm", "mt"],
+    vec_config="mutau_trigger",
 )

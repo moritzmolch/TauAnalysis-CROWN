@@ -120,7 +120,7 @@ VetoSecondMuon = Producer(
     call="physicsobject::VetoCandInMask({df}, {output}, {input}, {second_muon_index_in_pair})",
     input=[q.veto_muons_mask, q.dileptonpair],
     output=[q.veto_muons_mask_2],
-    scopes=["mm"],
+    scopes=["mm", "mt"],
 )
 
 ExtraMuonsVeto = Producer(
