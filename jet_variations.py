@@ -18,8 +18,14 @@ def add_jetVariations(
             name="jerUncUp",
             shift_config={
                 "global": {"jet_jer_shift": '"up"'},
+                ("mt", "et", "tt"): {"btag_sf_variation": "up_jer"},
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
         ),
         samples=[
             sample
@@ -32,8 +38,14 @@ def add_jetVariations(
             name="jerUncDown",
             shift_config={
                 "global": {"jet_jer_shift": '"down"'},
+                ("mt", "et", "tt"): {"btag_sf_variation": "down_jer"},
             },
-            producers={"global": jets.JetEnergyCorrection},
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
         ),
         samples=[
             sample
@@ -76,7 +88,7 @@ def add_jetVariations(
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
                 },
-                ("mt", "et", "tt"): {"btag_sf_variation": "up_jes"},
+                ("mt", "et", "tt"): {"btag_sf_variation": "down_jes"},
             },
             producers={
                 "global": {
@@ -130,6 +142,539 @@ def add_jetVariations(
                 if sample not in ["data", "embedding", "embedding_mc"]
             ],
         )
+
+    #########################
+    # Jet energy scale - reduced set
+    #########################
+    JEC_sources = '{"Regrouped_Absolute"}'
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncAbsoluteUp",
+            shift_config={
+                "global": {
+                    "jet_jes_shift": 1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "up_jesAbsolute"},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncAbsoluteDown",
+            shift_config={
+                "global": {
+                    "jet_jes_shift": -1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "down_jesAbsolute"},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+
+    JEC_sources = '{"' + 'Regrouped_Absolute_{}'.format(era) + '"}'
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncAbsolute{}Up".format(era),
+            shift_config={
+                "global": {
+                    "jet_jes_shift": 1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "up_jesAbsolute_{}".format(era)},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncAbsolute{}Down".format(era),
+            shift_config={
+                "global": {
+                    "jet_jes_shift": -1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "down_jesAbsolute_{}".format(era)},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+
+    JEC_sources = '{"Regrouped_FlavorQCD"}'
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncFlavorQCDUp",
+            shift_config={
+                "global": {
+                    "jet_jes_shift": 1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "up_jesFlavorQCD"},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncFlavorQCDDown",
+            shift_config={
+                "global": {
+                    "jet_jes_shift": -1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "down_jesFlavorQCD"},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+
+    JEC_sources = '{"Regrouped_BBEC1"}'
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncBBEC1Up",
+            shift_config={
+                "global": {
+                    "jet_jes_shift": 1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "up_jesBBEC1"},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncBBEC1Down",
+            shift_config={
+                "global": {
+                    "jet_jes_shift": -1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "down_jesBBEC1"},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+
+    JEC_sources = '{"' + 'Regrouped_BBEC1_{}'.format(era) + '"}'
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncBBEC1{}Up".format(era),
+            shift_config={
+                "global": {
+                    "jet_jes_shift": 1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "up_jesBBEC1_{}".format(era)},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncBBEC1{}Down".format(era),
+            shift_config={
+                "global": {
+                    "jet_jes_shift": -1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "down_jesBBEC1_{}".format(era)},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+
+    JEC_sources = '{"Regrouped_HF"}'
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncHFUp",
+            shift_config={
+                "global": {
+                    "jet_jes_shift": 1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "up_jesHF"},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncHFDown",
+            shift_config={
+                "global": {
+                    "jet_jes_shift": -1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "down_jesHF"},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+
+    JEC_sources = '{"' + 'Regrouped_HF_{}'.format(era) + '"}'
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncHF{}Up".format(era),
+            shift_config={
+                "global": {
+                    "jet_jes_shift": 1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "up_jesHF_{}".format(era)},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncHF{}Down".format(era),
+            shift_config={
+                "global": {
+                    "jet_jes_shift": -1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "down_jesHF_{}".format(era)},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+
+    JEC_sources = '{"Regrouped_EC2"}'
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncEC2Up",
+            shift_config={
+                "global": {
+                    "jet_jes_shift": 1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "up_jesEC2"},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncEC2Down",
+            shift_config={
+                "global": {
+                    "jet_jes_shift": -1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "down_jesEC2"},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+
+    JEC_sources = '{"' + 'Regrouped_EC2_{}'.format(era) + '"}'
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncEC2{}Up".format(era),
+            shift_config={
+                "global": {
+                    "jet_jes_shift": 1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "up_jesEC2_{}".format(era)},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncEC2{}Down".format(era),
+            shift_config={
+                "global": {
+                    "jet_jes_shift": -1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "down_jesEC2_{}".format(era)},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+
+    JEC_sources = '{"Regrouped_RelativeBal"}'
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncRelativeBalUp",
+            shift_config={
+                "global": {
+                    "jet_jes_shift": 1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "up_jesRelativeBal"},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncRelativeBalDown",
+            shift_config={
+                "global": {
+                    "jet_jes_shift": -1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "down_jesRelativeBal"},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+
+    JEC_sources = '{"' + 'Regrouped_RelativeSample_{}'.format(era) + '"}'
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncRelativeSample{}Up".format(era),
+            shift_config={
+                "global": {
+                    "jet_jes_shift": 1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "up_jesRelativeSample_{}".format(era)},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="jesUncRelativeSample{}Down".format(era),
+            shift_config={
+                "global": {
+                    "jet_jes_shift": -1,
+                    "jet_jes_sources": JEC_sources,
+                },
+                ("mt", "et", "tt"): {"btag_sf_variation": "down_jesRelativeSample_{}".format(era)},
+            },
+            producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
+        ),
+        samples=[
+            sample
+            for sample in available_sample_types
+            if sample not in ["data", "embedding", "embedding_mc"]
+        ],
+    )
+
+
     #########################
     # Jet energy scale - individual
     #########################
@@ -1158,404 +1703,5 @@ def add_jetVariations(
     #         if sample not in ["data", "embedding", "embedding_mc"]
     #     ],
     # )
-
-    #########################
-    # Jet energy scale - reduced set
-    #########################
-    JEC_sources = '{"SinglePionECAL", "SinglePionHCAL", "AbsoluteMPFBias", "AbsoluteScale", "Fragmentation", "PileUpDataMC", "RelativeFSR", "PileUpPtRef"}'
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncAbsoluteUp",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncAbsoluteDown",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-
-    JEC_sources = '{"AbsoluteStat", "TimePtEta", "RelativeStatFSR"}'
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncAbsoluteYearUp",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncAbsoluteYearDown",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-
-    JEC_sources = '{"FlavorQCD"}'
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncFlavorQCDUp",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncFlavorQCDDown",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-
-    JEC_sources = '{"PileUpPtEC1", "PileUpPtBB", "RelativePtBB"}'
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncBBEC1Up",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncBBEC1Down",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-
-    JEC_sources = '{"RelativeJEREC1", "RelativePtEC1", "RelativeStatEC"}'
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncBBEC1YearUp",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncBBEC1YearDown",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-
-    JEC_sources = '{"RelativePtHF", "PileUpPtHF", "RelativeJERHF"}'
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncHFUp",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncHFDown",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-
-    JEC_sources = '{"RelativeStatHF"}'
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncHFYearUp",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncHFYearDown",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-
-    JEC_sources = '{"PileUpPtEC2"}'
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncEC2Up",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncEC2Down",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-
-    JEC_sources = '{"RelativeJEREC2", "RelativePtEC2"}'
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncEC2YearUp",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncEC2YearDown",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-
-    JEC_sources = '{"RelativeBal"}'
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncRelativeBalUp",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncRelativeBalDown",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-
-    JEC_sources = '{"RelativeSample"}'
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncRelativeSampleYearUp",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": 1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="jesUncRelativeSampleYearDown",
-            shift_config={
-                "global": {
-                    "jet_jes_shift": -1,
-                    "jet_jes_sources": JEC_sources,
-                }
-            },
-            producers={"global": jets.JetEnergyCorrection},
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
 
     return configuration
