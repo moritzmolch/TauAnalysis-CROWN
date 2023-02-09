@@ -18,13 +18,13 @@ def add_jetVariations(
             name="jerUncUp",
             shift_config={
                 "global": {"jet_jer_shift": '"up"'},
-                ("mt", "et", "tt"): {"btag_sf_variation": "up_jer"},
+                # ("mt", "et", "tt"): {"btag_sf_variation": "up_jer"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
                 },
-                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+                # ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
         samples=[
@@ -38,13 +38,13 @@ def add_jetVariations(
             name="jerUncDown",
             shift_config={
                 "global": {"jet_jer_shift": '"down"'},
-                ("mt", "et", "tt"): {"btag_sf_variation": "down_jer"},
+                # ("mt", "et", "tt"): {"btag_sf_variation": "down_jer"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
                 },
-                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+                # ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
         samples=[
@@ -194,7 +194,7 @@ def add_jetVariations(
         ],
     )
 
-    JEC_sources = '{"' + 'Regrouped_Absolute_{}'.format(era) + '"}'
+    JEC_sources = '{"' + "Regrouped_Absolute_{}".format(era) + '"}'
     configuration.add_shift(
         SystematicShift(
             name="jesUncAbsolute{}Up".format(era),
@@ -203,7 +203,9 @@ def add_jetVariations(
                     "jet_jes_shift": 1,
                     "jet_jes_sources": JEC_sources,
                 },
-                ("mt", "et", "tt"): {"btag_sf_variation": "up_jesAbsolute_{}".format(era)},
+                ("mt", "et", "tt"): {
+                    "btag_sf_variation": "up_jesAbsolute_{}".format(era)
+                },
             },
             producers={
                 "global": {
@@ -226,7 +228,9 @@ def add_jetVariations(
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
                 },
-                ("mt", "et", "tt"): {"btag_sf_variation": "down_jesAbsolute_{}".format(era)},
+                ("mt", "et", "tt"): {
+                    "btag_sf_variation": "down_jesAbsolute_{}".format(era)
+                },
             },
             producers={
                 "global": {
@@ -338,7 +342,7 @@ def add_jetVariations(
         ],
     )
 
-    JEC_sources = '{"' + 'Regrouped_BBEC1_{}'.format(era) + '"}'
+    JEC_sources = '{"' + "Regrouped_BBEC1_{}".format(era) + '"}'
     configuration.add_shift(
         SystematicShift(
             name="jesUncBBEC1{}Up".format(era),
@@ -370,7 +374,9 @@ def add_jetVariations(
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
                 },
-                ("mt", "et", "tt"): {"btag_sf_variation": "down_jesBBEC1_{}".format(era)},
+                ("mt", "et", "tt"): {
+                    "btag_sf_variation": "down_jesBBEC1_{}".format(era)
+                },
             },
             producers={
                 "global": {
@@ -434,7 +440,7 @@ def add_jetVariations(
         ],
     )
 
-    JEC_sources = '{"' + 'Regrouped_HF_{}'.format(era) + '"}'
+    JEC_sources = '{"' + "Regrouped_HF_{}".format(era) + '"}'
     configuration.add_shift(
         SystematicShift(
             name="jesUncHF{}Up".format(era),
@@ -530,7 +536,7 @@ def add_jetVariations(
         ],
     )
 
-    JEC_sources = '{"' + 'Regrouped_EC2_{}'.format(era) + '"}'
+    JEC_sources = '{"' + "Regrouped_EC2_{}".format(era) + '"}'
     configuration.add_shift(
         SystematicShift(
             name="jesUncEC2{}Up".format(era),
@@ -626,7 +632,7 @@ def add_jetVariations(
         ],
     )
 
-    JEC_sources = '{"' + 'Regrouped_RelativeSample_{}'.format(era) + '"}'
+    JEC_sources = '{"' + "Regrouped_RelativeSample_{}".format(era) + '"}'
     configuration.add_shift(
         SystematicShift(
             name="jesUncRelativeSample{}Up".format(era),
@@ -635,7 +641,9 @@ def add_jetVariations(
                     "jet_jes_shift": 1,
                     "jet_jes_sources": JEC_sources,
                 },
-                ("mt", "et", "tt"): {"btag_sf_variation": "up_jesRelativeSample_{}".format(era)},
+                ("mt", "et", "tt"): {
+                    "btag_sf_variation": "up_jesRelativeSample_{}".format(era)
+                },
             },
             producers={
                 "global": {
@@ -658,7 +666,9 @@ def add_jetVariations(
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
                 },
-                ("mt", "et", "tt"): {"btag_sf_variation": "down_jesRelativeSample_{}".format(era)},
+                ("mt", "et", "tt"): {
+                    "btag_sf_variation": "down_jesRelativeSample_{}".format(era)
+                },
             },
             producers={
                 "global": {
@@ -673,7 +683,6 @@ def add_jetVariations(
             if sample not in ["data", "embedding", "embedding_mc"]
         ],
     )
-
 
     #########################
     # Jet energy scale - individual
