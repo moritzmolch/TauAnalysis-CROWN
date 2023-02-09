@@ -348,7 +348,7 @@ btagging_SF = Producer(
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
         nanoAOD.BJet_discriminator,
-        nanoAOD.Jet_flavor,
+        nanoAOD.Jet_flavour,
         q.good_jets_mask,
         q.good_bjets_mask,
         q.jet_overlap_veto_mask,

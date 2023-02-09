@@ -223,6 +223,40 @@ EMPairSelection = Producer(
     scopes=["em"],
 )
 
+####################
+## BB Pair Selection
+####################
+
+BBPairSelection = Producer(
+    name="BBPairSelection",
+    call="bb_pairselection::PairSelection({df}, {input_vec}, {output}, {bb_pairselection_min_dR}, {btag_cut})",
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        nanoAOD.Jet_mass,
+        nanoAOD.BJet_discriminator,
+        q.good_bjet_collection,
+        q.good_jet_collection,
+    ],
+    output=[q.dibjetpair],
+    scopes=["et", "mt", "tt"],
+)
+# GoodBBPairFlag = Producer(
+#     name="GoodBBPairFlag",
+#     call="ditau_pairselection::flagGoodPairs({df}, {output}, {input})",
+#     input=[q.dibjetpair],
+#     output=[],
+#     scopes=["et", "mt", "tt"],
+# )
+# GoodBBPairFilter = Filter(
+#     name="GoodBBPairFilter",
+#     call='basefunctions::FilterFlagsAny({df}, "GoodBBPairs", {input})',
+#     input=[],
+#     scopes=["et", "mt", "tt"],
+#     subproducers=[GoodBBPairFlag],
+# )
+
 GoodEMPairFlag = Producer(
     name="GoodEMPairFlag",
     call="ditau_pairselection::flagGoodPairs({df}, {output}, {input})",
@@ -395,5 +429,32 @@ LVTau2Uncorrected = Producer(
         nanoAOD.Tau_mass,
     ],
     output=[q.p4_2_uncorrected],
+    scopes=["mt", "et", "tt"],
+)
+
+LVbjet1 = Producer(
+    name="LVbjet1",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.dibjetpair,
+        nanoAOD.Jet_pt,
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        nanoAOD.Jet_mass,
+    ],
+    output=[q.bpair_p4_1],
+    scopes=["mt", "et", "tt"],
+)
+LVbjet2 = Producer(
+    name="LVbjet2",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.dibjetpair,
+        nanoAOD.Jet_pt,
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        nanoAOD.Jet_mass,
+    ],
+    output=[q.bpair_p4_2],
     scopes=["mt", "et", "tt"],
 )

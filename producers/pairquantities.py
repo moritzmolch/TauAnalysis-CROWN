@@ -84,6 +84,88 @@ pt_vis = Producer(
     output=[q.pt_vis],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )
+
+####################
+# Set of general producers for BBPair Quantities
+####################
+
+bpair_pt_1 = Producer(
+    name="bpair_pt_1",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.bpair_p4_1],
+    output=[q.bpair_pt_1],
+    scopes=["mt", "et", "tt"],
+)
+bpair_pt_2 = Producer(
+    name="bpair_pt_2",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.bpair_p4_2],
+    output=[q.bpair_pt_2],
+    scopes=["mt", "et", "tt"],
+)
+bpair_eta_1 = Producer(
+    name="bpair_eta_1",
+    call="quantities::eta({df}, {output}, {input})",
+    input=[q.bpair_p4_1],
+    output=[q.bpair_eta_1],
+    scopes=["mt", "et", "tt"],
+)
+bpair_eta_2 = Producer(
+    name="bpair_eta_2",
+    call="quantities::eta({df}, {output}, {input})",
+    input=[q.bpair_p4_2],
+    output=[q.bpair_eta_2],
+    scopes=["mt", "et", "tt"],
+)
+bpair_phi_1 = Producer(
+    name="bpair_phi_1",
+    call="quantities::phi({df}, {output}, {input})",
+    input=[q.bpair_p4_1],
+    output=[q.bpair_phi_1],
+    scopes=["mt", "et", "tt"],
+)
+bpair_phi_2 = Producer(
+    name="bpair_phi_2",
+    call="quantities::phi({df}, {output}, {input})",
+    input=[q.bpair_p4_2],
+    output=[q.bpair_phi_2],
+    scopes=["mt", "et", "tt"],
+)
+bpair_mass_1 = Producer(
+    name="bpair_mass_1",
+    call="quantities::mass({df}, {output}, {input})",
+    input=[q.bpair_p4_1],
+    output=[q.bpair_mass_1],
+    scopes=["mt", "et", "tt"],
+)
+bpair_mass_2 = Producer(
+    name="bpair_mass_2",
+    call="quantities::mass({df}, {output}, {input})",
+    input=[q.bpair_p4_2],
+    output=[q.bpair_mass_2],
+    scopes=["mt", "et", "tt"],
+)
+bpair_m_inv = Producer(
+    name="bpair_m_inv",
+    call="quantities::m_vis({df}, {output}, {input_vec})",
+    input=[q.bpair_p4_1, q.bpair_p4_2],
+    output=[q.bpair_m_inv],
+    scopes=["mt", "et", "tt"],
+)
+bpair_deltaR = Producer(
+    name="bpair_deltaR",
+    call="quantities::deltaR({df}, {output}, {input})",
+    input=[q.bpair_p4_1, q.bpair_p4_2],
+    output=[q.bpair_deltaR],
+    scopes=["mt", "et", "tt"],
+)
+bpair_pt_dijet = Producer(
+    name="bpair_pt_dijet",
+    call="quantities::pt_dijet({df}, {output}, {input})",
+    input=[q.bpair_p4_1, q.bpair_p4_2],
+    output=[q.bpair_pt_dijet],
+    scopes=["mt", "et", "tt"],
+)
 ####################
 # Set of channel specific producers
 ####################
@@ -519,6 +601,34 @@ UnrollTauLV2 = ProducerGroup(
         VsMuTauIDFlag_2,
     ],
 )
+
+UnrollBjetLV1 = ProducerGroup(
+    name="UnrollBjetLV1",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["et", "mt", "tt"],
+    subproducers=[
+        bpair_pt_1,
+        bpair_eta_1,
+        bpair_phi_1,
+        bpair_mass_1,
+    ],
+)
+UnrollBjetLV2 = ProducerGroup(
+    name="UnrollBjetLV2",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["et", "mt", "tt"],
+    subproducers=[
+        bpair_pt_2,
+        bpair_eta_2,
+        bpair_phi_2,
+        bpair_mass_2,
+    ],
+)
+
 #####################
 # Producer Groups
 #####################
@@ -571,6 +681,20 @@ EMDiTauPairQuantities = ProducerGroup(
     scopes=["em"],
     subproducers=[UnrollElLV1, UnrollMuLV2, m_vis, pt_vis, deltaR_ditaupair],
 )
+DiBjetPairQuantities = ProducerGroup(
+    name="DiBjetPairQuantities",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mt", "et", "tt"],
+    subproducers=[
+        UnrollBjetLV1,
+        UnrollBjetLV2,
+        bpair_m_inv,
+        bpair_pt_dijet,
+        bpair_deltaR,
+    ],
+)
 ## advanced event quantities (can be caluculated when ditau pair and met and all jets are determined)
 ## leptons: q.p4_1, q.p4_2
 ## met: met_p4_recoilcorrected
@@ -617,6 +741,13 @@ pt_ttjj = Producer(
     call="quantities::pt_ttjj({df}, {output}, {input})",
     input=[q.p4_1, q.p4_2, q.jet_p4_1, q.jet_p4_2, q.met_p4_recoilcorrected],
     output=[q.pt_ttjj],
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+)
+pt_ttbb = Producer(
+    name="pt_ttbb",
+    call="quantities::pt_ttjj({df}, {output}, {input})",
+    input=[q.p4_1, q.p4_2, q.bpair_p4_1, q.bpair_p4_2, q.met_p4_recoilcorrected],
+    output=[q.pt_ttbb],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )
 mt_tot = Producer(
@@ -669,6 +800,13 @@ pt_ttjj_pf = Producer(
     output=[q.pt_ttjj_pf],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )
+pt_ttbb_pf = Producer(
+    name="pt_ttbb_pf",
+    call="quantities::pt_ttjj({df}, {output}, {input})",
+    input=[q.p4_1, q.p4_2, q.bpair_p4_1, q.bpair_p4_2, q.pfmet_p4_recoilcorrected],
+    output=[q.pt_ttbb_pf],
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+)
 mt_tot_pf = Producer(
     name="mt_tot_pf",
     call="quantities::mt_tot({df}, {output}, {input})",
@@ -704,6 +842,7 @@ DiTauPairMETQuantities = ProducerGroup(
         mt_2,
         pt_tt,
         pt_ttjj,
+        pt_ttbb,
         mt_tot,
         Pzetamissvis_pf,
         mTdileptonMET_pf,
@@ -711,6 +850,7 @@ DiTauPairMETQuantities = ProducerGroup(
         mt_2_pf,
         pt_tt_pf,
         pt_ttjj_pf,
+        pt_ttbb_pf,
         mt_tot_pf,
         pt_dijet,
         jet_hemisphere,
