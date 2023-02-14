@@ -754,3 +754,16 @@ GenMatching = ProducerGroup(
         GenMatchP2,
     ],
 )
+
+GenMatchingBPairFlag = Producer(
+    name="GenMatchingBPairFlag",
+    call="genmatching::jet::particlePairRecoGenMatchFlag({df}, {output}, {input}, {gen_bpair_match_deltaR})",
+    input=[
+        q.gen_b_p4_1,
+        q.gen_b_p4_2,
+        q.bpair_p4_1,
+        q.bpair_p4_2,
+    ],
+    output=[q.gen_bpair_match_flag],
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+)

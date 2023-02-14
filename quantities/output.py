@@ -133,6 +133,7 @@ gen_b_phi_2 = Quantity("gen_b_phi_2")
 gen_b_mass_2 = Quantity("gen_b_mass_2")
 gen_b_m_inv = Quantity("gen_b_m_inv")
 gen_b_deltaR = Quantity("gen_b_deltaR")
+gen_bpair_match_flag = Quantity("gen_bpair_match_flag")
 
 # Combined event quantities
 m_vis = Quantity("m_vis")

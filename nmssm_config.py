@@ -292,12 +292,12 @@ def build_config(
     configuration.add_config_parameters(
         scopes,
         {
-            "bb_truegen_mother_pdgid": 35,
             "bb_truegen_mother_pdgid": SampleModifier(
                 {"nmssm_Ybb": 35, "nmssm_Ytautau": 25}, default=None
             ),
             "bb_truegen_daughter_1_pdgid": 5,
             "bb_truegen_daughter_2_pdgid": 5,
+            "gen_bpair_match_deltaR": 0.2,
         },
     )
     # leptonveto base selection:
@@ -550,7 +550,7 @@ def build_config(
             "deltaR_jet_veto": 0.4,
             "deltaR_fatjet_veto": 0.6,
             "pairselection_min_dR": 0.4,
-            "bb_pairselection_min_dR": 0.4,
+            "bb_pairselection_min_dR": 0.0,
             "fatjet_bpair_matching_max_dR": 0.2,
         },
     )
@@ -901,7 +901,10 @@ def build_config(
     configuration.add_modification_rule(
         ["et", "mt", "tt"],
         AppendProducer(
-            producers=genparticles.GenBPairQuantities,
+            producers=[
+                genparticles.GenBPairQuantities,
+                genparticles.GenMatchingBPairFlag,
+            ],
             samples=["nmssm_Ybb", "nmssm_Ytautau"],
         ),
     )
@@ -1005,6 +1008,15 @@ def build_config(
                 genparticles.GenMatching,
             ],
             samples="data",
+        ),
+    )
+    configuration.add_modification_rule(
+        scopes,
+        RemoveProducer(
+            producers=[
+                genparticles.GenDiBjetPairQuantities,
+            ],
+            samples=["data", "embedding", "embedding_mc"],
         ),
     )
     configuration.add_modification_rule(
@@ -1494,7 +1506,7 @@ def build_config(
             ],
         )
 
-    if sample == "nmssm":
+    if sample in ["nmssm_Ybb", "nmssm_Ytautau"]:
         configuration.add_outputs(
             scopes,
             [
@@ -1508,6 +1520,7 @@ def build_config(
                 q.gen_b_mass_2,
                 q.gen_b_m_inv,
                 q.gen_b_deltaR,
+                q.gen_bpair_match_flag,
             ],
         )
     #########################

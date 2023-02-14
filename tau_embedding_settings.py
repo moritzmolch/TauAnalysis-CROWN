@@ -468,11 +468,11 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                     "vsjet_tau_id_WP": "{wp}".format(wp=wp),
                 }
                 for wp in [
-                    # "VVVLoose",
+                    "VVVLoose",
                     # "VVLoose",
                     # "VLoose",
                     # "Loose",
-                    # "Medium",
+                    "Medium",
                     "Tight",
                     # "VTight",
                     # "VVTight",
@@ -501,11 +501,11 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                     "vsjet_tau_id_WP": "{wp}".format(wp=wp),
                 }
                 for wp in [
-                    # "VVVLoose",
+                    "VVVLoose",
                     # "VVLoose",
                     # "VLoose",
                     # "Loose",
-                    # "Medium",
+                    "Medium",
                     "Tight",
                     # "VTight",
                     # "VVTight",
