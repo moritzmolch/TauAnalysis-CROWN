@@ -76,7 +76,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                     "muon_trg_extrapolation": 1.0,
                 },
                 {
-                    "flagname": "trg_wgt_single_mu24Ormu27",
+                    "flagname": "trg_wgt_single_mu24ormu27",
                     "embedding_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
                     "muon_trg_extrapolation": 1.0,
                 },
