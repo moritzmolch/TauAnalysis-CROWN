@@ -37,6 +37,11 @@ good_jet_collection = Quantity("good_jet_collection")
 good_bjet_collection = Quantity("good_bjet_collection")
 Electron_pt_corrected = Quantity("Electron_pt_corrected")
 
+good_boostedtaus_mask = Quantity("good_boostedtaus_mask")
+boostedTau_pt_corrected = Quantity("boostedTau_pt_corrected")
+boostedTau_mass_corrected = Quantity("boostedTau_mass_corrected")
+nboostedtaus = Quantity("nboostedtaus")
+
 nelectrons = Quantity("nelectrons")
 nmuons = Quantity("nmuons")
 ntaus = Quantity("ntaus")
