@@ -4,6 +4,8 @@ lumi = Quantity("lumi")
 puweight = Quantity("puweight")
 prefireweight = Quantity("prefiring_wgt")
 lhe_scale_weight = Quantity("lhe_scale_weight")
+raw_fake_factor = Quantity("raw_fake_factor")
+fake_factor = Quantity("fake_factor")
 
 
 base_taus_mask = Quantity("base_taus_mask")
