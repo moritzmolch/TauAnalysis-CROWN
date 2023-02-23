@@ -7,49 +7,49 @@ from code_generation.producer import Producer, ProducerGroup
 ####################
 MTGenPair = Producer(
     name="MTGenPair",
-    call="ditau_pairselection::buildgenpair({df}, {input}, {output})",
+    call="pairselection::buildgenpair({df}, {input}, {output})",
     input=[q.dileptonpair, nanoAOD.Muon_indexToGen, nanoAOD.Tau_indexToGen],
     output=[q.gen_dileptonpair],
     scopes=["mt"],
 )
 ETGenPair = Producer(
     name="ETGenPair",
-    call="ditau_pairselection::buildgenpair({df}, {input}, {output})",
+    call="pairselection::buildgenpair({df}, {input}, {output})",
     input=[q.dileptonpair, nanoAOD.Electron_indexToGen, nanoAOD.Tau_indexToGen],
     output=[q.gen_dileptonpair],
     scopes=["et"],
 )
 TTGenPair = Producer(
     name="TTGenPair",
-    call="ditau_pairselection::buildgenpair({df}, {input}, {output})",
+    call="pairselection::buildgenpair({df}, {input}, {output})",
     input=[q.dileptonpair, nanoAOD.Tau_indexToGen, nanoAOD.Tau_indexToGen],
     output=[q.gen_dileptonpair],
     scopes=["tt"],
 )
 EMGenPair = Producer(
     name="EMGenPair",
-    call="ditau_pairselection::buildgenpair({df}, {input}, {output})",
+    call="pairselection::buildgenpair({df}, {input}, {output})",
     input=[q.dileptonpair, nanoAOD.Electron_indexToGen, nanoAOD.Muon_indexToGen],
     output=[q.gen_dileptonpair],
     scopes=["em"],
 )
 MuMuGenPair = Producer(
     name="MuMuGenPair",
-    call="ditau_pairselection::buildgenpair({df}, {input}, {output})",
+    call="pairselection::buildgenpair({df}, {input}, {output})",
     input=[q.dileptonpair, nanoAOD.Muon_indexToGen, nanoAOD.Muon_indexToGen],
     output=[q.gen_dileptonpair],
     scopes=["mm"],
 )
 ElElGenPair = Producer(
     name="ElElGenPair",
-    call="ditau_pairselection::buildgenpair({df}, {input}, {output})",
+    call="pairselection::buildgenpair({df}, {input}, {output})",
     input=[q.dileptonpair, nanoAOD.Electron_indexToGen, nanoAOD.Electron_indexToGen],
     output=[q.gen_dileptonpair],
     scopes=["ee"],
 )
 MuMuTrueGenPair = Producer(
     name="GenPair",
-    call="ditau_pairselection::buildtruegenpair({df}, {input}, {output}, {truegen_mother_pdgid}, {truegen_daughter_1_pdgid}, {truegen_daughter_2_pdgid})",
+    call="pairselection::buildtruegenpair({df}, {input}, {output}, {truegen_mother_pdgid}, {truegen_daughter_1_pdgid}, {truegen_daughter_2_pdgid})",
     input=[
         nanoAOD.GenParticle_statusFlags,
         nanoAOD.GenParticle_status,
@@ -62,14 +62,14 @@ MuMuTrueGenPair = Producer(
 )
 BBGenPair = Producer(
     name="BBGenPair",
-    call="ditau_pairselection::buildgenpair({df}, {input}, {output})",
+    call="pairselection::buildgenpair({df}, {input}, {output})",
     input=[q.dibjetpair, nanoAOD.Jet_associatedGenJet, nanoAOD.Jet_associatedGenJet],
     output=[q.gen_dibjetpair],
     scopes=["mt", "et", "tt"],
 )
 YbbTrueGenPair = Producer(
     name="YbbTrueGenPair",
-    call="ditau_pairselection::buildtruegenpair({df}, {input}, {output}, {bb_truegen_mother_pdgid}, {bb_truegen_daughter_1_pdgid}, {bb_truegen_daughter_2_pdgid})",
+    call="pairselection::buildtruegenpair({df}, {input}, {output}, {bb_truegen_mother_pdgid}, {bb_truegen_daughter_1_pdgid}, {bb_truegen_daughter_2_pdgid})",
     input=[
         nanoAOD.GenParticle_statusFlags,
         nanoAOD.GenParticle_status,
@@ -82,7 +82,7 @@ YbbTrueGenPair = Producer(
 )
 EmbeddingGenPair = Producer(
     name="EmbeddingGenPair",
-    call="ditau_pairselection::buildtruegenpair({df}, {input}, {output}, {truegen_mother_pdgid}, {truegen_daughter_1_pdgid}, {truegen_daugher_2_pdgid})",
+    call="pairselection::buildtruegenpair({df}, {input}, {output}, {truegen_mother_pdgid}, {truegen_daughter_1_pdgid}, {truegen_daugher_2_pdgid})",
     input=[
         nanoAOD.GenParticle_statusFlags,
         nanoAOD.GenParticle_status,
@@ -369,14 +369,14 @@ genjet_mass_2 = Producer(
 )
 genjet_hadFlavour_1 = Producer(
     name="genjet_hadFlavour_1",
-    call="quantities::jet::hadronFlavour({df}, {output}, 0, {input})",
+    call="quantities::jet::flavor({df}, {output}, 0, {input})",
     input=[q.gen_dibjetpair, nanoAOD.GenJet_hadFlavour],
     output=[q.genjet_hadFlavour_1],
     scopes=["mt", "et", "tt"],
 )
 genjet_hadFlavour_2 = Producer(
     name="genjet_hadFlavour_2",
-    call="quantities::jet::hadronFlavour({df}, {output}, 1, {input})",
+    call="quantities::jet::flavor({df}, {output}, 1, {input})",
     input=[q.gen_dibjetpair, nanoAOD.GenJet_hadFlavour],
     output=[q.genjet_hadFlavour_2],
     scopes=["mt", "et", "tt"],

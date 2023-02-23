@@ -4,6 +4,7 @@ from typing import List
 from code_generation.configuration import Configuration
 from code_generation.systematics import SystematicShift
 from .producers import jets as jets
+from .producers import fatjets as fatjets
 from .producers import scalefactors as scalefactors
 
 
@@ -17,12 +18,16 @@ def add_jetVariations(
         SystematicShift(
             name="jerUncUp",
             shift_config={
-                "global": {"jet_jer_shift": '"up"'},
+                "global": {
+                    "jet_jer_shift": '"up"',
+                    "fatjet_jer_shift": '"up"',
+                },
                 # ("mt", "et", "tt"): {"btag_sf_variation": "up_jer"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 # ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -37,12 +42,16 @@ def add_jetVariations(
         SystematicShift(
             name="jerUncDown",
             shift_config={
-                "global": {"jet_jer_shift": '"down"'},
+                "global": {
+                    "jet_jer_shift": '"down"',
+                    "fatjet_jer_shift": '"down"',
+                },
                 # ("mt", "et", "tt"): {"btag_sf_variation": "down_jer"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 # ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -64,12 +73,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": 1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_jes"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -87,12 +99,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_jes"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },

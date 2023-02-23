@@ -19,7 +19,7 @@ from .quantities import output as q
 from .tau_triggersetup import add_diTauTriggerSetup
 from .tau_variations import add_tauVariations
 from .jet_variations import add_jetVariations
-from .fatjet_variations import add_fatjetVariations
+# from .fatjet_variations import add_fatjetVariations
 from .tau_embedding_settings import setup_embedding
 from .btag_variations import add_btagVariations
 from .jec_data import add_jetCorrectionData
@@ -2024,7 +2024,7 @@ def build_config(
     #########################
     # FatJet energy resolution and fatjet energy scale
     #########################
-    add_fatjetVariations(configuration, available_sample_types, era)
+    # add_fatjetVariations(configuration, available_sample_types, era)
 
     #########################
     # btagging scale factor shape variation
