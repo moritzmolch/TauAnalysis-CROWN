@@ -80,6 +80,19 @@ YbbTrueGenPair = Producer(
     output=[q.gen_truebpair],
     scopes=["mt", "et", "tt"],
 )
+EmbeddingGenPair = Producer(
+    name="EmbeddingGenPair",
+    call="ditau_pairselection::buildtruegenpair({df}, {input}, {output}, {truegen_mother_pdgid}, {truegen_daughter_1_pdgid}, {truegen_daugher_2_pdgid})",
+    input=[
+        nanoAOD.GenParticle_statusFlags,
+        nanoAOD.GenParticle_status,
+        nanoAOD.GenParticle_pdgId,
+        nanoAOD.GenParticle_motherid,
+        nanoAOD.GenParticle_pt,
+    ],
+    output=[q.gen_dileptonpair],
+    scopes=["mm", "ee", "em", "et", "mt", "tt"],
+)
 ####################
 # Set of general producers for Gen DiTauPair Quantities
 ####################

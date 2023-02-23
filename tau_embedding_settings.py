@@ -27,6 +27,81 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
         ),
     )
 
+    # modify the gen particle producer
+    configuration.add_modification_rule(
+        ["mt"],
+        ReplaceProducer(
+            producers=[genparticles.MTGenPair, genparticles.EmbeddingGenPair],
+            samples=["embedding", "embedding_mc"],
+            scopes=["mt"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["et"],
+        ReplaceProducer(
+            producers=[genparticles.ETGenPair, genparticles.EmbeddingGenPair],
+            samples=["embedding", "embedding_mc"],
+            scopes=["et"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["tt"],
+        ReplaceProducer(
+            producers=[genparticles.TTGenPair, genparticles.EmbeddingGenPair],
+            samples=["embedding", "embedding_mc"],
+            scopes=["tt"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["em"],
+        ReplaceProducer(
+            producers=[genparticles.EMGenPair, genparticles.EmbeddingGenPair],
+            samples=["embedding", "embedding_mc"],
+            scopes=["em"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["mm"],
+        ReplaceProducer(
+            producers=[genparticles.MuMuGenPair, genparticles.EmbeddingGenPair],
+            samples=["embedding", "embedding_mc"],
+            scopes=["mm"],
+        ),
+    )
+    configuration.add_modification_rule(
+        ["ee"],
+        ReplaceProducer(
+            producers=[genparticles.ElElGenPair, genparticles.EmbeddingGenPair],
+            samples=["embedding", "embedding_mc"],
+            scopes=["ee"],
+        ),
+    )
+
+    configuration.add_config_parameters(
+        ["mt", "et", "tt", "em"],
+        {
+            "truegen_mother_pdgid": 23,
+            "truegen_daughter_1_pdgid": 15,
+            "truegen_daugher_2_pdgid": 15,
+        }
+    )
+    configuration.add_config_parameters(
+        ["mm"],
+        {
+            "truegen_mother_pdgid": 23,
+            "truegen_daughter_1_pdgid": 13,
+            "truegen_daugher_2_pdgid": 13,
+        }
+    )
+    configuration.add_config_parameters(
+        ["ee"],
+        {
+            "truegen_mother_pdgid": 23,
+            "truegen_daughter_1_pdgid": 11,
+            "truegen_daugher_2_pdgid": 11,
+        }
+    )
+
     # add embedding selection scalefactors
     configuration.add_config_parameters(
         scopes,
