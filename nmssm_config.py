@@ -14,12 +14,12 @@ from .producers import pairselection as pairselection
 from .producers import scalefactors as scalefactors
 from .producers import taus as taus
 from .producers import triggers as triggers
+from .producers import fakefactors as fakefactors
 from .quantities import nanoAOD as nanoAOD
 from .quantities import output as q
 from .tau_triggersetup import add_diTauTriggerSetup
 from .tau_variations import add_tauVariations
 from .jet_variations import add_jetVariations
-# from .fatjet_variations import add_fatjetVariations
 from .tau_embedding_settings import setup_embedding
 from .btag_variations import add_btagVariations
 from .jec_data import add_jetCorrectionData
@@ -679,6 +679,47 @@ def build_config(
             ]
         },
     )
+    # fake factor configurations
+    configuration.add_config_parameters(
+        ["et"],
+        {
+            "ff_variation": "nominal",
+            "ff_file": EraModifier(
+                {
+                    "2016": "",
+                    "2017": "",
+                    "2018": "data/fake_factors/2018/fake_factors_et.json.gz",
+                }
+            ),
+            "ff_corr_file": EraModifier(
+                {
+                    "2016": "",
+                    "2017": "",
+                    "2018": "data/fake_factors/2018/FF_corrections_et.json.gz",
+                }
+            ),
+        },
+    )
+    configuration.add_config_parameters(
+        ["mt"],
+        {
+            "ff_variation": "nominal",
+            "ff_file": EraModifier(
+                {
+                    "2016": "",
+                    "2017": "",
+                    "2018": "data/fake_factors/2018/fake_factors_mt.json.gz",
+                }
+            ),
+            "ff_corr_file": EraModifier(
+                {
+                    "2016": "",
+                    "2017": "",
+                    "2018": "data/fake_factors/2018/FF_corrections_mt.json.gz",
+                }
+            ),
+        },
+    )
 
     configuration.add_producers(
         "global",
@@ -802,6 +843,8 @@ def build_config(
             triggers.MTGenerateSingleMuonTriggerFlags,
             triggers.MTGenerateCrossTriggerFlags,
             triggers.GenerateSingleTrailingTauTriggerFlags,
+            fakefactors.RawFakeFactors_nmssm_lt,
+            fakefactors.FakeFactors_nmssm_lt,
         ],
     )
     configuration.add_producers(
@@ -831,6 +874,8 @@ def build_config(
             triggers.ETGenerateSingleElectronTriggerFlags,
             triggers.ETGenerateCrossTriggerFlags,
             triggers.GenerateSingleTrailingTauTriggerFlags,
+            fakefactors.RawFakeFactors_nmssm_lt,
+            fakefactors.FakeFactors_nmssm_lt,
         ],
     )
     configuration.add_producers(
@@ -1400,6 +1445,8 @@ def build_config(
             q.dilepton_veto,
             # q.id_wgt_mu_1,
             # q.iso_wgt_mu_1,
+            q.raw_fake_factor,
+            q.fake_factor,
         ],
     )
     configuration.add_outputs(
@@ -1426,6 +1473,8 @@ def build_config(
             q.dilepton_veto,
             # q.id_wgt_ele_wp90nonIso_1,
             # q.id_wgt_ele_wp80nonIso_1,
+            q.raw_fake_factor,
+            q.fake_factor,
         ],
     )
     configuration.add_outputs(
@@ -2020,11 +2069,6 @@ def build_config(
     # Jet energy resolution and jet energy scale
     #########################
     add_jetVariations(configuration, available_sample_types, era)
-
-    #########################
-    # FatJet energy resolution and fatjet energy scale
-    #########################
-    # add_fatjetVariations(configuration, available_sample_types, era)
 
     #########################
     # btagging scale factor shape variation
