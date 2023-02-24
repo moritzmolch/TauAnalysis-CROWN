@@ -293,7 +293,7 @@ def build_config(
         scopes,
         {
             "bb_truegen_mother_pdgid": SampleModifier(
-                {"nmssm_Ybb": 35, "nmssm_Ytautau": 25}, default=None
+                {"nmssm_Ybb": 35, "nmssm_Ytautau": 25}, default=-1
             ),
             "bb_truegen_daughter_1_pdgid": 5,
             "bb_truegen_daughter_2_pdgid": 5,

@@ -261,12 +261,12 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             samples=["embedding", "embedding_mc"],
         ),
     )
-    configuration.add_modification_rule(
-        "global",
-        RemoveProducer(
-            producers=jets.JetEnergyCorrection, samples=["embedding", "embdding_mc"]
-        ),
-    )
+    # configuration.add_modification_rule(
+    #     "global",
+    #     RemoveProducer(
+    #         producers=jets.JetEnergyCorrection, samples=["embedding", "embdding_mc"]
+    #     ),
+    # )
 
     # For the tau related triggers, in embedding, we cannot use a trigger path directly, since they are not
     # correctly represented in embedded samples. Instead, it is possible to match to an earlier filter
