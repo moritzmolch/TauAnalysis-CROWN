@@ -369,15 +369,15 @@ genjet_mass_2 = Producer(
 )
 genjet_hadFlavour_1 = Producer(
     name="genjet_hadFlavour_1",
-    call="quantities::jet::flavor({df}, {output}, 0, {input})",
-    input=[q.gen_dibjetpair, nanoAOD.GenJet_hadFlavour],
+    call="quantities::jet::flavor({df}, {output}, {input}, 0)",
+    input=[nanoAOD.GenJet_hadFlavour, q.gen_dibjetpair],
     output=[q.genjet_hadFlavour_1],
     scopes=["mt", "et", "tt"],
 )
 genjet_hadFlavour_2 = Producer(
     name="genjet_hadFlavour_2",
-    call="quantities::jet::flavor({df}, {output}, 1, {input})",
-    input=[q.gen_dibjetpair, nanoAOD.GenJet_hadFlavour],
+    call="quantities::jet::flavor({df}, {output}, {input}, 1)",
+    input=[nanoAOD.GenJet_hadFlavour, q.gen_dibjetpair],
     output=[q.genjet_hadFlavour_2],
     scopes=["mt", "et", "tt"],
 )
