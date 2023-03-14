@@ -145,6 +145,20 @@ bpair_mass_2 = Producer(
     output=[q.bpair_mass_2],
     scopes=["mt", "et", "tt"],
 )
+bpair_btag_value_1 = Producer(
+    name="bpair_btag_value_1",
+    call="quantities::jet::btagValue({df}, {output}, {input}, 0)",
+    input=[nanoAOD.BJet_discriminator, q.dibjetpair],
+    output=[q.bpair_btag_value_1],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
+bpair_btag_value_2 = Producer(
+    name="bpair_btag_value_2",
+    call="quantities::jet::btagValue({df}, {output}, {input}, 1)",
+    input=[nanoAOD.BJet_discriminator, q.dibjetpair],
+    output=[q.bpair_btag_value_2],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
 bpair_m_inv = Producer(
     name="bpair_m_inv",
     call="quantities::m_vis({df}, {output}, {input_vec})",
@@ -613,6 +627,7 @@ UnrollBjetLV1 = ProducerGroup(
         bpair_eta_1,
         bpair_phi_1,
         bpair_mass_1,
+        bpair_btag_value_1,
     ],
 )
 UnrollBjetLV2 = ProducerGroup(
@@ -626,6 +641,7 @@ UnrollBjetLV2 = ProducerGroup(
         bpair_eta_2,
         bpair_phi_2,
         bpair_mass_2,
+        bpair_btag_value_2,
     ],
 )
 

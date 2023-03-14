@@ -168,6 +168,19 @@ LVFatJet1 = Producer(
     output=[q.fatjet_p4_1],
     scopes=["mt", "et", "tt", "em", "mm", "ee"],
 )
+LVFatJet2 = Producer(
+    name="LVFatJet2",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.good_fatjet_collection,
+        q.FatJet_pt_corrected,
+        nanoAOD.FatJet_eta,
+        nanoAOD.FatJet_phi,
+        q.FatJet_mass_corrected,
+    ],
+    output=[q.fatjet_p4_2],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
 
 NumberOfFatJets = Producer(
     name="NumberOfFatJets",
@@ -212,24 +225,80 @@ fj_msoftdrop_1 = Producer(
     scopes=["mt", "et", "tt", "em", "mm", "ee"],
 )
 fj_particleNet_XbbvsQCD_1 = Producer(
-    name="particleNet_XbbvsQCD",
+    name="particleNet_XbbvsQCD_1",
     call="quantities::fatjet::particleNet_XbbvsQCD({df}, {output}, {input}, 0)",
     input=[nanoAOD.FatJet_PNet_Xbb, nanoAOD.FatJet_PNet_QCD, q.good_fatjet_collection],
     output=[q.fj_particleNet_XbbvsQCD_1],
     scopes=["mt", "et", "tt", "em", "mm", "ee"],
 )
 fj_nsubjettiness_2over1_1 = Producer(
-    name="nsubjettiness_2over1",
+    name="nsubjettiness_2over1_1",
     call="quantities::fatjet::nsubjettiness_ratio({df}, {output}, {input}, 0)",
     input=[nanoAOD.FatJet_tau2, nanoAOD.FatJet_tau1, q.good_fatjet_collection],
     output=[q.fj_nsubjettiness_2over1_1],
     scopes=["mt", "et", "tt", "em", "mm", "ee"],
 )
 fj_nsubjettiness_3over2_1 = Producer(
-    name="nsubjettiness_3over2",
+    name="nsubjettiness_3over2_1",
     call="quantities::fatjet::nsubjettiness_ratio({df}, {output}, {input}, 0)",
     input=[nanoAOD.FatJet_tau3, nanoAOD.FatJet_tau2, q.good_fatjet_collection],
     output=[q.fj_nsubjettiness_3over2_1],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
+fj_pt_2 = Producer(
+    name="fj_pt_2",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.fatjet_p4_2],
+    output=[q.fj_pt_2],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
+fj_eta_2 = Producer(
+    name="fj_eta_2",
+    call="quantities::eta({df}, {output}, {input})",
+    input=[q.fatjet_p4_2],
+    output=[q.fj_eta_2],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
+fj_phi_2 = Producer(
+    name="fj_phi_2",
+    call="quantities::phi({df}, {output}, {input})",
+    input=[q.fatjet_p4_2],
+    output=[q.fj_phi_2],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
+fj_mass_2 = Producer(
+    name="fj_mass_2",
+    call="quantities::mass({df}, {output}, {input})",
+    input=[q.fatjet_p4_2],
+    output=[q.fj_mass_2],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
+fj_msoftdrop_2 = Producer(
+    name="msoftdrop_2",
+    call="quantities::fatjet::msoftdrop({df}, {output}, {input}, 1)",
+    input=[nanoAOD.FatJet_msoftdrop, q.good_fatjet_collection],
+    output=[q.fj_msoftdrop_2],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
+fj_particleNet_XbbvsQCD_2 = Producer(
+    name="particleNet_XbbvsQCD_2",
+    call="quantities::fatjet::particleNet_XbbvsQCD({df}, {output}, {input}, 1)",
+    input=[nanoAOD.FatJet_PNet_Xbb, nanoAOD.FatJet_PNet_QCD, q.good_fatjet_collection],
+    output=[q.fj_particleNet_XbbvsQCD_2],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
+fj_nsubjettiness_2over1_2 = Producer(
+    name="nsubjettiness_2over1_2",
+    call="quantities::fatjet::nsubjettiness_ratio({df}, {output}, {input}, 1)",
+    input=[nanoAOD.FatJet_tau2, nanoAOD.FatJet_tau1, q.good_fatjet_collection],
+    output=[q.fj_nsubjettiness_2over1_2],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
+fj_nsubjettiness_3over2_2 = Producer(
+    name="nsubjettiness_3over2_2",
+    call="quantities::fatjet::nsubjettiness_ratio({df}, {output}, {input}, 1)",
+    input=[nanoAOD.FatJet_tau3, nanoAOD.FatJet_tau2, q.good_fatjet_collection],
+    output=[q.fj_nsubjettiness_3over2_2],
     scopes=["mt", "et", "tt", "em", "mm", "ee"],
 )
 
@@ -241,6 +310,7 @@ BasicFatJetQuantities = ProducerGroup(
     scopes=["mt", "et", "tt", "em", "mm", "ee"],
     subproducers=[
         LVFatJet1,
+        LVFatJet2,
         NumberOfFatJets,
         fj_pt_1,
         fj_eta_1,
@@ -250,6 +320,14 @@ BasicFatJetQuantities = ProducerGroup(
         fj_particleNet_XbbvsQCD_1,
         fj_nsubjettiness_2over1_1,
         fj_nsubjettiness_3over2_1,
+        fj_pt_2,
+        fj_eta_2,
+        fj_phi_2,
+        fj_mass_2,
+        fj_msoftdrop_2,
+        fj_particleNet_XbbvsQCD_2,
+        fj_nsubjettiness_2over1_2,
+        fj_nsubjettiness_3over2_2,
     ],
 )
 

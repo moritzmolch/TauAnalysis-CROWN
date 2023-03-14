@@ -24,6 +24,7 @@ FakeFactors_nmssm_lt = Producer(
         q.nbtag,
         q.pt_1,
         q.iso_1,
+        q.m_vis,
     ],
     output=[q.fake_factor],
     scopes=["mt", "et"],

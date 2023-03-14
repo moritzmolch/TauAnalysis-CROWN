@@ -170,7 +170,7 @@ def build_config(
         {
             "min_fatjet_pt": 160,
             "max_fatjet_eta": 4.7,
-            "fatjet_id": 2,  # default: 2==pass tight ID and fail tightLepVeto
+            "fatjet_id": 2, 
             "fatjet_reapplyJES": False,
             "fatjet_jes_sources": '{""}',
             "fatjet_jes_shift": 0,
@@ -209,7 +209,7 @@ def build_config(
         {
             "min_jet_pt": 30,
             "max_jet_eta": 4.7,
-            "jet_id": 2,  # default: 2==pass tight ID and fail tightLepVeto
+            "jet_id": 2, 
             "jet_puid": EraModifier(
                 {
                     "2016preVFP": 1,  # 0==fail, 1==pass(loose), 3==pass(loose,medium), 7==pass(loose,medium,tight)
@@ -446,7 +446,7 @@ def build_config(
         ["mt", "mm"],
         {
             "muon_index_in_pair": 0,
-            "min_muon_pt": 23.0,
+            "min_muon_pt": 20.0,
             "max_muon_eta": 2.1,
             "muon_iso_cut": 0.3,
         },
@@ -1305,6 +1305,14 @@ def build_config(
             q.fj_particleNet_XbbvsQCD_1,
             q.fj_nsubjettiness_2over1_1,
             q.fj_nsubjettiness_3over2_1,
+            q.fj_pt_2,
+            q.fj_eta_2,
+            q.fj_phi_2,
+            q.fj_mass_2,
+            q.fj_msoftdrop_2,
+            q.fj_particleNet_XbbvsQCD_2,
+            q.fj_nsubjettiness_2over1_2,
+            q.fj_nsubjettiness_3over2_2,
             q.fj_matched_pt,
             q.fj_matched_eta,
             q.fj_matched_phi,
@@ -1321,6 +1329,8 @@ def build_config(
             q.bpair_phi_2,
             q.bpair_mass_1,
             q.bpair_mass_2,
+            q.bpair_btag_value_1,
+            q.bpair_btag_value_2,
             q.bpair_m_inv,
             q.bpair_deltaR,
             q.bpair_pt_dijet,
