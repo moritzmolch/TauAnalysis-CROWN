@@ -224,6 +224,7 @@ emb_InitialPairCandidates = Quantity("emb_InitialPairCandidates")
 emb_SelectionOldMass = Quantity("emb_SelectionOldMass")
 emb_SelectionNewMass = Quantity("emb_SelectionNewMass")
 emb_triggersel_wgt = Quantity("emb_triggersel_wgt")
+emb_cleaningcorr_wgt = Quantity("emb_cleaningcorr_wgt")
 emb_idsel_wgt_1 = Quantity("emb_idsel_wgt_1")
 emb_idsel_wgt_2 = Quantity("emb_idsel_wgt_2")
 

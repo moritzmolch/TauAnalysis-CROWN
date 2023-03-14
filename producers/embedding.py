@@ -120,6 +120,13 @@ TauEmbeddingTriggerSelectionSF = Producer(
     output=[q.emb_triggersel_wgt],
     scopes=["et", "mt", "tt", "em", "mm", "ee"],
 )
+TauEmbeddingCleaningCorrectionSF = Producer(
+    name="TauEmbeddingCleaningCorrectionSF",
+    call='scalefactor::embedding::embedding_cleaning_correction({df}, {input}, {output}, "{embedding_selection_sf_file}", "{embedding_selection_trigger_sf}")',
+    input=[q.met],
+    output=[q.emb_cleaningcorr_wgt],
+    scopes=["et", "mt", "tt", "em", "mm", "ee"],
+)
 TauEmbeddingIDSelectionSF_1 = Producer(
     name="TauEmbeddingIDSelectionSF_1",
     call='scalefactor::embedding::selection_id({df}, {input}, {output}, "{embedding_selection_sf_file}", "{embedding_selection_id_sf}")',
