@@ -109,6 +109,8 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             "embedding_selection_sf_file": "data/embedding/muon_2018UL.json.gz",
             "embedding_selection_trigger_sf": "m_sel_trg_kit_ratio",
             "embedding_selection_id_sf": "EmbID_pt_eta_bins",
+            "embedding_cleaning_correction_sf_file": "data/embedding/cleaning_mutau_2018.json",
+            "embedding_leaning_correction_sf": "new_cleaning_weight",
         },
     )
     configuration.add_modification_rule(
