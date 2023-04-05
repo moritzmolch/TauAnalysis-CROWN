@@ -156,13 +156,14 @@ TauEmbeddingSelectionSF = ProducerGroup(
     input=None,
     output=None,
     scopes=["et", "mt", "tt", "em", "mm", "ee"],
-    subproducers=[
-        TauEmbeddingTriggerSelectionSF,
-        TauEmbeddingIDSelectionSF_1,
-        TauEmbeddingIDSelectionSF_2,
-        TauEmbeddingCleaningCorrectionSF,
-        MuEmbeddingCleaningCorrectionSF,
-    ],
+    subproducers={
+        "et": [TauEmbeddingTriggerSelectionSF,TauEmbeddingIDSelectionSF_1,TauEmbeddingIDSelectionSF_2],
+        "mt": [TauEmbeddingTriggerSelectionSF,TauEmbeddingIDSelectionSF_1,TauEmbeddingIDSelectionSF_2,TauEmbeddingCleaningCorrectionSF],
+        "tt": [TauEmbeddingTriggerSelectionSF,TauEmbeddingIDSelectionSF_1,TauEmbeddingIDSelectionSF_2],
+        "em": [TauEmbeddingTriggerSelectionSF,TauEmbeddingIDSelectionSF_1,TauEmbeddingIDSelectionSF_2],
+        "mm": [TauEmbeddingTriggerSelectionSF,TauEmbeddingIDSelectionSF_1,TauEmbeddingIDSelectionSF_2,MuEmbeddingCleaningCorrectionSF],
+        "ee": [TauEmbeddingTriggerSelectionSF,TauEmbeddingIDSelectionSF_1,TauEmbeddingIDSelectionSF_2],
+    }
 )
 
 # Muon ID/Iso/Trigger SFS
