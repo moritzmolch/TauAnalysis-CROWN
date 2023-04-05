@@ -158,10 +158,10 @@ TauEmbeddingSelectionSF = ProducerGroup(
     scopes=["et", "mt", "tt", "em", "mm", "ee"],
     subproducers={
         "et": [TauEmbeddingTriggerSelectionSF,TauEmbeddingIDSelectionSF_1,TauEmbeddingIDSelectionSF_2],
-        "mt": [TauEmbeddingTriggerSelectionSF,TauEmbeddingIDSelectionSF_1,TauEmbeddingIDSelectionSF_2,TauEmbeddingCleaningCorrectionSF],
+        "mt": [TauEmbeddingTriggerSelectionSF,TauEmbeddingIDSelectionSF_1,TauEmbeddingIDSelectionSF_2],#,TauEmbeddingCleaningCorrectionSF],
         "tt": [TauEmbeddingTriggerSelectionSF,TauEmbeddingIDSelectionSF_1,TauEmbeddingIDSelectionSF_2],
         "em": [TauEmbeddingTriggerSelectionSF,TauEmbeddingIDSelectionSF_1,TauEmbeddingIDSelectionSF_2],
-        "mm": [TauEmbeddingTriggerSelectionSF,TauEmbeddingIDSelectionSF_1,TauEmbeddingIDSelectionSF_2,MuEmbeddingCleaningCorrectionSF],
+        "mm": [TauEmbeddingTriggerSelectionSF,TauEmbeddingIDSelectionSF_1,TauEmbeddingIDSelectionSF_2],#,MuEmbeddingCleaningCorrectionSF],
         "ee": [TauEmbeddingTriggerSelectionSF,TauEmbeddingIDSelectionSF_1,TauEmbeddingIDSelectionSF_2],
     }
 )
