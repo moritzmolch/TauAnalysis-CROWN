@@ -111,7 +111,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             "embedding_selection_id_sf": "EmbID_pt_eta_bins",
             "mutau_embedding_cleaning_correction_sf_file": "data/embedding/cleaning_mutau_2018.json",
             "mumu_embedding_cleaning_correction_sf_file": "data/embedding/cleaning_mumu_2018.json",
-            "embedding_leaning_correction_sf": "new_cleaning_weight",
+            "embedding_cleaning_correction_sf": "new_cleaning_weight",
         },
     )
     configuration.add_modification_rule(
