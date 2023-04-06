@@ -12,11 +12,13 @@ from .producers import pairselection as pairselection
 from .producers import scalefactors as scalefactors
 from .producers import taus as taus
 from .producers import triggers as triggers
+from .producers import fakefactors as fakefactors
 from .quantities import nanoAOD as nanoAOD
 from .quantities import output as q
 
 # from code_generation.configuration import Configuration
 from code_generation.friend_trees import FriendTreeConfiguration
+from code_generation.modifiers import EraModifier, SampleModifier
 
 
 def build_config(
@@ -54,11 +56,55 @@ def build_config(
         },
     )
 
+    # fake factor configurations
+    configuration.add_config_parameters(
+        ["et"],
+        {
+            "ff_variation": "nominal",
+            "ff_file": EraModifier(
+                {
+                    "2016": "",
+                    "2017": "",
+                    "2018": "data/fake_factors/2018/fake_factors_et.json.gz",
+                }
+            ),
+            "ff_corr_file": EraModifier(
+                {
+                    "2016": "",
+                    "2017": "",
+                    "2018": "data/fake_factors/2018/FF_corrections_et.json.gz",
+                }
+            ),
+        },
+    )
+    configuration.add_config_parameters(
+        ["mt"],
+        {
+            "ff_variation": "nominal",
+            "ff_file": EraModifier(
+                {
+                    "2016": "",
+                    "2017": "",
+                    "2018": "data/fake_factors/2018/fake_factors_mt.json.gz",
+                }
+            ),
+            "ff_corr_file": EraModifier(
+                {
+                    "2016": "",
+                    "2017": "",
+                    "2018": "data/fake_factors/2018/FF_corrections_mt.json.gz",
+                }
+            ),
+        },
+    )
+
     configuration.add_producers(
         ["mt", "et"],
         [
             scalefactors.MuonIDSF_friends_1,
             scalefactors.MuonIsoSF_friends_1,
+            fakefactors.RawFakeFactors_nmssm_lt,
+            fakefactors.FakeFactors_nmssm_lt,
         ],
     )
 
@@ -67,6 +113,8 @@ def build_config(
         [
             q.id_wgt_mu_friend_1,
             q.iso_wgt_mu_friend_1,
+            q.raw_fake_factor,
+            q.fake_factor,
         ],
     )
 

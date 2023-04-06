@@ -1906,4 +1906,3 @@ def build_config(
     configuration.validate()
     configuration.report()
     return configuration.expanded_configuration()
-        
