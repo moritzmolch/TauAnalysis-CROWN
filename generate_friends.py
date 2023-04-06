@@ -1,13 +1,11 @@
 from os import path, makedirs
 import importlib
-import logging
-import logging.handlers
 from code_generation.code_generation import CodeGenerator
 from code_generation.friend_trees import FriendTreeConfiguration
 import inspect
 
-def run(args):
 
+def run(args):
     analysis_name = "tau"
 
     available_samples = [
@@ -27,7 +25,7 @@ def run(args):
         "data",
         "electroweak_boson",
     ]
-    available_eras = ["2016", "2017", "2018"]
+    available_eras = ["2016preVFP", "2016postVFP", "2017", "2018"]
     available_scopes = ["et", "mt", "tt", "em", "ee", "mm"]
 
     ## setup variables
@@ -36,23 +34,6 @@ def run(args):
     era = args.era
     scopes = list(set([scope.lower() for scope in args.scopes]))
 
-    ## Setup Logging
-    root = logging.getLogger()
-    root.setLevel("INFO")
-    if args.debug == "true":
-        root.setLevel("DEBUG")
-    ## setup logging
-    if not path.exists("generation_logs"):
-        makedirs("generation_logs")
-    terminal_handler = logging.StreamHandler()
-    terminal_handler.setFormatter(logging.Formatter(logging.BASIC_FORMAT))
-    root.addHandler(terminal_handler)
-    handler = logging.handlers.WatchedFileHandler(
-        f"generation_logs/generation_{era}_{sample_group}.log",
-        "w",
-    )
-    handler.setFormatter(logging.Formatter(logging.BASIC_FORMAT))
-    root.addHandler(handler)
     ## load config
     configname = args.config
     config = importlib.import_module(
@@ -60,21 +41,24 @@ def run(args):
     )
     # check if the config is of type FriendTreeConfiguration
     imported_members = [x[0] for x in inspect.getmembers(config, inspect.isclass)]
-    if "FriendTreeConfiguration" in imported_members and "Configuration" in imported_members:
+    if (
+        "FriendTreeConfiguration" in imported_members
+        and "Configuration" in imported_members
+    ):
         raise ValueError(
             f"Configuration {configname} contains both a Configuration and a FriendTreeConfiguration."
         )
-    elif "FriendTreeConfiguration" not in  imported_members:
+    elif "FriendTreeConfiguration" not in imported_members:
         raise ValueError(
             f"Configuration {configname} is not a FriendTreeConfiguration."
         )
     ## Setting up executable
     executable = f"{configname}_{sample_group}_{era}.cxx"
-    root.info(f"Generating code for {sample_group}...")
-    root.info(f"Configuration used: {config}")
-    root.info(f"Era: {era}")
-    root.info(f"Shifts: {shifts}")
-    root.info(f"Scopes: {scopes}")
+    args.logger.info(f"Generating code for {sample_group}...")
+    args.logger.info(f"Configuration used: {config}")
+    args.logger.info(f"Era: {era}")
+    args.logger.info(f"Shifts: {shifts}")
+    args.logger.info(f"Scopes: {scopes}")
     for scope in scopes:
         code_generation_config = config.build_config(
             era,
@@ -97,7 +81,8 @@ def run(args):
             sub_template_path=args.subset_template,
             configuration=code_generation_config,
             executable_name=f"{configname}_{sample_group}_{era}_{scope}",
-            analysis_name=f"{analysis_name}_{configname}",
+            analysis_name=analysis_name,
+            config_name=configname,
             output_folder=args.output,
             threads=args.threads,
         )
