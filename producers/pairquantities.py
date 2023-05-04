@@ -84,6 +84,102 @@ pt_vis = Producer(
     output=[q.pt_vis],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )
+
+####################
+# Set of general producers for BBPair Quantities
+####################
+
+bpair_pt_1 = Producer(
+    name="bpair_pt_1",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.bpair_p4_1],
+    output=[q.bpair_pt_1],
+    scopes=["mt", "et", "tt"],
+)
+bpair_pt_2 = Producer(
+    name="bpair_pt_2",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.bpair_p4_2],
+    output=[q.bpair_pt_2],
+    scopes=["mt", "et", "tt"],
+)
+bpair_eta_1 = Producer(
+    name="bpair_eta_1",
+    call="quantities::eta({df}, {output}, {input})",
+    input=[q.bpair_p4_1],
+    output=[q.bpair_eta_1],
+    scopes=["mt", "et", "tt"],
+)
+bpair_eta_2 = Producer(
+    name="bpair_eta_2",
+    call="quantities::eta({df}, {output}, {input})",
+    input=[q.bpair_p4_2],
+    output=[q.bpair_eta_2],
+    scopes=["mt", "et", "tt"],
+)
+bpair_phi_1 = Producer(
+    name="bpair_phi_1",
+    call="quantities::phi({df}, {output}, {input})",
+    input=[q.bpair_p4_1],
+    output=[q.bpair_phi_1],
+    scopes=["mt", "et", "tt"],
+)
+bpair_phi_2 = Producer(
+    name="bpair_phi_2",
+    call="quantities::phi({df}, {output}, {input})",
+    input=[q.bpair_p4_2],
+    output=[q.bpair_phi_2],
+    scopes=["mt", "et", "tt"],
+)
+bpair_mass_1 = Producer(
+    name="bpair_mass_1",
+    call="quantities::mass({df}, {output}, {input})",
+    input=[q.bpair_p4_1],
+    output=[q.bpair_mass_1],
+    scopes=["mt", "et", "tt"],
+)
+bpair_mass_2 = Producer(
+    name="bpair_mass_2",
+    call="quantities::mass({df}, {output}, {input})",
+    input=[q.bpair_p4_2],
+    output=[q.bpair_mass_2],
+    scopes=["mt", "et", "tt"],
+)
+bpair_btag_value_1 = Producer(
+    name="bpair_btag_value_1",
+    call="quantities::jet::btagValue({df}, {output}, {input}, 0)",
+    input=[nanoAOD.BJet_discriminator, q.dibjetpair],
+    output=[q.bpair_btag_value_1],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
+bpair_btag_value_2 = Producer(
+    name="bpair_btag_value_2",
+    call="quantities::jet::btagValue({df}, {output}, {input}, 1)",
+    input=[nanoAOD.BJet_discriminator, q.dibjetpair],
+    output=[q.bpair_btag_value_2],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
+bpair_m_inv = Producer(
+    name="bpair_m_inv",
+    call="quantities::m_vis({df}, {output}, {input_vec})",
+    input=[q.bpair_p4_1, q.bpair_p4_2],
+    output=[q.bpair_m_inv],
+    scopes=["mt", "et", "tt"],
+)
+bpair_deltaR = Producer(
+    name="bpair_deltaR",
+    call="quantities::deltaR({df}, {output}, {input})",
+    input=[q.bpair_p4_1, q.bpair_p4_2],
+    output=[q.bpair_deltaR],
+    scopes=["mt", "et", "tt"],
+)
+bpair_pt_dijet = Producer(
+    name="bpair_pt_dijet",
+    call="quantities::pt_dijet({df}, {output}, {input})",
+    input=[q.bpair_p4_1, q.bpair_p4_2],
+    output=[q.bpair_pt_dijet],
+    scopes=["mt", "et", "tt"],
+)
 ####################
 # Set of channel specific producers
 ####################
@@ -315,8 +411,15 @@ tau_decaymode_1 = Producer(
     name="decaymode_1",
     call="quantities::tau::decaymode({df}, {output}, 0, {input})",
     input=[q.dileptonpair, nanoAOD.Tau_decayMode],
-    output=[q.decaymode_1],
+    output=[q.tau_decaymode_1],
     scopes=["tt"],
+)
+tau_decaymode_1_notau = Producer(
+    name="tau_decaymode_1_notau",
+    call="basefunctions::DefineQuantity({df}, {output}, -1)",
+    input=[],
+    output=[q.tau_decaymode_1],
+    scopes=["et", "mt", "em", "ee", "mm"],
 )
 tau_gen_match_1 = Producer(
     name="gen_match_1",
@@ -361,8 +464,15 @@ tau_decaymode_2 = Producer(
     name="taudecaymode_2",
     call="quantities::tau::decaymode({df}, {output}, 1, {input})",
     input=[q.dileptonpair, nanoAOD.Tau_decayMode],
-    output=[q.decaymode_2],
+    output=[q.tau_decaymode_2],
     scopes=["mt", "et", "tt"],
+)
+tau_decaymode_2_notau = Producer(
+    name="tau_decaymode_2_notau",
+    call="basefunctions::DefineQuantity({df}, {output}, -1)",
+    input=[],
+    output=[q.tau_decaymode_2],
+    scopes=["em", "ee", "mm"],
 )
 tau_gen_match_2 = Producer(
     name="taugen_match_2",
@@ -519,6 +629,36 @@ UnrollTauLV2 = ProducerGroup(
         VsMuTauIDFlag_2,
     ],
 )
+
+UnrollBjetLV1 = ProducerGroup(
+    name="UnrollBjetLV1",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["et", "mt", "tt"],
+    subproducers=[
+        bpair_pt_1,
+        bpair_eta_1,
+        bpair_phi_1,
+        bpair_mass_1,
+        bpair_btag_value_1,
+    ],
+)
+UnrollBjetLV2 = ProducerGroup(
+    name="UnrollBjetLV2",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["et", "mt", "tt"],
+    subproducers=[
+        bpair_pt_2,
+        bpair_eta_2,
+        bpair_phi_2,
+        bpair_mass_2,
+        bpair_btag_value_2,
+    ],
+)
+
 #####################
 # Producer Groups
 #####################
@@ -529,7 +669,14 @@ MTDiTauPairQuantities = ProducerGroup(
     input=None,
     output=None,
     scopes=["mt"],
-    subproducers=[UnrollMuLV1, UnrollTauLV2, m_vis, pt_vis, deltaR_ditaupair],
+    subproducers=[
+        UnrollMuLV1,
+        UnrollTauLV2,
+        tau_decaymode_1_notau,
+        m_vis,
+        pt_vis,
+        deltaR_ditaupair,
+    ],
 )
 MuMuPairQuantities = ProducerGroup(
     name="MuMuPairQuantities",
@@ -537,7 +684,15 @@ MuMuPairQuantities = ProducerGroup(
     input=None,
     output=None,
     scopes=["mm"],
-    subproducers=[UnrollMuLV1, UnrollMuLV2, m_vis, pt_vis, deltaR_ditaupair],
+    subproducers=[
+        UnrollMuLV1,
+        UnrollMuLV2,
+        tau_decaymode_1_notau,
+        tau_decaymode_2_notau,
+        m_vis,
+        pt_vis,
+        deltaR_ditaupair,
+    ],
 )
 ElElPairQuantities = ProducerGroup(
     name="ElElPairQuantities",
@@ -545,7 +700,15 @@ ElElPairQuantities = ProducerGroup(
     input=None,
     output=None,
     scopes=["ee"],
-    subproducers=[UnrollElLV1, UnrollElLV2, m_vis, pt_vis, deltaR_ditaupair],
+    subproducers=[
+        UnrollElLV1,
+        UnrollElLV2,
+        tau_decaymode_1_notau,
+        tau_decaymode_2_notau,
+        m_vis,
+        pt_vis,
+        deltaR_ditaupair,
+    ],
 )
 ETDiTauPairQuantities = ProducerGroup(
     name="ETDiTauPairQuantities",
@@ -553,7 +716,14 @@ ETDiTauPairQuantities = ProducerGroup(
     input=None,
     output=None,
     scopes=["et"],
-    subproducers=[UnrollElLV1, UnrollTauLV2, m_vis, pt_vis, deltaR_ditaupair],
+    subproducers=[
+        UnrollElLV1,
+        UnrollTauLV2,
+        tau_decaymode_1_notau,
+        m_vis,
+        pt_vis,
+        deltaR_ditaupair,
+    ],
 )
 TTDiTauPairQuantities = ProducerGroup(
     name="TTDiTauPairQuantities",
@@ -569,7 +739,29 @@ EMDiTauPairQuantities = ProducerGroup(
     input=None,
     output=None,
     scopes=["em"],
-    subproducers=[UnrollElLV1, UnrollMuLV2, m_vis, pt_vis, deltaR_ditaupair],
+    subproducers=[
+        UnrollElLV1,
+        UnrollMuLV2,
+        tau_decaymode_1_notau,
+        tau_decaymode_2_notau,
+        m_vis,
+        pt_vis,
+        deltaR_ditaupair,
+    ],
+)
+DiBjetPairQuantities = ProducerGroup(
+    name="DiBjetPairQuantities",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mt", "et", "tt"],
+    subproducers=[
+        UnrollBjetLV1,
+        UnrollBjetLV2,
+        bpair_m_inv,
+        bpair_pt_dijet,
+        bpair_deltaR,
+    ],
 )
 ## advanced event quantities (can be caluculated when ditau pair and met and all jets are determined)
 ## leptons: q.p4_1, q.p4_2
@@ -617,6 +809,13 @@ pt_ttjj = Producer(
     call="quantities::pt_ttjj({df}, {output}, {input})",
     input=[q.p4_1, q.p4_2, q.jet_p4_1, q.jet_p4_2, q.met_p4_recoilcorrected],
     output=[q.pt_ttjj],
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+)
+pt_ttbb = Producer(
+    name="pt_ttbb",
+    call="quantities::pt_ttjj({df}, {output}, {input})",
+    input=[q.p4_1, q.p4_2, q.bpair_p4_1, q.bpair_p4_2, q.met_p4_recoilcorrected],
+    output=[q.pt_ttbb],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )
 mt_tot = Producer(
@@ -669,6 +868,13 @@ pt_ttjj_pf = Producer(
     output=[q.pt_ttjj_pf],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )
+pt_ttbb_pf = Producer(
+    name="pt_ttbb_pf",
+    call="quantities::pt_ttjj({df}, {output}, {input})",
+    input=[q.p4_1, q.p4_2, q.bpair_p4_1, q.bpair_p4_2, q.pfmet_p4_recoilcorrected],
+    output=[q.pt_ttbb_pf],
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+)
 mt_tot_pf = Producer(
     name="mt_tot_pf",
     call="quantities::mt_tot({df}, {output}, {input})",
@@ -704,6 +910,7 @@ DiTauPairMETQuantities = ProducerGroup(
         mt_2,
         pt_tt,
         pt_ttjj,
+        pt_ttbb,
         mt_tot,
         Pzetamissvis_pf,
         mTdileptonMET_pf,
@@ -711,8 +918,143 @@ DiTauPairMETQuantities = ProducerGroup(
         mt_2_pf,
         pt_tt_pf,
         pt_ttjj_pf,
+        pt_ttbb_pf,
         mt_tot_pf,
         pt_dijet,
         jet_hemisphere,
     ],
+)
+
+p4_fastmtt_mt = Producer(
+    name="p4_fastmtt_mt",
+    call='quantities::p4_fastmtt({df}, {output}, {input}, "mt")',
+    input=[
+        q.pt_1,
+        q.pt_2,
+        q.eta_1,
+        q.eta_2,
+        q.phi_1,
+        q.phi_2,
+        q.mass_1,
+        q.mass_2,
+        q.met,
+        q.metphi,
+        q.metcov00,
+        q.metcov01,
+        q.metcov11,
+        q.tau_decaymode_1,
+        q.tau_decaymode_2,
+    ],
+    output=[q.p4_fastmtt],
+    scopes=["mt"],
+)
+p4_fastmtt_et = Producer(
+    name="p4_fastmtt_et",
+    call='quantities::p4_fastmtt({df}, {output}, {input}, "et")',
+    input=[
+        q.pt_1,
+        q.pt_2,
+        q.eta_1,
+        q.eta_2,
+        q.phi_1,
+        q.phi_2,
+        q.mass_1,
+        q.mass_2,
+        q.met,
+        q.metphi,
+        q.metcov00,
+        q.metcov01,
+        q.metcov11,
+        q.tau_decaymode_1,
+        q.tau_decaymode_2,
+    ],
+    output=[q.p4_fastmtt],
+    scopes=["et"],
+)
+p4_fastmtt_tt = Producer(
+    name="p4_fastmtt_tt",
+    call='quantities::p4_fastmtt({df}, {output}, {input}, "tt")',
+    input=[
+        q.pt_1,
+        q.pt_2,
+        q.eta_1,
+        q.eta_2,
+        q.phi_1,
+        q.phi_2,
+        q.mass_1,
+        q.mass_2,
+        q.met,
+        q.metphi,
+        q.metcov00,
+        q.metcov01,
+        q.metcov11,
+        q.tau_decaymode_1,
+        q.tau_decaymode_2,
+    ],
+    output=[q.p4_fastmtt],
+    scopes=["tt"],
+)
+p4_fastmtt_em = Producer(
+    name="p4_fastmtt_em",
+    call='quantities::p4_fastmtt({df}, {output}, {input}, "em")',
+    input=[
+        q.pt_1,
+        q.pt_2,
+        q.eta_1,
+        q.eta_2,
+        q.phi_1,
+        q.phi_2,
+        q.mass_1,
+        q.mass_2,
+        q.met,
+        q.metphi,
+        q.metcov00,
+        q.metcov01,
+        q.metcov11,
+        q.tau_decaymode_1,
+        q.tau_decaymode_2,
+    ],
+    output=[q.p4_fastmtt],
+    scopes=["em"],
+)
+pt_fastmtt = Producer(
+    name="pt_fastmtt",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.p4_fastmtt],
+    output=[q.pt_fastmtt],
+    scopes=["mt", "et", "tt", "em"],
+)
+eta_fastmtt = Producer(
+    name="eta_fastmtt",
+    call="quantities::eta({df}, {output}, {input})",
+    input=[q.p4_fastmtt],
+    output=[q.eta_fastmtt],
+    scopes=["mt", "et", "tt", "em"],
+)
+phi_fastmtt = Producer(
+    name="phi_fastmtt",
+    call="quantities::phi({df}, {output}, {input})",
+    input=[q.p4_fastmtt],
+    output=[q.phi_fastmtt],
+    scopes=["mt", "et", "tt", "em"],
+)
+m_fastmtt = Producer(
+    name="m_fastmtt",
+    call="quantities::mass({df}, {output}, {input})",
+    input=[q.p4_fastmtt],
+    output=[q.m_fastmtt],
+    scopes=["mt", "et", "tt", "em"],
+)
+FastMTTQuantities = ProducerGroup(
+    name="FastMTTQuantities",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mt", "et", "tt", "em"],
+    subproducers={
+        "mt": [p4_fastmtt_mt, pt_fastmtt, eta_fastmtt, phi_fastmtt, m_fastmtt],
+        "et": [p4_fastmtt_et, pt_fastmtt, eta_fastmtt, phi_fastmtt, m_fastmtt],
+        "tt": [p4_fastmtt_tt, pt_fastmtt, eta_fastmtt, phi_fastmtt, m_fastmtt],
+        "em": [p4_fastmtt_em, pt_fastmtt, eta_fastmtt, phi_fastmtt, m_fastmtt],
+    },
 )

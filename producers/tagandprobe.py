@@ -102,7 +102,7 @@ BasePhotons = ProducerGroup(
 # )
 MuMuSingleMuonTriggerFlags_1 = ExtendedVectorProducer(
     name="MuMuGenerateSingleMuonTriggerFlags_1",
-    call='trigger::GenerateSingleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {etacut}, {trigger_particle_id}, {filterbit}, {max_deltaR_triggermatch} )',
+    call='trigger::tagandprobe::GenerateSingleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {etacut}, {trigger_particle_id}, {filterbit}, {max_deltaR_triggermatch}, {triggerobject_ptcut} )',
     input=[
         q.p4_1,
         nanoAOD.TriggerObject_bit,
@@ -113,11 +113,11 @@ MuMuSingleMuonTriggerFlags_1 = ExtendedVectorProducer(
     ],
     output="flagname_1",
     scope=["mm"],
-    vec_config="singlemoun_trigger",
+    vec_config="singlemuon_trigger",
 )
 MuMuSingleMuonTriggerFlags_2 = ExtendedVectorProducer(
     name="MuMuGenerateSingleMuonTriggerFlags_2",
-    call='trigger::GenerateSingleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {etacut}, {trigger_particle_id}, {filterbit}, {max_deltaR_triggermatch} )',
+    call='trigger::tagandprobe::GenerateSingleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {etacut}, {trigger_particle_id}, {filterbit}, {max_deltaR_triggermatch}, {triggerobject_ptcut} )',
     input=[
         q.p4_2,
         nanoAOD.TriggerObject_bit,
@@ -128,11 +128,11 @@ MuMuSingleMuonTriggerFlags_2 = ExtendedVectorProducer(
     ],
     output="flagname_2",
     scope=["mm"],
-    vec_config="singlemoun_trigger",
+    vec_config="singlemuon_trigger",
 )
 MuMuDoubleMuonTriggerFlags_1 = ExtendedVectorProducer(
     name="MuMuDoubleMuonTriggerFlags_1",
-    call='trigger::GenerateDoubleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {p1_ptcut}, {p2_ptcut}, {p1_etacut}, {p2_etacut}, {p1_trigger_particle_id}, {p2_trigger_particle_id}, {p1_filterbit}, {p2_filterbit}, {max_deltaR_triggermatch})',
+    call='trigger::tagandprobe::GenerateDoubleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {p1_ptcut}, {p2_ptcut}, {p1_etacut}, {p2_etacut}, {p1_trigger_particle_id}, {p2_trigger_particle_id}, {p1_filterbit}, {p2_filterbit}, {max_deltaR_triggermatch}, {p1_triggerobject_ptcut}, {p2_triggerobject_ptcut} )',
     input=[
         q.p4_1,
         q.p4_2,
@@ -148,7 +148,7 @@ MuMuDoubleMuonTriggerFlags_1 = ExtendedVectorProducer(
 )
 MuMuDoubleMuonTriggerFlags_2 = ExtendedVectorProducer(
     name="MuMuDoubleMuonTriggerFlags_2",
-    call='trigger::GenerateDoubleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {p1_ptcut}, {p2_ptcut}, {p1_etacut}, {p2_etacut}, {p1_trigger_particle_id}, {p2_trigger_particle_id}, {p1_filterbit}, {p2_filterbit}, {max_deltaR_triggermatch})',
+    call='trigger::tagandprobe::GenerateDoubleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {p1_ptcut}, {p2_ptcut}, {p1_etacut}, {p2_etacut}, {p1_trigger_particle_id}, {p2_trigger_particle_id}, {p1_filterbit}, {p2_filterbit}, {max_deltaR_triggermatch}, {p1_triggerobject_ptcut}, {p2_triggerobject_ptcut} )',
     input=[
         q.p4_2,
         q.p4_1,
@@ -252,7 +252,7 @@ GoodElectrons = ProducerGroup(
 
 ElElSingleElectronTriggerFlags_1 = ExtendedVectorProducer(
     name="ElElGenerateSingleElectronTriggerFlags_1",
-    call='trigger::GenerateSingleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {etacut}, {trigger_particle_id}, {filterbit}, {max_deltaR_triggermatch} )',
+    call='trigger::tagandprobe::GenerateSingleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {etacut}, {trigger_particle_id}, {filterbit}, {max_deltaR_triggermatch}, {triggerobject_ptcut} )',
     input=[
         q.p4_1,
         nanoAOD.TriggerObject_bit,
@@ -267,7 +267,7 @@ ElElSingleElectronTriggerFlags_1 = ExtendedVectorProducer(
 )
 ElElSingleElectronTriggerFlags_2 = ExtendedVectorProducer(
     name="ElElGenerateSingleElectronTriggerFlags_2",
-    call='trigger::GenerateSingleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {etacut}, {trigger_particle_id}, {filterbit}, {max_deltaR_triggermatch} )',
+    call='trigger::tagandprobe::GenerateSingleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {etacut}, {trigger_particle_id}, {filterbit}, {max_deltaR_triggermatch}, {triggerobject_ptcut} )',
     input=[
         q.p4_2,
         nanoAOD.TriggerObject_bit,

@@ -29,7 +29,7 @@ MTPairSelection = Producer(
 
 GoodMTPairFlag = Producer(
     name="GoodMTPairFlag",
-    call="ditau_pairselection::flagGoodPairs({df}, {output}, {input})",
+    call="pairselection::flagGoodPairs({df}, {output}, {input})",
     input=[q.dileptonpair],
     output=[],
     scopes=["mt"],
@@ -58,7 +58,7 @@ MuMuPairSelection = Producer(
 )
 ZMuMuPairSelection = Producer(
     name="ZMuMuPairSelection",
-    call="ditau_pairselection::mumu::ZBosonPairSelection({df}, {input_vec}, {output}, {pairselection_min_dR})",
+    call="pairselection::mumu::ZBosonPairSelection({df}, {input_vec}, {output}, {pairselection_min_dR})",
     input=[
         nanoAOD.Muon_pt,
         nanoAOD.Muon_eta,
@@ -71,7 +71,7 @@ ZMuMuPairSelection = Producer(
 )
 GoodMuMuPairFlag = Producer(
     name="GoodMuMuPairFlag",
-    call="ditau_pairselection::flagGoodPairs({df}, {output}, {input})",
+    call="pairselection::flagGoodPairs({df}, {output}, {input})",
     input=[q.dileptonpair],
     output=[],
     scopes=["mm"],
@@ -87,7 +87,7 @@ GoodMuMuPairFilter = Filter(
 
 ElElPairSelection = Producer(
     name="ElElPairSelection",
-    call="ditau_pairselection::elel::PairSelection({df}, {input_vec}, {output}, {pairselection_min_dR})",
+    call="pairselection::elel::PairSelection({df}, {input_vec}, {output}, {pairselection_min_dR})",
     input=[
         q.Electron_pt_corrected,
         nanoAOD.Electron_eta,
@@ -114,7 +114,7 @@ ZElElPairSelection = Producer(
 
 GoodElElPairFlag = Producer(
     name="GoodElElPairFlag",
-    call="ditau_pairselection::flagGoodPairs({df}, {output}, {input})",
+    call="pairselection::flagGoodPairs({df}, {output}, {input})",
     input=[q.dileptonpair],
     output=[],
     scopes=["ee"],
@@ -151,7 +151,7 @@ ETPairSelection = Producer(
 
 GoodETPairFlag = Producer(
     name="GoodETPairFlag",
-    call="ditau_pairselection::flagGoodPairs({df}, {output}, {input})",
+    call="pairselection::flagGoodPairs({df}, {output}, {input})",
     input=[q.dileptonpair],
     output=[],
     scopes=["et"],
@@ -185,7 +185,7 @@ TTPairSelection = Producer(
 
 GoodTTPairFlag = Producer(
     name="GoodTTPairFlag",
-    call="ditau_pairselection::flagGoodPairs({df}, {output}, {input})",
+    call="pairselection::flagGoodPairs({df}, {output}, {input})",
     input=[q.dileptonpair],
     output=[],
     scopes=["tt"],
@@ -223,9 +223,43 @@ EMPairSelection = Producer(
     scopes=["em"],
 )
 
+####################
+## BB Pair Selection
+####################
+
+BBPairSelection = Producer(
+    name="BBPairSelection",
+    call="bb_pairselection::PairSelection({df}, {input_vec}, {output}, {bb_pairselection_min_dR}, {btag_cut})",
+    input=[
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        q.Jet_mass_corrected,
+        nanoAOD.BJet_discriminator,
+        q.good_bjet_collection,
+        q.good_jet_collection,
+    ],
+    output=[q.dibjetpair],
+    scopes=["et", "mt", "tt"],
+)
+GoodBBPairFlag = Producer(
+    name="GoodBBPairFlag",
+    call="pairselection::flagGoodPairs({df}, {output}, {input})",
+    input=[q.dibjetpair],
+    output=[],
+    scopes=["et", "mt", "tt"],
+)
+GoodBBPairFilter = Filter(
+    name="GoodBBPairFilter",
+    call='basefunctions::FilterFlagsAny({df}, "GoodBBPairs", {input})',
+    input=[],
+    scopes=["et", "mt", "tt"],
+    subproducers=[GoodBBPairFlag],
+)
+
 GoodEMPairFlag = Producer(
     name="GoodEMPairFlag",
-    call="ditau_pairselection::flagGoodPairs({df}, {output}, {input})",
+    call="pairselection::flagGoodPairs({df}, {output}, {input})",
     input=[q.dileptonpair],
     output=[],
     scopes=["em"],
@@ -395,5 +429,32 @@ LVTau2Uncorrected = Producer(
         nanoAOD.Tau_mass,
     ],
     output=[q.p4_2_uncorrected],
+    scopes=["mt", "et", "tt"],
+)
+
+LVbjet1 = Producer(
+    name="LVbjet1",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.dibjetpair,
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        q.Jet_mass_corrected,
+    ],
+    output=[q.bpair_p4_1],
+    scopes=["mt", "et", "tt"],
+)
+LVbjet2 = Producer(
+    name="LVbjet2",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.dibjetpair,
+        q.Jet_pt_corrected,
+        nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        q.Jet_mass_corrected,
+    ],
+    output=[q.bpair_p4_2],
     scopes=["mt", "et", "tt"],
 )

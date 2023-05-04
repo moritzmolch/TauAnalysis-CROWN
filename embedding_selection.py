@@ -10,6 +10,7 @@ from .producers import pairselection as pairselection
 from .producers import triggers as triggers
 from .producers import scalefactors as scalefactors
 from .producers import tagandprobe as tagandprobe
+from .producers import embedding as embedding
 from .quantities import nanoAOD as nanoAOD
 from .quantities import output as q
 from .quantities import tagandprobe_output as qt
@@ -43,14 +44,16 @@ def build_config(
         {
             "PU_reweighting_file": EraModifier(
                 {
-                    "2016": "",
+                    "2016preVFP": "data/jsonpog-integration/POG/LUM/2016preVFP_UL/puWeights.json.gz",
+                    "2016postVFP": "data/jsonpog-integration/POG/LUM/2016postVFP_UL/puWeights.json.gz",
                     "2017": "data/jsonpog-integration/POG/LUM/2017_UL/puWeights.json.gz",
                     "2018": "data/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz",
                 }
             ),
             "PU_reweighting_era": EraModifier(
                 {
-                    "2016": "",
+                    "2016preVFP": "Collisions16_UltraLegacy_goldenJSON",
+                    "2016postVFP": "Collisions16_UltraLegacy_goldenJSON",
                     "2017": "Collisions17_UltraLegacy_goldenJSON",
                     "2018": "Collisions18_UltraLegacy_goldenJSON",
                 }
@@ -58,7 +61,8 @@ def build_config(
             "PU_reweighting_variation": "nominal",
             "golden_json_file": EraModifier(
                 {
-                    "2016": "data/golden_json/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt",
+                    "2016preVFP": "data/golden_json/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt",
+                    "2016postVFP": "data/golden_json/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt",
                     "2017": "data/golden_json/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt",
                     "2018": "data/golden_json/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt",
                 }
@@ -88,13 +92,30 @@ def build_config(
             "muon_iso_cut": 1.00,
         },
     )
+    # add embedding selection scalefactors
+    configuration.add_config_parameters(
+        scopes,
+        {
+            "embedding_selection_sf_file": EraModifier(
+                {
+                    "2016preVFP": "data/embedding/muon_2016preVFPUL.json.gz",
+                    "2016postVFP": "data/embedding/muon_2016postVFPUL.json.gz",
+                    "2017": "data/embedding/muon_2017UL.json.gz",
+                    "2018": "data/embedding/muon_2018UL.json.gz",
+                }
+            ),
+            "embedding_selection_trigger_sf": "m_sel_trg_kit_ratio",
+            "embedding_selection_id_sf": "EmbID_pt_eta_bins",
+        },
+    )
     # Muon scale factors configuration
     configuration.add_config_parameters(
         ["mm"],
         {
             "muon_sf_file": EraModifier(
                 {
-                    "2016": "data/jsonpog-integration/POG/MUO/2016postVFP_UL/muon_Z.json.gz",
+                    "2016preVFP": "data/jsonpog-integration/POG/MUO/2016preVFP_UL/muon_Z.json.gz",
+                    "2016postVFP": "data/jsonpog-integration/POG/MUO/2016postVFP_UL/muon_Z.json.gz",
                     "2017": "data/jsonpog-integration/POG/MUO/2017_UL/muon_Z.json.gz",
                     "2018": "data/jsonpog-integration/POG/MUO/2018_UL/muon_Z.json.gz",
                 }
@@ -103,7 +124,8 @@ def build_config(
             "muon_iso_sf_name": "NUM_TightRelIso_DEN_MediumID",
             "muon_sf_year_id": EraModifier(
                 {
-                    "2016": "2016postVFP_UL",
+                    "2016preVFP": "2016preVFP_UL",
+                    "2016postVFP": "2016postVFP_UL",
                     "2017": "2017_UL",
                     "2018": "2018_UL",
                 }
@@ -117,6 +139,90 @@ def build_config(
             "doublemuon_trigger": EraModifier(
                 {
                     "2018": [
+                        {
+                            "flagname": "trg_double_mu17_mu8",
+                            "hlt_path": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",
+                            "p1_ptcut": 17,
+                            "p2_ptcut": 8,
+                            "p1_etacut": 2.5,
+                            "p2_etacut": 2.5,
+                            "p1_filterbit": 4,
+                            "p1_trigger_particle_id": 13,
+                            "p2_filterbit": 4,
+                            "p2_trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_double_mu17_mu8_mass8",
+                            "hlt_path": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8",
+                            "p1_ptcut": 17,
+                            "p2_ptcut": 8,
+                            "p1_etacut": 2.5,
+                            "p2_etacut": 2.5,
+                            "p1_filterbit": 4,
+                            "p1_trigger_particle_id": 13,
+                            "p2_filterbit": 4,
+                            "p2_trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                    ],
+                    "2017": [
+                        {
+                            "flagname": "trg_double_mu17_mu8",
+                            "hlt_path": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",
+                            "p1_ptcut": 17,
+                            "p2_ptcut": 8,
+                            "p1_etacut": 2.5,
+                            "p2_etacut": 2.5,
+                            "p1_filterbit": 4,
+                            "p1_trigger_particle_id": 13,
+                            "p2_filterbit": 4,
+                            "p2_trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_double_mu17_mu8_mass8",
+                            "hlt_path": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8",
+                            "p1_ptcut": 17,
+                            "p2_ptcut": 8,
+                            "p1_etacut": 2.5,
+                            "p2_etacut": 2.5,
+                            "p1_filterbit": 4,
+                            "p1_trigger_particle_id": 13,
+                            "p2_filterbit": 4,
+                            "p2_trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                    ],
+                    "2016postVFP": [
+                        {
+                            "flagname": "trg_double_mu17_mu8",
+                            "hlt_path": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",
+                            "p1_ptcut": 17,
+                            "p2_ptcut": 8,
+                            "p1_etacut": 2.5,
+                            "p2_etacut": 2.5,
+                            "p1_filterbit": 4,
+                            "p1_trigger_particle_id": 13,
+                            "p2_filterbit": 4,
+                            "p2_trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_double_mu17_mu8_mass8",
+                            "hlt_path": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8",
+                            "p1_ptcut": 17,
+                            "p2_ptcut": 8,
+                            "p1_etacut": 2.5,
+                            "p2_etacut": 2.5,
+                            "p1_filterbit": 4,
+                            "p1_trigger_particle_id": 13,
+                            "p2_filterbit": 4,
+                            "p2_trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                    ],
+                    "2016preVFP": [
                         {
                             "flagname": "trg_double_mu17_mu8",
                             "hlt_path": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",
@@ -261,7 +367,7 @@ def build_config(
             producers=[
                 genparticles.MuMuGenPairQuantities,
             ],
-            samples=["data", "embedding"],
+            samples=["data"],
         ),
     )
     configuration.add_modification_rule(
@@ -271,6 +377,12 @@ def build_config(
                 genparticles.GenMatching,
             ],
             samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        scopes,
+        AppendProducer(
+            producers=embedding.TauEmbeddingSelectionSF, samples=["embedding"]
         ),
     )
 
