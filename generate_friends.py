@@ -24,6 +24,8 @@ def run(args):
         "wjets",
         "data",
         "electroweak_boson",
+        "nmssm_Ybb",
+        "nmssm_Ytautau",
     ]
     available_eras = ["2016preVFP", "2016postVFP", "2017", "2018"]
     available_scopes = ["et", "mt", "tt", "em", "ee", "mm"]
