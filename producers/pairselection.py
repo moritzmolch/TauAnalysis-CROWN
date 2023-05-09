@@ -13,7 +13,7 @@ MTPairSelection = Producer(
         q.Tau_pt_corrected,
         nanoAOD.Tau_eta,
         nanoAOD.Tau_phi,
-        nanoAOD.Tau_mass,
+        q.Tau_mass_corrected,
         nanoAOD.Tau_IDraw,
         nanoAOD.Muon_pt,
         nanoAOD.Muon_eta,
@@ -26,11 +26,38 @@ MTPairSelection = Producer(
     output=[q.dileptonpair],
     scopes=["mt"],
 )
+boostedMTPairSelection = Producer(
+    name="boostedMTPairSelection",
+    call="boosted_ditau_pairselection::mutau::PairSelection({df}, {input_vec}, {output}, {boosted_pairselection_min_dR}, {boosted_pairselection_max_dR})",
+    input=[
+        q.boostedTau_pt_corrected,
+        nanoAOD.boostedTau_eta,
+        nanoAOD.boostedTau_phi,
+        q.boostedTau_mass_corrected,
+        nanoAOD.boostedTau_iso_IDraw,
+        nanoAOD.Muon_pt,
+        nanoAOD.Muon_eta,
+        nanoAOD.Muon_phi,
+        nanoAOD.Muon_mass,
+        nanoAOD.Muon_iso,
+        q.good_muons_mask,
+        q.good_boostedtaus_mask,
+    ],
+    output=[q.boosteddileptonpair],
+    scopes=["mt"],
+)
 
 GoodMTPairFlag = Producer(
     name="GoodMTPairFlag",
     call="pairselection::flagGoodPairs({df}, {output}, {input})",
     input=[q.dileptonpair],
+    output=[],
+    scopes=["mt"],
+)
+GoodboostedMTPairFlag = Producer(
+    name="GoodboostedMTPairFlag",
+    call="pairselection::flagGoodPairs({df}, {output}, {input})",
+    input=[q.boosteddileptonpair],
     output=[],
     scopes=["mt"],
 )
@@ -40,7 +67,7 @@ GoodMTPairFilter = Filter(
     call='basefunctions::FilterFlagsAny({df}, "GoodMuTauPairs", {input})',
     input=[],
     scopes=["mt"],
-    subproducers=[GoodMTPairFlag],
+    subproducers=[GoodMTPairFlag, GoodboostedMTPairFlag],
 )
 
 MuMuPairSelection = Producer(

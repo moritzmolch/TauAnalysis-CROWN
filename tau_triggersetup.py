@@ -28,6 +28,15 @@ def add_diTauTriggerSetup(configuration: Configuration):
                             "trigger_particle_id": 13,
                             "max_deltaR_triggermatch": 0.4,
                         },
+                        {
+                            "flagname": "trg_single_mu50",
+                            "hlt_path": "HLT_Mu50",
+                            "ptcut": 55,
+                            "etacut": 2.5,
+                            "filterbit": 10,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
                     ],
                     "2017": [
                         {

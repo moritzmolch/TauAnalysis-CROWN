@@ -12,6 +12,7 @@ from .producers import pairquantities as pairquantities
 from .producers import pairselection as pairselection
 from .producers import scalefactors as scalefactors
 from .producers import taus as taus
+from .producers import boostedtaus as boostedtaus
 from .producers import triggers as triggers
 from .quantities import nanoAOD as nanoAOD
 from .quantities import output as q
@@ -388,6 +389,11 @@ def build_config(
             "vsjet_tau_id_bit": 1,
             "vsele_tau_id_bit": 1,
             "vsmu_tau_id_bit": 1,
+            "min_boostedtau_pt": 30.0,
+            "max_boostedtau_eta": 2.3,
+            "iso_boostedtau_id_bit": 2,
+            "antiele_boostedtau_id_bit": 2,
+            "antimu_boostedtau_id_bit": 1,
         },
     )
     # TT tau selection:
@@ -400,6 +406,11 @@ def build_config(
             "vsjet_tau_id_bit": 4,
             "vsele_tau_id_bit": 4,
             "vsmu_tau_id_bit": 1,
+            "min_boostedtau_pt": 30.0,
+            "max_boostedtau_eta": 2.3,
+            "iso_boostedtau_id_bit": 2,
+            "antiele_boostedtau_id_bit": 2,
+            "antimu_boostedtau_id_bit": 1,
         },
     )
 
@@ -765,6 +776,9 @@ def build_config(
             # taus.BaseTaus,
             taus.GoodTaus,
             taus.NumberOfGoodTaus,
+            boostedtaus.boostedTauEnergyCorrection,
+            boostedtaus.GoodBoostedTaus,
+            boostedtaus.NumberOfGoodBoostedTaus,
             electrons.ExtraElectronsVeto,
             pairselection.MTPairSelection,
             pairselection.GoodMTPairFilter,
@@ -792,6 +806,9 @@ def build_config(
             # taus.BaseTaus,
             taus.GoodTaus,
             taus.NumberOfGoodTaus,
+            boostedtaus.boostedTauEnergyCorrection,
+            boostedtaus.GoodBoostedTaus,
+            boostedtaus.NumberOfGoodBoostedTaus,
             electrons.NumberOfGoodElectrons,
             electrons.VetoElectrons,
             electrons.ExtraElectronsVeto,
@@ -822,6 +839,9 @@ def build_config(
             # taus.BaseTaus,
             taus.GoodTaus,
             taus.NumberOfGoodTaus,
+            boostedtaus.boostedTauEnergyCorrection,
+            boostedtaus.GoodBoostedTaus,
+            boostedtaus.NumberOfGoodBoostedTaus,
             pairselection.TTPairSelection,
             pairselection.GoodTTPairFilter,
             pairselection.LVTau1,
@@ -1246,7 +1266,7 @@ def build_config(
             q.mTdileptonMET,
             q.mt_1,
             q.mt_2,
-            q.pt_tt,
+            q.pt_tautau,
             q.pt_ttjj,
             q.mt_tot,
             q.genbosonmass,

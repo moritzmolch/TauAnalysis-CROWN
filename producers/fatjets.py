@@ -382,7 +382,7 @@ fj_matched_phi = Producer(
 fj_matched_mass = Producer(
     name="fj_matched_mass",
     call="quantities::mass({df}, {output}, {input})",
-    input=[q.fatjet_p4_1],
+    input=[q.matched_fatjet_p4],
     output=[q.fj_matched_mass],
     scopes=["mt", "et", "tt", "em", "mm", "ee"],
 )

@@ -63,11 +63,25 @@ mass_2 = Producer(
     output=[q.mass_2],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )
+p4_vis = Producer(
+    name="p4_vis",
+    call="lorentzvectors::CombineP4s({df}, {output}, {input})",
+    input=[q.p4_1, q.p4_2],
+    output=[q.p4_vis],
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+)
 m_vis = Producer(
     name="m_vis",
-    call="quantities::m_vis({df}, {output}, {input_vec})",
-    input=[q.p4_1, q.p4_2],
+    call="quantities::mass({df}, {output}, {input})",
+    input=[q.p4_vis],
     output=[q.m_vis],
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+)
+pt_vis = Producer(
+    name="pt_vis",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.p4_vis],
+    output=[q.pt_vis],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )
 deltaR_ditaupair = Producer(
@@ -75,13 +89,6 @@ deltaR_ditaupair = Producer(
     call="quantities::deltaR({df}, {output}, {input})",
     input=[q.p4_1, q.p4_2],
     output=[q.deltaR_ditaupair],
-    scopes=["mt", "et", "tt", "em", "ee", "mm"],
-)
-pt_vis = Producer(
-    name="pt_vis",
-    call="quantities::pt_vis({df}, {output}, {input_vec})",
-    input=[q.p4_1, q.p4_2],
-    output=[q.pt_vis],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )
 
@@ -159,11 +166,25 @@ bpair_btag_value_2 = Producer(
     output=[q.bpair_btag_value_2],
     scopes=["mt", "et", "tt", "em", "mm", "ee"],
 )
+p4_bpair = Producer(
+    name="p4_bpair",
+    call="lorentzvectors::CombineP4s({df}, {output}, {input})",
+    input=[q.bpair_p4_1, q.bpair_p4_2],
+    output=[q.p4_bpair],
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+)
 bpair_m_inv = Producer(
     name="bpair_m_inv",
-    call="quantities::m_vis({df}, {output}, {input_vec})",
-    input=[q.bpair_p4_1, q.bpair_p4_2],
+    call="quantities::mass({df}, {output}, {input})",
+    input=[q.p4_bpair],
     output=[q.bpair_m_inv],
+    scopes=["mt", "et", "tt"],
+)
+bpair_pt_dijet = Producer(
+    name="bpair_pt_dijet",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.p4_bpair],
+    output=[q.bpair_pt_dijet],
     scopes=["mt", "et", "tt"],
 )
 bpair_deltaR = Producer(
@@ -171,13 +192,6 @@ bpair_deltaR = Producer(
     call="quantities::deltaR({df}, {output}, {input})",
     input=[q.bpair_p4_1, q.bpair_p4_2],
     output=[q.bpair_deltaR],
-    scopes=["mt", "et", "tt"],
-)
-bpair_pt_dijet = Producer(
-    name="bpair_pt_dijet",
-    call="quantities::pt_dijet({df}, {output}, {input})",
-    input=[q.bpair_p4_1, q.bpair_p4_2],
-    output=[q.bpair_pt_dijet],
     scopes=["mt", "et", "tt"],
 )
 ####################
@@ -475,7 +489,7 @@ tau_decaymode_2_notau = Producer(
     scopes=["em", "ee", "mm"],
 )
 tau_gen_match_2 = Producer(
-    name="taugen_match_2",
+    name="tau_gen_match_2",
     call="quantities::tau::genmatch({df}, {output}, 1, {input})",
     input=[q.dileptonpair, nanoAOD.Tau_genMatch],
     output=[q.tau_gen_match_2],
@@ -673,6 +687,7 @@ MTDiTauPairQuantities = ProducerGroup(
         UnrollMuLV1,
         UnrollTauLV2,
         tau_decaymode_1_notau,
+        p4_vis,
         m_vis,
         pt_vis,
         deltaR_ditaupair,
@@ -689,6 +704,7 @@ MuMuPairQuantities = ProducerGroup(
         UnrollMuLV2,
         tau_decaymode_1_notau,
         tau_decaymode_2_notau,
+        p4_vis,
         m_vis,
         pt_vis,
         deltaR_ditaupair,
@@ -705,6 +721,7 @@ ElElPairQuantities = ProducerGroup(
         UnrollElLV2,
         tau_decaymode_1_notau,
         tau_decaymode_2_notau,
+        p4_vis,
         m_vis,
         pt_vis,
         deltaR_ditaupair,
@@ -720,6 +737,7 @@ ETDiTauPairQuantities = ProducerGroup(
         UnrollElLV1,
         UnrollTauLV2,
         tau_decaymode_1_notau,
+        p4_vis,
         m_vis,
         pt_vis,
         deltaR_ditaupair,
@@ -731,7 +749,7 @@ TTDiTauPairQuantities = ProducerGroup(
     input=None,
     output=None,
     scopes=["tt"],
-    subproducers=[UnrollTauLV1, UnrollTauLV2, m_vis, pt_vis, deltaR_ditaupair],
+    subproducers=[UnrollTauLV1, UnrollTauLV2, p4_vis, m_vis, pt_vis, deltaR_ditaupair],
 )
 EMDiTauPairQuantities = ProducerGroup(
     name="EMDiTauPairQuantities",
@@ -744,6 +762,7 @@ EMDiTauPairQuantities = ProducerGroup(
         UnrollMuLV2,
         tau_decaymode_1_notau,
         tau_decaymode_2_notau,
+        p4_vis,
         m_vis,
         pt_vis,
         deltaR_ditaupair,
@@ -758,6 +777,7 @@ DiBjetPairQuantities = ProducerGroup(
     subproducers=[
         UnrollBjetLV1,
         UnrollBjetLV2,
+        p4_bpair,
         bpair_m_inv,
         bpair_pt_dijet,
         bpair_deltaR,
@@ -797,11 +817,25 @@ mt_2 = Producer(
     output=[q.mt_2],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )
-pt_tt = Producer(
-    name="pt_tt",
-    call="quantities::pt_tt({df}, {output}, {input})",
+p4_tautau = Producer(
+    name="p4_tautau",
+    call="lorentzvectors::CombineP4s({df}, {output}, {input})",
     input=[q.p4_1, q.p4_2, q.met_p4_recoilcorrected],
-    output=[q.pt_tt],
+    output=[q.p4_tautau],
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+)
+# pt_tt = Producer(
+#     name="pt_tt",
+#     call="quantities::pt_tt({df}, {output}, {input})",
+#     input=[q.p4_1, q.p4_2, q.met_p4_recoilcorrected],
+#     output=[q.pt_tt],
+#     scopes=["mt", "et", "tt", "em", "ee", "mm"],
+# )
+pt_tautau = Producer(
+    name="pt_tautau",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.p4_tautau],
+    output=[q.pt_tautau],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )
 pt_ttjj = Producer(
@@ -811,11 +845,25 @@ pt_ttjj = Producer(
     output=[q.pt_ttjj],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )
-pt_ttbb = Producer(
-    name="pt_ttbb",
-    call="quantities::pt_ttjj({df}, {output}, {input})",
+p4_tautaubb = Producer(
+    name="p4_tautaubb",
+    call="lorentzvectors::CombineP4s({df}, {output}, {input})",
     input=[q.p4_1, q.p4_2, q.bpair_p4_1, q.bpair_p4_2, q.met_p4_recoilcorrected],
-    output=[q.pt_ttbb],
+    output=[q.p4_tautaubb],
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+)
+pt_tautaubb = Producer(
+    name="pt_tautaubb",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.p4_tautaubb],
+    output=[q.pt_tautaubb],
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+)
+mass_tautaubb = Producer(
+    name="mass_tautaubb",
+    call="quantities::mass({df}, {output}, {input})",
+    input=[q.p4_tautaubb],
+    output=[q.mass_tautaubb],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )
 mt_tot = Producer(
@@ -908,9 +956,12 @@ DiTauPairMETQuantities = ProducerGroup(
         mTdileptonMET,
         mt_1,
         mt_2,
-        pt_tt,
+        p4_tautau,
+        pt_tautau,
         pt_ttjj,
-        pt_ttbb,
+        p4_tautaubb,
+        pt_tautaubb,
+        mass_tautaubb,
         mt_tot,
         Pzetamissvis_pf,
         mTdileptonMET_pf,
