@@ -90,9 +90,9 @@ GoodBoostedTaus = ProducerGroup(
         boostedTauPtCut,
         boostedTauEtaCut,
         boostedTauDMCut,
-        #MVAisoBoostedTauIDCut,
-        #AntiEleBoostedTauIDCut,
-        #AntiMuBoostedTauIDCut,
+        MVAisoBoostedTauIDCut,
+        AntiEleBoostedTauIDCut,
+        AntiMuBoostedTauIDCut,
     ],
 )
 NumberOfGoodBoostedTaus = Producer(
