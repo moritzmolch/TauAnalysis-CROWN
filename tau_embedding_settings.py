@@ -10,6 +10,7 @@ from .producers import taus as taus
 from .producers import jets as jets
 from .producers import triggers as triggers
 from .producers import electrons as electrons
+from .quantities import output as q
 from code_generation.configuration import Configuration
 from code_generation.systematics import SystematicShift
 from code_generation.modifiers import EraModifier
@@ -255,6 +256,24 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             ]
         },
     )
+    # electron trigger SF settings from embedding measurements
+    configuration.add_config_parameters(
+        ["tt"],
+        {
+            "embedding_ditau_trigger_wp": "Medium",
+            "embedding_ditau_trigger_type": "ditau",
+            "embedding_ditau_trigger_corrtype": "sf",
+            "embedding_ditau_trigger_syst": "nom",
+            "embedding_ditau_trigger_file": EraModifier(
+                {
+                    "2016preVFP": "",
+                    "2016postVFP": "",
+                    "2017": "",
+                    "2018": "data/embedding/tau_trigger2018_UL.json",
+                }
+            ),
+        },
+    )
     configuration.add_modification_rule(
         ["mt"],
         AppendProducer(
@@ -276,6 +295,23 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             ],
             samples=["embedding"],
         ),
+    )
+    configuration.add_modification_rule(
+        ["tt"],
+        AppendProducer(
+            producers=[
+                embedding.TTGenerateDoubleTauTriggerSF_1,
+                embedding.TTGenerateDoubleTauTriggerSF_2,
+            ],
+            samples=["embedding"],
+        ),
+    )
+    configuration.add_outputs(
+        "tt", 
+        [
+            q.emb_trg_wgt_1,
+            q.emb_trg_wgt_2,
+        ],
     )
     configuration.add_modification_rule(
         ["em"],

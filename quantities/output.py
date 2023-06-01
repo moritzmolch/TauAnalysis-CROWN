@@ -353,6 +353,8 @@ emb_SelectionNewMass = Quantity("emb_SelectionNewMass")
 emb_triggersel_wgt = Quantity("emb_triggersel_wgt")
 emb_idsel_wgt_1 = Quantity("emb_idsel_wgt_1")
 emb_idsel_wgt_2 = Quantity("emb_idsel_wgt_2")
+emb_trg_wgt_1 = Quantity("emb_trg_wgt_1")
+emb_trg_wgt_2 = Quantity("emb_trg_wgt_2")
 
 
 # sample flags
