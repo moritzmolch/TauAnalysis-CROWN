@@ -187,6 +187,7 @@ def plot_corrections(
             plt.subplots_adjust(hspace=0.1)
             fig.suptitle(name)
 
+            shared_ratio_ylim = 0
             for correction_type, ax in zip(
                 processes,
                 [axes[:, 0], axes[:, 1]] if len(processes) > 1 else [axes],
@@ -222,21 +223,31 @@ def plot_corrections(
                     markerfacecolor="none",
                 )
 
-                _max_y_value: float = np.max([np.max(correction.unrolled[correction_type][window]) for correction in [correction_a, correction_b]])
+                shared_ratio_ylim = max(shared_ratio_ylim, max(map(lambda it: abs(1 - it), ax[1].get_ylim())))
 
+                ymin, ymax = ax[0].get_ylim()
                 ax[0].set(
                     xscale="log",
-                    ylim=(None, _max_y_value + 0.1),
+                    ylim=(None, (ymax - ymin) * 1.25 + ymin),
+                    xlim=(correction_a.edges[0], correction_a.edges[-1]),
                     ylabel=correction_a.ylabel,
-                )
-                ax[1].set(
-                    xscale="log",
-                    xlabel=correction_a.xlabel,
-                    ylabel="ratio",
                 )
 
                 hep.cms.label("Own Work", ax=ax[0], loc=2, data=not correction_type == "mc")
                 [_ax.legend() for _ax in ax]
+
+            shared_ratio_ylim *= 1.25
+            for correction_type, ax in zip(
+                processes,
+                [axes[:, 0], axes[:, 1]] if len(processes) > 1 else [axes],
+            ):
+                ax[1].set(
+                    xscale="log",
+                    xlabel=correction_a.xlabel,
+                    ylabel="ratio",
+                    ylim=(1 - shared_ratio_ylim, 1 + shared_ratio_ylim),
+                    xlim=(correction_a.edges[0], correction_a.edges[-1]),
+                )
 
             if not os.path.exists(output_directory):
                 os.makedirs(name="comparison_plots", exist_ok=True)
