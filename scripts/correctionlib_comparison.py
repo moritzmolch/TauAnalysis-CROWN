@@ -3,6 +3,7 @@ import gzip
 import json
 import os
 from itertools import combinations, count, product
+from multiprocessing import Pool
 from typing import Any, Dict, Generator, List, Tuple, Union
 
 import correctionlib
@@ -26,6 +27,8 @@ parser.add_argument(
     default="",
 )
 parser.add_argument("--output", type=str, help="Output directory", default="comparison_plots")
+parser.add_argument("--parallel", default=False, required=False, action="store_true", help="Create correction comparisons in parallel using 10 processes (default)")
+parser.add_argument("--max-number-of-processes", type=int, help="Number of maximal used parallel processes if --parallel is set", default=10, required=False)
 args = parser.parse_args()
 
 
@@ -145,6 +148,131 @@ def get_corrections(filename: str) -> Dict[str, CorrectionHelper]:
     }
 
 
+def _plot_single_correction(args):
+    plot_single_correction(*args)
+
+
+def plot_single_correction(
+    ncol_plots: int,
+    name: str,
+    processes: List[str],
+    window: Tuple[Tuple[str, Tuple[float, float]], ...],
+    nth_window: int,
+    correction_a_bins: dict[str, np.ndarray],
+    correction_b_bins: dict[str, np.ndarray],
+    correction_a_edges: np.ndarray,
+    correction_b_edges: np.ndarray,
+    correction_a_tag: str,
+    correction_b_tag: str,
+    correction_a_ylabel: str,
+    correction_b_ylabel: str,
+    correction_a_xlabel: str,
+    output_directory: str,
+    #
+    nth_correction: int,
+    len_corrections_a: int,
+    len_unrolled_keys: int,
+    adjusted_binning: bool,
+):
+    fig, axes = plt.subplots(
+        2,
+        len(ncol_plots),
+        gridspec_kw=dict(height_ratios=[0.7, 0.3]),
+        figsize=(10 * len(ncol_plots), 12),
+        sharex=True,
+    )
+
+    plt.subplots_adjust(hspace=0.1)
+    fig.suptitle(name)
+    shared_ratio_ylim = 0
+    for idx, (correction_type, ax) in enumerate(
+        zip(
+            processes,
+            [axes[:, 0], axes[:, 1]] if len(processes) > 1 else [axes],
+        )
+    ):
+        ax[0].set_title(
+            f"{correction_type}{': ' if correction_type else ''}{KeyTo.latex(window)}",
+            loc="left",
+            fontsize=16,
+        )
+        for correction, correction_edges, tag_name in zip(
+            [correction_a_bins, correction_b_bins],
+            [correction_a_edges, correction_b_edges],
+            [correction_a_tag, correction_b_tag],
+        ):
+            hep.histplot(
+                correction[idx],
+                correction_edges[idx],
+                label=tag_name,
+                ax=ax[0],
+                histtype="errorbar",
+                yerr=False,
+                xerr=True,
+                markerfacecolor="none",
+            )
+
+        hep.histplot(
+            correction_a_bins[idx] / correction_b_bins[idx],
+            correction_a_edges[idx],
+            label=f"${correction_a_ylabel}_{{{correction_a_tag}}}$ / ${correction_b_ylabel}_{{{correction_b_tag}}}$",
+            ax=ax[1],
+            histtype="errorbar",
+            yerr=False,
+            xerr=True,
+            markerfacecolor="none",
+        )
+
+        shared_ratio_ylim = max(shared_ratio_ylim, max(map(lambda it: abs(1 - it), ax[1].get_ylim())))
+
+        ymin, ymax = ax[0].get_ylim()
+        ax[0].set(
+            xscale="log",
+            ylim=(None, (ymax - ymin) * 1.25 + ymin),
+            xlim=(correction_a_edges[idx][0], correction_a_edges[idx][-1]),
+            ylabel=correction_a_ylabel,
+        )
+
+        hep.cms.label("Own Work", ax=ax[0], loc=2, data=not correction_type == "mc")
+        [_ax.legend() for _ax in ax]
+
+    shared_ratio_ylim *= 1.25
+    for correction_type, ax in zip(
+        processes,
+        [axes[:, 0], axes[:, 1]] if len(processes) > 1 else [axes],
+    ):
+        ax[1].set(
+            xscale="log",
+            xlabel=correction_a_xlabel,
+            ylabel="ratio",
+            ylim=(1 - shared_ratio_ylim, 1 + shared_ratio_ylim),
+            xlim=(correction_a_edges[idx][0], correction_a_edges[idx][-1]),
+        )
+
+    if not os.path.exists(output_directory):
+        os.makedirs(name="comparison_plots", exist_ok=True)
+
+    os.makedirs(name=os.path.join(output_directory, name), exist_ok=True)
+    for ext in ["pdf", "png"]:
+        plt.savefig(
+            os.path.join(
+                output_directory,
+                name,
+                f"comparison_{name}_{correction_a_tag}_{correction_b_tag}_{KeyTo.path(window)}.{ext}",
+            ),
+        )
+    plt.close()
+    print(
+        " | ".join(
+            [
+                f"Correction {nth_correction + 1}/{len_corrections_a}: {name}",
+                f"Window {nth_window + 1}/{len_unrolled_keys}: {KeyTo.prompt(window)}",
+            ]
+            + (["binning adjusted"] if adjusted_binning else [])
+        )
+    )
+
+
 def plot_corrections(
     corrections_a: dict,
     corrections_b: dict,
@@ -175,103 +303,40 @@ def plot_corrections(
         correction_b.unroll(unroll_axis)
         unrolled_keys = correction_a.unrolled[processes[0]].keys()
 
-        for nth_window, window in enumerate(unrolled_keys):
-            fig, axes = plt.subplots(
-                2,
-                len(correction_a.types),
-                gridspec_kw=dict(height_ratios=[0.7, 0.3]),
-                figsize=(10 * len(correction_a.types), 12),
-                sharex=True,
+        plot_single_correction_args = [
+            (
+                correction_a.types,  # ncol_plots,
+                name,  # name,
+                processes,  # processes,
+                window,  # window,
+                nth_window,  # window_idx,
+                tuple(correction_a.unrolled[it][window] for it in processes),  # correction_a_bins,
+                tuple(correction_b.unrolled[it][window] for it in processes),  # correction_b_bins,
+                tuple(correction_a.edges for it in processes),  # correction_a_edges,
+                tuple(correction_b.edges for it in processes),  # correction_b_edges,
+                correction_tag_a,  # correction_a_tag,
+                correction_tag_b,  # correction_b_tag,
+                correction_a.ylabel,  # correction_a_ylabel,
+                correction_b.ylabel,  # correction_b_ylabel,
+                correction_a.xlabel,  # correction_a_xlabel,
+                output_directory,  # output_directory,
+                nth_correction,  # nth_correction,
+                len(corrections_a),  # len_corrections_a,
+                len(unrolled_keys),  # len_unrolled_keys,
+                adjusted_binning,  # adjusted_binning,
             )
+            for nth_window, window in enumerate(unrolled_keys)
+        ]
 
-            plt.subplots_adjust(hspace=0.1)
-            fig.suptitle(name)
-
-            shared_ratio_ylim = 0
-            for correction_type, ax in zip(
-                processes,
-                [axes[:, 0], axes[:, 1]] if len(processes) > 1 else [axes],
-            ):
-                ax[0].set_title(
-                    f"{correction_type}{': ' if correction_type else ''}{KeyTo.latex(window)}",
-                    loc="left",
-                    fontsize=16,
-                )
-                for correction, tag_name in zip(
-                    [correction_a, correction_b],
-                    [correction_tag_a, correction_tag_b],
-                ):
-                    hep.histplot(
-                        correction.unrolled[correction_type][window],
-                        correction.edges,
-                        label=tag_name,
-                        ax=ax[0],
-                        histtype="errorbar",
-                        yerr=False,
-                        xerr=True,
-                        markerfacecolor="none",
-                    )
-
-                hep.histplot(
-                    correction_a.unrolled[correction_type][window] / correction_b.unrolled[correction_type][window],
-                    correction_a.edges,
-                    label=f"${correction_a.ylabel}_{{{correction_tag_a}}}$ / ${correction_b.ylabel}_{{{correction_tag_b}}}$",
-                    ax=ax[1],
-                    histtype="errorbar",
-                    yerr=False,
-                    xerr=True,
-                    markerfacecolor="none",
-                )
-
-                shared_ratio_ylim = max(shared_ratio_ylim, max(map(lambda it: abs(1 - it), ax[1].get_ylim())))
-
-                ymin, ymax = ax[0].get_ylim()
-                ax[0].set(
-                    xscale="log",
-                    ylim=(None, (ymax - ymin) * 1.25 + ymin),
-                    xlim=(correction_a.edges[0], correction_a.edges[-1]),
-                    ylabel=correction_a.ylabel,
-                )
-
-                hep.cms.label("Own Work", ax=ax[0], loc=2, data=not correction_type == "mc")
-                [_ax.legend() for _ax in ax]
-
-            shared_ratio_ylim *= 1.25
-            for correction_type, ax in zip(
-                processes,
-                [axes[:, 0], axes[:, 1]] if len(processes) > 1 else [axes],
-            ):
-                ax[1].set(
-                    xscale="log",
-                    xlabel=correction_a.xlabel,
-                    ylabel="ratio",
-                    ylim=(1 - shared_ratio_ylim, 1 + shared_ratio_ylim),
-                    xlim=(correction_a.edges[0], correction_a.edges[-1]),
-                )
-
-            if not os.path.exists(output_directory):
-                os.makedirs(name="comparison_plots", exist_ok=True)
-
-            os.makedirs(name=os.path.join(output_directory, name), exist_ok=True)
-            for ext in ["pdf", "png"]:
-                plt.savefig(
-                    os.path.join(
-                        output_directory,
-                        name,
-                        f"comparison_{name}_{correction_tag_a}_{correction_tag_b}_{KeyTo.path(window)}.{ext}",
-                    ),
-                )
-            plt.close("all")
-
-            print(
-                " | ".join(
-                    [
-                        f"Correction {nth_correction + 1}/{len(corrections_a)}: {name}",
-                        f"Window {nth_window + 1}/{len(unrolled_keys)}: {KeyTo.prompt(window)}",
-                    ]
-                    + (["binning adjusted"] if adjusted_binning else [])
-                )
-            )
+        if args.parallel:
+            used_processes = len(plot_single_correction_args)
+            if len(plot_single_correction_args) > args.max_number_of_processes:
+                used_processes = args.max_number_of_processes
+            with Pool(processes=used_processes) as pool:
+                pool.map(_plot_single_correction, plot_single_correction_args)
+        else:
+            for arg in plot_single_correction_args:
+                plot_single_correction(*arg)
 
 
 if __name__ == "__main__":
