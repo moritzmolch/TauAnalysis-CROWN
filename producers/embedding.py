@@ -269,6 +269,7 @@ ETGenerateSingleElectronTriggerSF = ExtendedVectorProducer(
 
 TTGenerateDoubleTauTriggerSF_1 = Producer(
     name="TTGenerateDoubleTauTriggerSF_1",
+<<<<<<< HEAD
     call='scalefactor::tau::tau_trigger_sf({df}, {input}, {output}, "{embedding_ditau_trigger_wp}", "{embedding_ditau_trigger_file}", "{embedding_ditau_trigger_type}", "{embedding_ditau_trigger_corrtype}", "{embedding_ditau_trigger_syst}")',
     input=[q.pt_1, q.tau_decaymode_1],
     output=[q.emb_trg_wgt_1],
@@ -285,6 +286,21 @@ TTGenerateDoubleTauTriggerSF_2 = Producer(
 )
 
 
+=======
+    call='scalefactor::embedding::ditau_trigger_sf({df}, {input}, {output}, "{emb_ditau_trigger_wp}", "{emb_ditau_trigger_file}", "{emb_ditau_trigger_type}", "{emb_ditau_trigger_corrtype}", "{emb_ditau_trigger_syst}")',
+    input=[q.pt_1, q.tau_decaymode_1],
+    output=[q.emb_trg_wgt_1],
+    scopes=["tt"],
+)
+TTGenerateDoubleTauTriggerSF_2 = Producer(
+    name="TTGenerateDoubleTauTriggerSF_2",
+    call='scalefactor::embedding::ditau_trigger_sf({df}, {input}, {output}, "{emb_ditau_trigger_wp}", "{emb_ditau_trigger_file}", "{emb_ditau_trigger_type}", "{emb_ditau_trigger_corrtype}", "{emb_ditau_trigger_syst}")',
+    input=[q.pt_2, q.tau_decaymode_2],
+    output=[q.emb_trg_wgt_2],
+    scopes=["tt"],
+)
+
+>>>>>>> main
 ###############################
 # Tau ID/Iso/Trigger SFS
 ###############################

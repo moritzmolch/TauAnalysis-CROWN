@@ -33,7 +33,6 @@ RawFakeFactors_nmssm_tt_1 = Producer(
         q.pt_1,
         q.pt_2,
         q.njets,
-        # q.nbtag,
     ],
     output=[q.raw_fake_factor_1],
     scopes=["tt"],
@@ -45,7 +44,6 @@ RawFakeFactors_nmssm_tt_2 = Producer(
         q.pt_1,
         q.pt_2,
         q.njets,
-        # q.nbtag,
     ],
     output=[q.raw_fake_factor_2],
     scopes=["tt"],
@@ -87,7 +85,6 @@ FakeFactors_nmssm_tt_1 = Producer(
         q.pt_1,
         q.pt_2,
         q.njets,
-        # q.nbtag,
         q.m_vis,
     ],
     output=[q.fake_factor_1],
@@ -100,9 +97,50 @@ FakeFactors_nmssm_tt_2 = Producer(
         q.pt_1,
         q.pt_2,
         q.njets,
-        # q.nbtag,
         q.m_vis,
     ],
     output=[q.fake_factor_2],
     scopes=["tt"],
+)
+
+RawFakeFactors_sm_lt = Producer(
+    name="RawFakeFactors_sm_lt",
+    call='fakefactors::raw_fakefactor_sm_lt({df}, {output}, {input}, "{ff_variation}", "{ff_file}")',
+    input=[
+        q.pt_2,
+        q.njets,
+        q.mt_1,
+        q.deltaR_ditaupair,
+    ],
+    output=[q.raw_fake_factor, q.raw_qcd_fake_factor, q.raw_wjets_fake_factor, q.raw_ttbar_fake_factor],
+    scopes=["mt", "et"],
+)
+FakeFactors_sm_lt = Producer(
+    name="FakeFactors_sm_lt",
+    call='fakefactors::fakefactor_sm_lt({df}, {output}, {input}, "{ff_variation}", "{ff_file}", "{ff_corr_file}")',
+    input=[
+        q.pt_2,
+        q.njets,
+        q.mt_1,
+        q.pt_1,
+        q.iso_1,
+        q.m_vis,
+        q.deltaR_ditaupair,
+    ],
+    output=[q.fake_factor, q.qcd_fake_factor, q.wjets_fake_factor, q.ttbar_fake_factor],
+    scopes=["mt", "et"],
+)
+FakeFactors_sm_lt_nodR = Producer(
+    name="FakeFactors_sm_lt_nodR",
+    call='fakefactors::fakefactor_sm_lt_no_deltaR({df}, {output}, {input}, "{ff_variation}", "{ff_file}", "{ff_corr_file}")',
+    input=[
+        q.pt_2,
+        q.njets,
+        q.mt_1,
+        q.pt_1,
+        q.iso_1,
+        q.m_vis,
+    ],
+    output=[q.fake_factor, q.qcd_fake_factor, q.wjets_fake_factor, q.ttbar_fake_factor],
+    scopes=["mt", "et"],
 )

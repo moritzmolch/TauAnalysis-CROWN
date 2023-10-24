@@ -6,6 +6,12 @@ prefireweight = Quantity("prefiring_wgt")
 lhe_scale_weight = Quantity("lhe_scale_weight")
 
 raw_fake_factor = Quantity("raw_fake_factor")
+raw_qcd_fake_factor = Quantity("raw_qcd_fake_factor")
+raw_wjets_fake_factor = Quantity("raw_wjets_fake_factor")
+raw_ttbar_fake_factor = Quantity("raw_ttbar_fake_factor")
+qcd_fake_factor = Quantity("qcd_fake_factor")
+wjets_fake_factor = Quantity("wjets_fake_factor")
+ttbar_fake_factor = Quantity("ttbar_fake_factor")
 fake_factor = Quantity("fake_factor")
 raw_fake_factor_boosted = Quantity("raw_fake_factor_boosted")
 fake_factor_boosted = Quantity("fake_factor_boosted")
@@ -451,7 +457,6 @@ emb_idsel_wgt_1 = Quantity("emb_idsel_wgt_1")
 emb_idsel_wgt_2 = Quantity("emb_idsel_wgt_2")
 emb_trg_wgt_1 = Quantity("emb_trg_wgt_1")
 emb_trg_wgt_2 = Quantity("emb_trg_wgt_2")
-
 
 # sample flags
 is_data = Quantity("is_data")
