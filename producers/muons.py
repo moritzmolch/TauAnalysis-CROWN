@@ -115,6 +115,13 @@ VetoMuons = Producer(
     output=[q.veto_muons_mask],
     scopes=["em", "mt", "mm"],
 )
+VetoMuons_boosted = Producer(
+    name="VetoMuons_boosted",
+    call="physicsobject::VetoCandInMask({df}, {output}, {input}, {muon_index_in_pair})",
+    input=[q.base_muons_mask, q.boosteddileptonpair],
+    output=[q.veto_muons_boosted_mask],
+    scopes=["em", "mt", "mm"],
+)
 VetoSecondMuon = Producer(
     name="VetoSecondMuon",
     call="physicsobject::VetoCandInMask({df}, {output}, {input}, {second_muon_index_in_pair})",
@@ -135,6 +142,15 @@ ExtraMuonsVeto = Producer(
     },
     output=[q.muon_veto_flag],
     scopes=["em", "et", "mt", "tt", "mm"],
+)
+BoostedExtraMuonsVeto = Producer(
+    name="BoostedExtraMuonsVeto",
+    call="physicsobject::LeptonVetoFlag({df}, {output}, {input})",
+    input={
+        "mt": [q.veto_muons_boosted_mask],
+    },
+    output=[q.boosted_muon_veto_flag],
+    scopes=["mt"],
 )
 
 ####################

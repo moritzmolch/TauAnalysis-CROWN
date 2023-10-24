@@ -88,6 +88,8 @@ Jet_ID = NanoAODQuantity("Jet_jetId")
 Jet_PUID = NanoAODQuantity("Jet_puId")
 Jet_associatedGenJet = NanoAODQuantity("Jet_genJetIdx")
 BJet_discriminator = NanoAODQuantity("Jet_btagDeepFlavB")
+BJet_bRegCorr = NanoAODQuantity("Jet_bRegCorr")
+BJet_bRegRes = NanoAODQuantity("Jet_bRegRes")
 
 GenJetAK8_pt = NanoAODQuantity("GenJetAK8_pt")
 GenJetAK8_eta = NanoAODQuantity("GenJetAK8_eta")

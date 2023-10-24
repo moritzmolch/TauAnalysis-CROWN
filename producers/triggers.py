@@ -19,7 +19,7 @@ MuMuGenerateSingleMuonTriggerFlags = ExtendedVectorProducer(
     ],
     output="flagname",
     scope=["mm"],
-    vec_config="singlemoun_trigger",
+    vec_config="singlemuon_trigger",
 )
 ElElGenerateSingleElectronTriggerFlags = ExtendedVectorProducer(
     name="ElElGenerateSingleElectronTriggerFlags",
@@ -81,7 +81,22 @@ MTGenerateSingleMuonTriggerFlags = ExtendedVectorProducer(
     ],
     output="flagname",
     scope=["mt"],
-    vec_config="singlemoun_trigger",
+    vec_config="singlemuon_trigger",
+)
+BoostedMTGenerateSingleMuonTriggerFlags = ExtendedVectorProducer(
+    name="BoostedMTGenerateSingleMuonTriggerFlags",
+    call='trigger::GenerateSingleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {etacut}, {trigger_particle_id}, {filterbit}, {max_deltaR_triggermatch} )',
+    input=[
+        q.boosted_p4_1,
+        nanoAOD.TriggerObject_bit,
+        nanoAOD.TriggerObject_id,
+        nanoAOD.TriggerObject_pt,
+        nanoAOD.TriggerObject_eta,
+        nanoAOD.TriggerObject_phi,
+    ],
+    output="flagname",
+    scope=["mt"],
+    vec_config="boosted_singlemuon_trigger",
 )
 ETGenerateSingleElectronTriggerFlags = ExtendedVectorProducer(
     name="ETGenerateSingleElectronTriggerFlags",
@@ -97,6 +112,21 @@ ETGenerateSingleElectronTriggerFlags = ExtendedVectorProducer(
     output="flagname",
     scope=["et"],
     vec_config="singleelectron_trigger",
+)
+BoostedETGenerateSingleElectronTriggerFlags = ExtendedVectorProducer(
+    name="BoostedETGenerateSingleElectronTriggerFlags",
+    call='trigger::GenerateSingleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {etacut}, {trigger_particle_id}, {filterbit}, {max_deltaR_triggermatch} )',
+    input=[
+        q.boosted_p4_1,
+        nanoAOD.TriggerObject_bit,
+        nanoAOD.TriggerObject_id,
+        nanoAOD.TriggerObject_pt,
+        nanoAOD.TriggerObject_eta,
+        nanoAOD.TriggerObject_phi,
+    ],
+    output="flagname",
+    scope=["et"],
+    vec_config="boosted_singleelectron_trigger",
 )
 EMGenerateSingleElectronTriggerFlags = ExtendedVectorProducer(
     name="EMGenerateSingleElectronTriggerFlags",

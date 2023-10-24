@@ -10,6 +10,7 @@ from .producers import fatjets as fatjets
 from .producers import met as met
 from .producers import muons as muons
 from .producers import pairquantities as pairquantities
+from .producers import pairquantities_bbpair as pairquantities_bbpair
 from .producers import pairselection as pairselection
 from .producers import scalefactors as scalefactors
 from .producers import taus as taus
@@ -138,6 +139,21 @@ def build_config(
             "tau_elefake_es_DM1_barrel": "nom",
             "tau_elefake_es_DM1_endcap": "nom",
             "tau_mufake_es": "nom",
+            # boosted taus
+            "boostedtau_dms": "0,1,10",
+            "boostedtau_sf_file": EraModifier(
+                {
+                    "2016": "data/jsonpog-integration/POG/TAU/2016_Legacy/tau.json.gz",
+                    "2017": "data/jsonpog-integration/POG/TAU/2017_ReReco/tau.json.gz",
+                    "2018": "data/jsonpog-integration/POG/TAU/2018_ReReco/tau.json.gz",
+                }
+            ),
+            "boostedtau_ES_json_name": "tau_energy_scale",
+            "boostedtau_id_algorithm": "MVAoldDM2017v2",
+            "boostedtau_ES_shift_DM0": "nom",
+            "boostedtau_ES_shift_DM1": "nom",
+            "boostedtau_ES_shift_DM10": "nom",
+            "boostedtau_ES_shift_DM11": "nom",
         },
     )
     # muon base selection:
@@ -148,8 +164,8 @@ def build_config(
             "max_muon_eta": 2.4,
             "max_muon_dxy": 0.045,
             "max_muon_dz": 0.2,
-            "muon_id": "Muon_looseId",
-            "muon_iso_cut": 0.4,
+            "muon_id": "Muon_mediumId",
+            "muon_iso_cut": 4.0,
         },
     )
     # electron base selection:
@@ -160,7 +176,7 @@ def build_config(
             "max_ele_eta": 2.5,
             "max_ele_dxy": 0.045,
             "max_ele_dz": 0.2,
-            "max_ele_iso": 0.3,
+            "max_ele_iso": 4.0,
             "ele_id": "Electron_mvaFall17V2noIso_WP90",
         },
     )
@@ -256,6 +272,7 @@ def build_config(
         (["global"] + scopes),
         {
             "min_bjet_pt": 20,
+            "bjet_energy_reg": False,
             "max_bjet_eta": EraModifier(
                 {
                     "2016": 2.4,
@@ -298,6 +315,12 @@ def build_config(
             "bb_truegen_daughter_1_pdgid": 5,
             "bb_truegen_daughter_2_pdgid": 5,
             "gen_bpair_match_deltaR": 0.2,
+            "tautau_truegen_mother_pdgid": SampleModifier(
+                {"nmssm_Ybb": 25, "nmssm_Ytautau": 35}, default=-1
+            ),
+            "tautau_truegen_daughter_1_pdgid": 15,
+            "tautau_truegen_daughter_2_pdgid": 15,
+            "gen_taupair_match_deltaR": 0.2,
         },
     )
     # leptonveto base selection:
@@ -393,11 +416,14 @@ def build_config(
             # boosted Tau ID flags
             "iso_boostedtau_id": [
                 {
+                    "boostedtau_id_discriminator": "MVAoldDM2017v2",
                     "boostedtau_2_iso_id_outputname": "id_boostedtau_iso_{wp}_2".format(wp=wp),
+                    "boostedtau_2_iso_sf_outputname": "id_wgt_boostedtau_iso_{wp}_2".format(wp=wp),
+                    "iso_boostedtau_id_WP": "{wp}".format(wp=wp),
                     "iso_boostedtau_id_WPbit": bit,
                 }
                 for wp, bit in {
-                    "VVLoose": 1,
+                    # "VVLoose": 1,
                     "VLoose": 2,
                     "Loose": 3,
                     "Medium": 4,
@@ -408,7 +434,10 @@ def build_config(
             ],
             "antiele_boostedtau_id": [
                 {
+                    "boostedtau_id_discriminator": "antiEleMVA6",
                     "boostedtau_2_antiele_id_outputname": "id_boostedtau_antiEle_{wp}_2".format(wp=wp),
+                    "boostedtau_2_antiele_sf_outputname": "id_wgt_boostedtau_antiEle_{wp}_2".format(wp=wp),
+                    "antiele_boostedtau_id_WP": "{wp}".format(wp=wp),
                     "antiele_boostedtau_id_WPbit": bit,
                 }
                 for wp, bit in {
@@ -421,7 +450,10 @@ def build_config(
             ],
             "antimu_boostedtau_id": [
                 {
+                    "boostedtau_id_discriminator": "antiMu3",
                     "boostedtau_2_antimu_id_outputname": "id_boostedtau_antiMu_{wp}_2".format(wp=wp),
+                    "boostedtau_2_antimu_sf_outputname": "id_wgt_boostedtau_antiMu_{wp}_2".format(wp=wp),
+                    "antimu_boostedtau_id_WP": "{wp}".format(wp=wp),
                     "antimu_boostedtau_id_WPbit": bit,
                 }
                 for wp, bit in {
@@ -429,6 +461,13 @@ def build_config(
                     "Tight": 2,
                 }.items()
             ],
+            "boostedtau_sf_antiele_barrel": "nom",  # or "up"/"down" for up/down variation
+            "boostedtau_sf_antiele_endcap": "nom",  # or "up"/"down" for up/down variation
+            "boostedtau_sf_antimu_wheel1": "nom",
+            "boostedtau_sf_antimu_wheel2": "nom",
+            "boostedtau_sf_antimu_wheel3": "nom",
+            "boostedtau_sf_antimu_wheel4": "nom",
+            "boostedtau_sf_antimu_wheel5": "nom",
         },
     )
     # MT / ET tau id sf variations
@@ -441,6 +480,12 @@ def build_config(
             "tau_sf_vsjet_tau500to1000": "nom",
             "tau_sf_vsjet_tau1000toinf": "nom",
             "tau_vsjet_sf_dependence": "pt",  # or "dm", "eta"
+            "boostedtau_sf_iso_tau30to35": "nom",
+            "boostedtau_sf_iso_tau35to40": "nom",
+            "boostedtau_sf_iso_tau40to500": "nom",
+            "boostedtau_sf_iso_tau500to1000": "nom",
+            "boostedtau_sf_iso_tau1000toinf": "nom",
+            "boostedtau_iso_sf_dependence": "pt", 
         },
     )
     # TT tau id sf variations
@@ -471,7 +516,7 @@ def build_config(
             "antiele_boostedtau_id_bit": 1,
             "antimu_boostedtau_id_bit": 1,
             "boosted_pairselection_min_dR": 0.1,
-            "boosted_pairselection_max_dR": 0.4,
+            "boosted_pairselection_max_dR": 5.0,
         },
     )
     # TT tau selection:
@@ -499,7 +544,7 @@ def build_config(
             "muon_index_in_pair": 0,
             "min_muon_pt": 20.0,
             "max_muon_eta": 2.4,
-            "muon_iso_cut": 0.4,
+            "muon_iso_cut": 4.0,
         },
     )
     # Muon scale factors configuration
@@ -515,6 +560,7 @@ def build_config(
             ),
             "muon_id_sf_name": "NUM_MediumID_DEN_TrackerMuons",
             "muon_iso_sf_name": "NUM_TightRelIso_DEN_MediumID",
+            "muon_trigger_sf_name": "NUM_Mu50_or_OldMu100_or_TkMu100_DEN_CutBasedIdGlobalHighPt_and_TkIsoLoose",
             "muon_sf_year_id": EraModifier(
                 {
                     "2016": "2016postVFP_UL",
@@ -555,8 +601,8 @@ def build_config(
         {
             "electron_index_in_pair": 0,
             "min_electron_pt": 25.0,
-            "max_electron_eta": 2.1,
-            "electron_iso_cut": 0.3,
+            "max_electron_eta": 2.5,
+            "electron_iso_cut": 4.0,
         },
     )
     # EE scope electron selection
@@ -747,6 +793,7 @@ def build_config(
             fatjets.FatJetEnergyCorrection,
             fatjets.GoodFatJets,
             jets.JetEnergyCorrection,
+            jets.BJetEnergyCorrection,
             jets.GoodJets,
             jets.GoodBJets,
             event.DiLeptonVeto,
@@ -766,24 +813,39 @@ def build_config(
         scopes,
         [
             fatjets.FatJetCollection,
+            fatjets.FatJetCollection_boosted,
             fatjets.BasicFatJetQuantities,
             jets.JetCollection,
             jets.BasicJetQuantities,
             jets.BJetCollection,
             jets.BasicBJetQuantities,
+            jets.JetCollection_boosted,
+            jets.BJetCollection_boosted,
             pairselection.BBPairSelection,
+            pairselection.BBPairSelection_boosted,
             # pairselection.GoodBBPairFilter,
             pairselection.LVbjet1,
             pairselection.LVbjet2,
-            pairquantities.DiBjetPairQuantities,
+            pairselection.LVbjet1_boosted,
+            pairselection.LVbjet2_boosted,
+            pairquantities_bbpair.DiBjetPairQuantities,
+            pairquantities_bbpair.DiBjetPairQuantities_boosted,
             genparticles.GenDiBjetPairQuantities,
             fatjets.FindFatjetMatchingBjet,
             fatjets.BasicMatchedFatJetQuantities,
+            fatjets.FindXbbFatjet,
+            fatjets.BasicXbbFatJetQuantities,
+            fatjets.FindXbbFatjet_boosted,
+            fatjets.BasicXbbFatJetQuantities_boosted,
             scalefactors.btagging_SF,
+            scalefactors.btagging_SF_boosted,
             met.MetCorrections,
             met.PFMetCorrections,
+            met.MetCorrections_boosted,
+            met.PFMetCorrections_boosted,
             pairquantities.DiTauPairMETQuantities,
             genparticles.GenMatching,
+            genparticles.GenMatchingBoosted,
         ],
     )
     configuration.add_producers(
@@ -833,6 +895,8 @@ def build_config(
             muons.NumberOfGoodMuons,
             muons.VetoMuons,
             muons.ExtraMuonsVeto,
+            muons.VetoMuons_boosted,
+            muons.BoostedExtraMuonsVeto,
             taus.TauEnergyCorrection,
             # taus.BaseTaus,
             taus.GoodTaus,
@@ -846,8 +910,12 @@ def build_config(
             pairselection.GoodMTPairFilter,
             pairselection.LVMu1,
             pairselection.LVTau2,
+            pairselection.additionalBoostedTau,
+            pairselection.LVaddBoostedTau,
             boostedtaus.boostedLVMu1,
             boostedtaus.boostedLVTau2,
+            boostedtaus.boostedLVMu1_uncorrected,
+            boostedtaus.boostedLVTau2_uncorrected,
             pairselection.LVMu1Uncorrected,
             pairselection.LVTau2Uncorrected,
             pairquantities.MTDiTauPairQuantities,
@@ -857,7 +925,11 @@ def build_config(
             scalefactors.Tau_2_VsJetTauID_lt_SF,
             scalefactors.Tau_2_VsEleTauID_SF,
             scalefactors.Tau_2_VsMuTauID_SF,
+            scalefactors.Tau_2_oldIsoTauID_lt_SF,
+            scalefactors.Tau_2_antiEleTauID_SF,
+            scalefactors.Tau_2_antiMuTauID_SF,
             triggers.MTGenerateSingleMuonTriggerFlags,
+            triggers.BoostedMTGenerateSingleMuonTriggerFlags,
             triggers.MTGenerateCrossTriggerFlags,
             triggers.GenerateSingleTrailingTauTriggerFlags,
         ],
@@ -875,21 +947,35 @@ def build_config(
             boostedtaus.NumberOfGoodBoostedTaus,
             electrons.NumberOfGoodElectrons,
             electrons.VetoElectrons,
+            electrons.VetoElectrons_boosted,
             electrons.ExtraElectronsVeto,
+            electrons.BoostedExtraElectronsVeto,
             muons.ExtraMuonsVeto,
             pairselection.ETPairSelection,
+            pairselection.boostedETPairSelection,
             pairselection.GoodETPairFilter,
             pairselection.LVEl1,
             pairselection.LVTau2,
+            pairselection.additionalBoostedTau,
+            pairselection.LVaddBoostedTau,
+            boostedtaus.boostedLVEl1,
+            boostedtaus.boostedLVTau2,
+            boostedtaus.boostedLVEl1_uncorrected,
+            boostedtaus.boostedLVTau2_uncorrected,
             pairselection.LVEl1Uncorrected,
             pairselection.LVTau2Uncorrected,
             pairquantities.ETDiTauPairQuantities,
+            boostedtaus.boostedETDiTauPairQuantities,
             genparticles.ETGenDiTauPairQuantities,
             scalefactors.Tau_2_VsJetTauID_lt_SF,
             scalefactors.Tau_2_VsEleTauID_SF,
             scalefactors.Tau_2_VsMuTauID_SF,
+            scalefactors.Tau_2_oldIsoTauID_lt_SF,
+            scalefactors.Tau_2_antiEleTauID_SF,
+            scalefactors.Tau_2_antiMuTauID_SF,
             # scalefactors.EleID_SF,
             triggers.ETGenerateSingleElectronTriggerFlags,
+            triggers.BoostedETGenerateSingleElectronTriggerFlags,
             triggers.ETGenerateCrossTriggerFlags,
             triggers.GenerateSingleTrailingTauTriggerFlags,
         ],
@@ -903,16 +989,19 @@ def build_config(
             # taus.BaseTaus,
             taus.GoodTaus,
             taus.NumberOfGoodTaus,
-            boostedtaus.boostedTauEnergyCorrection,
-            boostedtaus.GoodBoostedTaus,
-            boostedtaus.NumberOfGoodBoostedTaus,
+            # boostedtaus.boostedTauEnergyCorrection,
+            # boostedtaus.GoodBoostedTaus,
+            # boostedtaus.NumberOfGoodBoostedTaus,
             pairselection.TTPairSelection,
             pairselection.GoodTTPairFilter,
             pairselection.LVTau1,
             pairselection.LVTau2,
+            # boostedtaus.boostedLVTau1,
+            # boostedtaus.boostedLVTau2,
             pairselection.LVTau1Uncorrected,
             pairselection.LVTau2Uncorrected,
             pairquantities.TTDiTauPairQuantities,
+            # boostedtaus.boostedTTDiTauPairQuantities,
             genparticles.TTGenDiTauPairQuantities,
             scalefactors.Tau_1_VsJetTauID_SF,
             scalefactors.Tau_1_VsEleTauID_SF,
@@ -921,6 +1010,7 @@ def build_config(
             scalefactors.Tau_2_VsEleTauID_SF,
             scalefactors.Tau_2_VsMuTauID_SF,
             triggers.TTGenerateDoubleTriggerFlags,
+            # triggers.BoostedTTGenerateDoubleTriggerFlags,
             triggers.GenerateSingleTrailingTauTriggerFlags,
             triggers.GenerateSingleLeadingTauTriggerFlags,
         ],
@@ -958,6 +1048,9 @@ def build_config(
                 scalefactors.Tau_2_VsMuTauID_SF,
                 scalefactors.Tau_2_VsJetTauID_lt_SF,
                 scalefactors.Tau_2_VsEleTauID_SF,
+                scalefactors.Tau_2_antiMuTauID_SF,
+                scalefactors.Tau_2_oldIsoTauID_lt_SF,
+                scalefactors.Tau_2_antiEleTauID_SF,
             ],
             samples="data",
         ),
@@ -968,6 +1061,8 @@ def build_config(
             producers=[
                 genparticles.GenBPairQuantities,
                 genparticles.GenMatchingBPairFlag,
+                genparticles.GenTauPairQuantities,
+                genparticles.GenMatchingBoostedTauPairFlag,
             ],
             samples=["nmssm_Ybb", "nmssm_Ytautau"],
         ),
@@ -992,6 +1087,7 @@ def build_config(
         RemoveProducer(
             producers=[
                 scalefactors.btagging_SF,
+                scalefactors.btagging_SF_boosted,
             ],
             samples=["data", "embedding", "embedding_mc"],
         ),
@@ -1000,6 +1096,13 @@ def build_config(
         ["et", "mt", "tt"],
         ReplaceProducer(
             producers=[taus.TauEnergyCorrection, taus.TauEnergyCorrection_data],
+            samples="data",
+        ),
+    )
+    configuration.add_modification_rule(
+        ["et", "mt"],
+        ReplaceProducer(
+            producers=[boostedtaus.boostedTauEnergyCorrection, boostedtaus.boostedTauEnergyCorrection_data],
             samples="data",
         ),
     )
@@ -1048,7 +1151,7 @@ def build_config(
         ),
     )
     configuration.add_modification_rule(
-        ["et", "mt", "tt"],
+        ["et", "mt"],
         RemoveProducer(
             producers=[
                 pairquantities.tau_gen_match_2,
@@ -1071,6 +1174,7 @@ def build_config(
         RemoveProducer(
             producers=[
                 genparticles.GenMatching,
+                genparticles.GenMatchingBoosted,
             ],
             samples="data",
         ),
@@ -1195,6 +1299,8 @@ def build_config(
             producers=[
                 scalefactors.TauEmbeddingMuonIDSF_1_MC,
                 scalefactors.TauEmbeddingMuonIsoSF_1_MC,
+                scalefactors.TauEmbeddingBoostedMuonIDSF_1_MC,
+                scalefactors.TauEmbeddingBoostedMuonIsoSF_1_MC,
             ],
             samples=[
                 sample
@@ -1209,6 +1315,8 @@ def build_config(
             producers=[
                 scalefactors.TauEmbeddingElectronIDSF_1_MC,
                 scalefactors.TauEmbeddingElectronIsoSF_1_MC,
+                scalefactors.TauEmbeddingBoostedElectronIDSF_1_MC,
+                scalefactors.TauEmbeddingBoostedElectronIsoSF_1_MC,
             ],
             samples=[
                 sample
@@ -1271,6 +1379,7 @@ def build_config(
         AppendProducer(
             producers=[
                 scalefactors.MTGenerateSingleMuonTriggerSF_MC,
+                scalefactors.MTGenerateSingleMuonNoIsoTriggerSF_MC,
             ],
             samples=[
                 sample
@@ -1341,6 +1450,23 @@ def build_config(
             q.fj_matched_particleNet_XbbvsQCD,
             q.fj_matched_nsubjettiness_2over1,
             q.fj_matched_nsubjettiness_3over2,
+            q.fj_Xbb_pt,
+            q.fj_Xbb_eta,
+            q.fj_Xbb_phi,
+            q.fj_Xbb_mass,
+            q.fj_Xbb_msoftdrop,
+            q.fj_Xbb_particleNet_XbbvsQCD,
+            q.fj_Xbb_nsubjettiness_2over1,
+            q.fj_Xbb_nsubjettiness_3over2,
+            q.nfatjets_boosted,
+            q.fj_Xbb_pt_boosted,
+            q.fj_Xbb_eta_boosted,
+            q.fj_Xbb_phi_boosted,
+            q.fj_Xbb_mass_boosted,
+            q.fj_Xbb_msoftdrop_boosted,
+            q.fj_Xbb_particleNet_XbbvsQCD_boosted,
+            q.fj_Xbb_nsubjettiness_2over1_boosted,
+            q.fj_Xbb_nsubjettiness_3over2_boosted,
             q.bpair_pt_1,
             q.bpair_pt_2,
             q.bpair_eta_1,
@@ -1354,6 +1480,19 @@ def build_config(
             q.bpair_m_inv,
             q.bpair_deltaR,
             q.bpair_pt_dijet,
+            q.bpair_pt_1_boosted,
+            q.bpair_pt_2_boosted,
+            q.bpair_eta_1_boosted,
+            q.bpair_eta_2_boosted,
+            q.bpair_phi_1_boosted,
+            q.bpair_phi_2_boosted,
+            q.bpair_mass_1_boosted,
+            q.bpair_mass_2_boosted,
+            q.bpair_btag_value_1_boosted,
+            q.bpair_btag_value_2_boosted,
+            q.bpair_m_inv_boosted,
+            q.bpair_deltaR_boosted,
+            q.bpair_pt_dijet_boosted,
             q.genjet_pt_1,
             q.genjet_eta_1,
             q.genjet_phi_1,
@@ -1366,6 +1505,7 @@ def build_config(
             q.genjet_hadFlavour_2,
             q.genjet_m_inv,
             q.njets,
+            q.njets_boosted,
             q.jpt_1,
             q.jpt_2,
             q.jeta_1,
@@ -1379,6 +1519,7 @@ def build_config(
             q.deltaR_ditaupair,
             q.pt_vis,
             q.nbtag,
+            q.nbtag_boosted,
             q.bpt_1,
             q.bpt_2,
             q.beta_1,
@@ -1388,6 +1529,7 @@ def build_config(
             q.btag_value_1,
             q.btag_value_2,
             q.btag_weight,
+            q.btag_weight_boosted,
             q.mass_1,
             q.mass_2,
             q.dxy_1,
@@ -1413,6 +1555,10 @@ def build_config(
             q.metphi,
             q.pfmet,
             q.pfmetphi,
+            q.met_boosted,
+            q.metphi_boosted,
+            q.pfmet_boosted,
+            q.pfmetphi_boosted,
             q.met_uncorrected,
             q.metphi_uncorrected,
             q.pfmet_uncorrected,
@@ -1434,6 +1580,8 @@ def build_config(
             q.genbosonmass,
             q.gen_match_1,
             q.gen_match_2,
+            q.boosted_gen_match_1,
+            q.boosted_gen_match_2,
             q.pzetamissvis_pf,
             q.mTdileptonMET_pf,
             q.mt_1_pf,
@@ -1444,21 +1592,6 @@ def build_config(
             q.mt_tot_pf,
             q.pt_dijet,
             q.jet_hemisphere,
-            # q.boosted_pt_1,
-            # q.boosted_pt_2,
-            # q.boosted_eta_1,
-            # q.boosted_eta_2,
-            # q.boosted_phi_1,
-            # q.boosted_phi_2,
-            # q.boosted_mass_1,
-            # q.boosted_mass_2,
-            # q.boosted_q_1,
-            # q.boosted_q_2,
-            # q.boosted_iso_1,
-            # q.boosted_iso_2,
-            # q.boosted_m_vis,
-            # q.boosted_deltaR_ditaupair,
-            # q.boosted_pt_vis,
         ],
     )
     # add genWeight for everything but data
@@ -1476,6 +1609,9 @@ def build_config(
             scalefactors.Tau_2_VsJetTauID_lt_SF.output_group,
             scalefactors.Tau_2_VsEleTauID_SF.output_group,
             scalefactors.Tau_2_VsMuTauID_SF.output_group,
+            scalefactors.Tau_2_oldIsoTauID_lt_SF.output_group,
+            scalefactors.Tau_2_antiEleTauID_SF.output_group,
+            scalefactors.Tau_2_antiMuTauID_SF.output_group,
             pairquantities.VsJetTauIDFlag_2.output_group,
             pairquantities.VsEleTauIDFlag_2.output_group,
             pairquantities.VsMuTauIDFlag_2.output_group,
@@ -1483,6 +1619,7 @@ def build_config(
             boostedtaus.antiEleTauIDFlag_2.output_group,
             boostedtaus.antiMuTauIDFlag_2.output_group,
             triggers.MTGenerateSingleMuonTriggerFlags.output_group,
+            triggers.BoostedMTGenerateSingleMuonTriggerFlags.output_group,
             triggers.MTGenerateCrossTriggerFlags.output_group,
             triggers.GenerateSingleTrailingTauTriggerFlags.output_group,
             q.taujet_pt_2,
@@ -1491,6 +1628,7 @@ def build_config(
             q.tau_decaymode_2,
             q.tau_gen_match_2,
             q.muon_veto_flag,
+            q.boosted_muon_veto_flag,
             q.electron_veto_flag,
             q.dimuon_veto,
             q.dilepton_veto,
@@ -1501,7 +1639,6 @@ def build_config(
             q.boosted_tau_decaymode_1,
             q.boosted_tau_decaymode_2,
             # q.boosted_tau_gen_match_2,
-            q.boosted_taujet_pt_2,
             q.boosted_pt_1,
             q.boosted_pt_2,
             q.boosted_eta_1,
@@ -1517,6 +1654,14 @@ def build_config(
             q.boosted_m_vis,
             q.boosted_deltaR_ditaupair,
             q.boosted_pt_vis,
+            q.boosted_mt_1,
+            q.boosted_mt_2,
+            q.boosted_pt_tautaubb,
+            q.boosted_mass_tautaubb,
+            q.boosted_pt_add,
+            q.boosted_eta_add,
+            q.boosted_phi_add,
+            q.boosted_mass_add,
         ],
     )
     configuration.add_outputs(
@@ -1524,13 +1669,21 @@ def build_config(
         [
             q.nelectrons,
             q.ntaus,
+            q.nboostedtaus,
             scalefactors.Tau_2_VsJetTauID_lt_SF.output_group,
             scalefactors.Tau_2_VsEleTauID_SF.output_group,
             scalefactors.Tau_2_VsMuTauID_SF.output_group,
+            scalefactors.Tau_2_oldIsoTauID_lt_SF.output_group,
+            scalefactors.Tau_2_antiEleTauID_SF.output_group,
+            scalefactors.Tau_2_antiMuTauID_SF.output_group,
             pairquantities.VsJetTauIDFlag_2.output_group,
             pairquantities.VsEleTauIDFlag_2.output_group,
             pairquantities.VsMuTauIDFlag_2.output_group,
+            boostedtaus.isoTauIDFlag_2.output_group,
+            boostedtaus.antiEleTauIDFlag_2.output_group,
+            boostedtaus.antiMuTauIDFlag_2.output_group,
             triggers.ETGenerateSingleElectronTriggerFlags.output_group,
+            triggers.BoostedETGenerateSingleElectronTriggerFlags.output_group,
             triggers.ETGenerateCrossTriggerFlags.output_group,
             triggers.GenerateSingleTrailingTauTriggerFlags.output_group,
             q.taujet_pt_2,
@@ -1539,11 +1692,40 @@ def build_config(
             q.tau_decaymode_2,
             q.tau_gen_match_2,
             q.muon_veto_flag,
+            q.boosted_electron_veto_flag,
             q.electron_veto_flag,
             q.dielectron_veto,
             q.dilepton_veto,
             # q.id_wgt_ele_wp90nonIso_1,
             # q.id_wgt_ele_wp80nonIso_1,
+            q.boosted_dxy_1,
+            q.boosted_dz_1,
+            q.boosted_tau_decaymode_1,
+            q.boosted_tau_decaymode_2,
+            # q.boosted_tau_gen_match_2,
+            q.boosted_pt_1,
+            q.boosted_pt_2,
+            q.boosted_eta_1,
+            q.boosted_eta_2,
+            q.boosted_phi_1,
+            q.boosted_phi_2,
+            q.boosted_mass_1,
+            q.boosted_mass_2,
+            q.boosted_q_1,
+            q.boosted_q_2,
+            q.boosted_iso_1,
+            q.boosted_iso_2,
+            q.boosted_m_vis,
+            q.boosted_deltaR_ditaupair,
+            q.boosted_pt_vis,
+            q.boosted_mt_1,
+            q.boosted_mt_2,
+            q.boosted_pt_tautaubb,
+            q.boosted_mass_tautaubb,
+            q.boosted_pt_add,
+            q.boosted_eta_add,
+            q.boosted_phi_add,
+            q.boosted_mass_add,
         ],
     )
     configuration.add_outputs(
@@ -1576,6 +1758,7 @@ def build_config(
             q.electron_veto_flag,
             q.dimuon_veto,
             q.dilepton_veto,
+            # q.boosted_tau_gen_match_2,
         ],
     )
     configuration.add_outputs(
@@ -1639,6 +1822,17 @@ def build_config(
                 q.gen_b_m_inv,
                 q.gen_b_deltaR,
                 q.gen_bpair_match_flag,
+                q.gen_tau_pt_1,
+                q.gen_tau_eta_1,
+                q.gen_tau_phi_1,
+                q.gen_tau_mass_1,
+                q.gen_tau_pt_2,
+                q.gen_tau_eta_2,
+                q.gen_tau_phi_2,
+                q.gen_tau_mass_2,
+                q.gen_tau_m_inv,
+                q.gen_tau_deltaR,
+                q.gen_boostedtaupair_match_flag,
             ],
         )
     #########################

@@ -93,108 +93,6 @@ deltaR_ditaupair = Producer(
 )
 
 ####################
-# Set of general producers for BBPair Quantities
-####################
-
-bpair_pt_1 = Producer(
-    name="bpair_pt_1",
-    call="quantities::pt({df}, {output}, {input})",
-    input=[q.bpair_p4_1],
-    output=[q.bpair_pt_1],
-    scopes=["mt", "et", "tt"],
-)
-bpair_pt_2 = Producer(
-    name="bpair_pt_2",
-    call="quantities::pt({df}, {output}, {input})",
-    input=[q.bpair_p4_2],
-    output=[q.bpair_pt_2],
-    scopes=["mt", "et", "tt"],
-)
-bpair_eta_1 = Producer(
-    name="bpair_eta_1",
-    call="quantities::eta({df}, {output}, {input})",
-    input=[q.bpair_p4_1],
-    output=[q.bpair_eta_1],
-    scopes=["mt", "et", "tt"],
-)
-bpair_eta_2 = Producer(
-    name="bpair_eta_2",
-    call="quantities::eta({df}, {output}, {input})",
-    input=[q.bpair_p4_2],
-    output=[q.bpair_eta_2],
-    scopes=["mt", "et", "tt"],
-)
-bpair_phi_1 = Producer(
-    name="bpair_phi_1",
-    call="quantities::phi({df}, {output}, {input})",
-    input=[q.bpair_p4_1],
-    output=[q.bpair_phi_1],
-    scopes=["mt", "et", "tt"],
-)
-bpair_phi_2 = Producer(
-    name="bpair_phi_2",
-    call="quantities::phi({df}, {output}, {input})",
-    input=[q.bpair_p4_2],
-    output=[q.bpair_phi_2],
-    scopes=["mt", "et", "tt"],
-)
-bpair_mass_1 = Producer(
-    name="bpair_mass_1",
-    call="quantities::mass({df}, {output}, {input})",
-    input=[q.bpair_p4_1],
-    output=[q.bpair_mass_1],
-    scopes=["mt", "et", "tt"],
-)
-bpair_mass_2 = Producer(
-    name="bpair_mass_2",
-    call="quantities::mass({df}, {output}, {input})",
-    input=[q.bpair_p4_2],
-    output=[q.bpair_mass_2],
-    scopes=["mt", "et", "tt"],
-)
-bpair_btag_value_1 = Producer(
-    name="bpair_btag_value_1",
-    call="quantities::jet::btagValue({df}, {output}, {input}, 0)",
-    input=[nanoAOD.BJet_discriminator, q.dibjetpair],
-    output=[q.bpair_btag_value_1],
-    scopes=["mt", "et", "tt", "em", "mm", "ee"],
-)
-bpair_btag_value_2 = Producer(
-    name="bpair_btag_value_2",
-    call="quantities::jet::btagValue({df}, {output}, {input}, 1)",
-    input=[nanoAOD.BJet_discriminator, q.dibjetpair],
-    output=[q.bpair_btag_value_2],
-    scopes=["mt", "et", "tt", "em", "mm", "ee"],
-)
-p4_bpair = Producer(
-    name="p4_bpair",
-    call="lorentzvectors::CombineP4s({df}, {output}, {input})",
-    input=[q.bpair_p4_1, q.bpair_p4_2],
-    output=[q.p4_bpair],
-    scopes=["mt", "et", "tt", "em", "ee", "mm"],
-)
-bpair_m_inv = Producer(
-    name="bpair_m_inv",
-    call="quantities::mass({df}, {output}, {input})",
-    input=[q.p4_bpair],
-    output=[q.bpair_m_inv],
-    scopes=["mt", "et", "tt"],
-)
-bpair_pt_dijet = Producer(
-    name="bpair_pt_dijet",
-    call="quantities::pt({df}, {output}, {input})",
-    input=[q.p4_bpair],
-    output=[q.bpair_pt_dijet],
-    scopes=["mt", "et", "tt"],
-)
-bpair_deltaR = Producer(
-    name="bpair_deltaR",
-    call="quantities::deltaR({df}, {output}, {input})",
-    input=[q.bpair_p4_1, q.bpair_p4_2],
-    output=[q.bpair_deltaR],
-    scopes=["mt", "et", "tt"],
-)
-####################
 # Set of channel specific producers
 ####################
 muon_dxy_1 = Producer(
@@ -644,35 +542,6 @@ UnrollTauLV2 = ProducerGroup(
     ],
 )
 
-UnrollBjetLV1 = ProducerGroup(
-    name="UnrollBjetLV1",
-    call=None,
-    input=None,
-    output=None,
-    scopes=["et", "mt", "tt"],
-    subproducers=[
-        bpair_pt_1,
-        bpair_eta_1,
-        bpair_phi_1,
-        bpair_mass_1,
-        bpair_btag_value_1,
-    ],
-)
-UnrollBjetLV2 = ProducerGroup(
-    name="UnrollBjetLV2",
-    call=None,
-    input=None,
-    output=None,
-    scopes=["et", "mt", "tt"],
-    subproducers=[
-        bpair_pt_2,
-        bpair_eta_2,
-        bpair_phi_2,
-        bpair_mass_2,
-        bpair_btag_value_2,
-    ],
-)
-
 #####################
 # Producer Groups
 #####################
@@ -768,21 +637,7 @@ EMDiTauPairQuantities = ProducerGroup(
         deltaR_ditaupair,
     ],
 )
-DiBjetPairQuantities = ProducerGroup(
-    name="DiBjetPairQuantities",
-    call=None,
-    input=None,
-    output=None,
-    scopes=["mt", "et", "tt"],
-    subproducers=[
-        UnrollBjetLV1,
-        UnrollBjetLV2,
-        p4_bpair,
-        bpair_m_inv,
-        bpair_pt_dijet,
-        bpair_deltaR,
-    ],
-)
+
 ## advanced event quantities (can be caluculated when ditau pair and met and all jets are determined)
 ## leptons: q.p4_1, q.p4_2
 ## met: met_p4_recoilcorrected
@@ -1107,5 +962,91 @@ FastMTTQuantities = ProducerGroup(
         "et": [p4_fastmtt_et, pt_fastmtt, eta_fastmtt, phi_fastmtt, m_fastmtt],
         "tt": [p4_fastmtt_tt, pt_fastmtt, eta_fastmtt, phi_fastmtt, m_fastmtt],
         "em": [p4_fastmtt_em, pt_fastmtt, eta_fastmtt, phi_fastmtt, m_fastmtt],
+    },
+)
+
+boosted_p4_fastmtt_mt = Producer(
+    name="boosted_p4_fastmtt_mt",
+    call='quantities::p4_fastmtt({df}, {output}, {input}, "mt")',
+    input=[
+        q.boosted_pt_1,
+        q.boosted_pt_2,
+        q.boosted_eta_1,
+        q.boosted_eta_2,
+        q.boosted_phi_1,
+        q.boosted_phi_2,
+        q.boosted_mass_1,
+        q.boosted_mass_2,
+        q.met_boosted,
+        q.metphi_boosted,
+        q.metcov00,
+        q.metcov01,
+        q.metcov11,
+        q.boosted_tau_decaymode_1,
+        q.boosted_tau_decaymode_2,
+    ],
+    output=[q.boosted_p4_fastmtt],
+    scopes=["mt"],
+)
+boosted_p4_fastmtt_et = Producer(
+    name="boosted_p4_fastmtt_et",
+    call='quantities::p4_fastmtt({df}, {output}, {input}, "et")',
+    input=[
+        q.boosted_pt_1,
+        q.boosted_pt_2,
+        q.boosted_eta_1,
+        q.boosted_eta_2,
+        q.boosted_phi_1,
+        q.boosted_phi_2,
+        q.boosted_mass_1,
+        q.boosted_mass_2,
+        q.met_boosted,
+        q.metphi_boosted,
+        q.metcov00,
+        q.metcov01,
+        q.metcov11,
+        q.boosted_tau_decaymode_1,
+        q.boosted_tau_decaymode_2,
+    ],
+    output=[q.boosted_p4_fastmtt],
+    scopes=["et"],
+)
+boosted_pt_fastmtt = Producer(
+    name="boosted_pt_fastmtt",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.boosted_p4_fastmtt],
+    output=[q.boosted_pt_fastmtt],
+    scopes=["mt", "et"],
+)
+boosted_eta_fastmtt = Producer(
+    name="boosted_eta_fastmtt",
+    call="quantities::eta({df}, {output}, {input})",
+    input=[q.boosted_p4_fastmtt],
+    output=[q.boosted_eta_fastmtt],
+    scopes=["mt", "et"],
+)
+boosted_phi_fastmtt = Producer(
+    name="boosted_phi_fastmtt",
+    call="quantities::phi({df}, {output}, {input})",
+    input=[q.boosted_p4_fastmtt],
+    output=[q.boosted_phi_fastmtt],
+    scopes=["mt", "et"],
+)
+boosted_m_fastmtt = Producer(
+    name="boosted_m_fastmtt",
+    call="quantities::mass({df}, {output}, {input})",
+    input=[q.boosted_p4_fastmtt],
+    output=[q.boosted_m_fastmtt],
+    scopes=["mt", "et"],
+)
+BoostedFastMTTQuantities = ProducerGroup(
+    name="BoostedFastMTTQuantities",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mt", "et"],
+    subproducers={
+        "mt": [boosted_p4_fastmtt_mt, boosted_pt_fastmtt, boosted_eta_fastmtt, boosted_phi_fastmtt, boosted_m_fastmtt],
+        "et": [boosted_p4_fastmtt_et, boosted_pt_fastmtt, boosted_eta_fastmtt, boosted_phi_fastmtt, boosted_m_fastmtt],
     },
 )

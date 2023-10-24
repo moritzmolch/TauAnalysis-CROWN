@@ -80,6 +80,19 @@ YbbTrueGenPair = Producer(
     output=[q.gen_truebpair],
     scopes=["mt", "et", "tt"],
 )
+YtautauTrueGenPair = Producer(
+    name="YtautauTrueGenPair",
+    call="pairselection::buildtruegenpair({df}, {input}, {output}, {tautau_truegen_mother_pdgid}, {tautau_truegen_daughter_1_pdgid}, {tautau_truegen_daughter_2_pdgid})",
+    input=[
+        nanoAOD.GenParticle_statusFlags,
+        nanoAOD.GenParticle_status,
+        nanoAOD.GenParticle_pdgId,
+        nanoAOD.GenParticle_motherid,
+        nanoAOD.GenParticle_pt,
+    ],
+    output=[q.gen_truetaupair],
+    scopes=["mt", "et", "tt"],
+)
 EmbeddingGenPair = Producer(
     name="EmbeddingGenPair",
     call="pairselection::buildtruegenpair({df}, {input}, {output}, {truegen_mother_pdgid}, {truegen_daughter_1_pdgid}, {truegen_daugher_2_pdgid})",
@@ -199,6 +212,32 @@ LVTrueGenB2 = Producer(
         nanoAOD.GenParticle_mass,
     ],
     output=[q.gen_b_p4_2],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
+LVTrueGenTau1 = Producer(
+    name="LVTrueGenTau1",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.gen_truetaupair,
+        nanoAOD.GenParticle_pt,
+        nanoAOD.GenParticle_eta,
+        nanoAOD.GenParticle_phi,
+        nanoAOD.GenParticle_mass,
+    ],
+    output=[q.gen_tau_p4_1],
+    scopes=["mt", "et", "tt", "em", "mm", "ee"],
+)
+LVTrueGenTau2 = Producer(
+    name="LVTrueGenTau2",
+    call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
+    input=[
+        q.gen_truetaupair,
+        nanoAOD.GenParticle_pt,
+        nanoAOD.GenParticle_eta,
+        nanoAOD.GenParticle_phi,
+        nanoAOD.GenParticle_mass,
+    ],
+    output=[q.gen_tau_p4_2],
     scopes=["mt", "et", "tt", "em", "mm", "ee"],
 )
 
@@ -459,6 +498,77 @@ gen_b_deltaR = Producer(
     scopes=["mt", "et", "tt"],
 )
 
+gen_tau_pt_1 = Producer(
+    name="gen_tau_pt_1",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.gen_tau_p4_1],
+    output=[q.gen_tau_pt_1],
+    scopes=["mt", "et", "tt"],
+)
+gen_tau_pt_2 = Producer(
+    name="gen_tau_pt_2",
+    call="quantities::pt({df}, {output}, {input})",
+    input=[q.gen_tau_p4_2],
+    output=[q.gen_tau_pt_2],
+    scopes=["mt", "et", "tt"],
+)
+gen_tau_eta_1 = Producer(
+    name="gen_tau_eta_1",
+    call="quantities::eta({df}, {output}, {input})",
+    input=[q.gen_tau_p4_1],
+    output=[q.gen_tau_eta_1],
+    scopes=["mt", "et", "tt"],
+)
+gen_tau_eta_2 = Producer(
+    name="gen_tau_eta_2",
+    call="quantities::eta({df}, {output}, {input})",
+    input=[q.gen_tau_p4_2],
+    output=[q.gen_tau_eta_2],
+    scopes=["mt", "et", "tt"],
+)
+gen_tau_phi_1 = Producer(
+    name="gen_tau_phi_1",
+    call="quantities::phi({df}, {output}, {input})",
+    input=[q.gen_tau_p4_1],
+    output=[q.gen_tau_phi_1],
+    scopes=["mt", "et", "tt"],
+)
+gen_tau_phi_2 = Producer(
+    name="gen_tau_phi_2",
+    call="quantities::phi({df}, {output}, {input})",
+    input=[q.gen_tau_p4_2],
+    output=[q.gen_tau_phi_2],
+    scopes=["mt", "et", "tt"],
+)
+gen_tau_mass_1 = Producer(
+    name="gen_tau_mass_1",
+    call="quantities::mass({df}, {output}, {input})",
+    input=[q.gen_tau_p4_1],
+    output=[q.gen_tau_mass_1],
+    scopes=["mt", "et", "tt"],
+)
+gen_tau_mass_2 = Producer(
+    name="gen_tau_mass_2",
+    call="quantities::mass({df}, {output}, {input})",
+    input=[q.gen_tau_p4_2],
+    output=[q.gen_tau_mass_2],
+    scopes=["mt", "et", "tt"],
+)
+gen_tau_m_inv = Producer(
+    name="gen_tau_m_inv",
+    call="quantities::m_vis({df}, {output}, {input_vec})",
+    input=[q.gen_tau_p4_1, q.gen_tau_p4_2],
+    output=[q.gen_tau_m_inv],
+    scopes=["mt", "et", "tt"],
+)
+gen_tau_deltaR = Producer(
+    name="gen_tau_deltaR",
+    call="quantities::deltaR({df}, {output}, {input})",
+    input=[q.gen_tau_p4_1, q.gen_tau_p4_2],
+    output=[q.gen_tau_deltaR],
+    scopes=["mt", "et", "tt"],
+)
+
 UnrollGenJetLV1 = ProducerGroup(
     name="UnrollGenJetLV1",
     call=None,
@@ -502,6 +612,22 @@ UnrollGenBLV2 = ProducerGroup(
     output=None,
     scopes=["et", "mt", "tt"],
     subproducers=[gen_b_pt_2, gen_b_eta_2, gen_b_phi_2, gen_b_mass_2],
+)
+UnrollGenTrueTauLV1 = ProducerGroup(
+    name="UnrollGenTrueTauLV1",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mt", "et", "tt"],
+    subproducers=[gen_tau_pt_1, gen_tau_eta_1, gen_tau_phi_1, gen_tau_mass_1],
+)
+UnrollGenTrueTauLV2 = ProducerGroup(
+    name="UnrollGenTrueTauLV2",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["et", "mt", "tt"],
+    subproducers=[gen_tau_pt_2, gen_tau_eta_2, gen_tau_phi_2, gen_tau_mass_2],
 )
 
 UnrollGenMuLV1 = ProducerGroup(
@@ -596,6 +722,22 @@ GenBPairQuantities = ProducerGroup(
         UnrollGenBLV2,
         gen_b_m_inv,
         gen_b_deltaR,
+    ],
+)
+GenTauPairQuantities = ProducerGroup(
+    name="GenTauPairQuantities",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mt", "et", "tt"],
+    subproducers=[
+        YtautauTrueGenPair,
+        LVTrueGenTau1,
+        LVTrueGenTau2,
+        UnrollGenTrueTauLV1,
+        UnrollGenTrueTauLV2,
+        gen_tau_m_inv,
+        gen_tau_deltaR,
     ],
 )
 MTGenDiTauPairQuantities = ProducerGroup(
@@ -768,6 +910,52 @@ GenMatching = ProducerGroup(
     ],
 )
 
+GenMatchBoostedP1 = Producer(
+    name="GenMatchBoostedP1",
+    call="genmatching::tau::genmatching({df}, {output}, {input})",
+    input=[
+        q.hadronic_gen_taus,
+        nanoAOD.GenParticle_pdgId,
+        nanoAOD.GenParticle_statusFlags,
+        nanoAOD.GenParticle_pt,
+        nanoAOD.GenParticle_eta,
+        nanoAOD.GenParticle_phi,
+        nanoAOD.GenParticle_mass,
+        q.boosted_p4_1,
+    ],
+    output=[q.boosted_gen_match_1],
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+)
+
+GenMatchBoostedP2 = Producer(
+    name="GenMatchBoostedP2",
+    call="genmatching::tau::genmatching({df}, {output}, {input})",
+    input=[
+        q.hadronic_gen_taus,
+        nanoAOD.GenParticle_pdgId,
+        nanoAOD.GenParticle_statusFlags,
+        nanoAOD.GenParticle_pt,
+        nanoAOD.GenParticle_eta,
+        nanoAOD.GenParticle_phi,
+        nanoAOD.GenParticle_mass,
+        q.boosted_p4_2,
+    ],
+    output=[q.boosted_gen_match_2],
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+)
+
+GenMatchingBoosted = ProducerGroup(
+    name="GenMatchingBoosted",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+    subproducers=[
+        GenMatchBoostedP1,
+        GenMatchBoostedP2,
+    ],
+)
+
 GenMatchingBPairFlag = Producer(
     name="GenMatchingBPairFlag",
     call="genmatching::jet::particlePairRecoGenMatchFlag({df}, {output}, {input}, {gen_bpair_match_deltaR})",
@@ -778,5 +966,17 @@ GenMatchingBPairFlag = Producer(
         q.bpair_p4_2,
     ],
     output=[q.gen_bpair_match_flag],
+    scopes=["mt", "et", "tt", "em", "ee", "mm"],
+)
+GenMatchingBoostedTauPairFlag = Producer(
+    name="GenMatchingBoostedTauPairFlag",
+    call="genmatching::jet::particlePairRecoGenMatchFlag({df}, {output}, {input}, {gen_taupair_match_deltaR})",
+    input=[
+        q.gen_tau_p4_1,
+        q.gen_tau_p4_2,
+        q.boosted_p4_1,
+        q.boosted_p4_2,
+    ],
+    output=[q.gen_boostedtaupair_match_flag],
     scopes=["mt", "et", "tt", "em", "ee", "mm"],
 )

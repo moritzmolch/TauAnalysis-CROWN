@@ -182,6 +182,22 @@ TauEmbeddingMuonIsoSF_2 = Producer(
     output=[q.iso_wgt_mu_2],
     scopes=["mm", "em"],
 )
+
+TauEmbeddingBoostedMuonIDSF_1 = Producer(
+    name="TauEmbeddingBoostedMuonIDSF_1",
+    call='scalefactor::embedding::muon_sf({df}, {input}, {output}, "{embedding_muon_sf_file}", "emb", "{embedding_muon_id_sf}")',
+    input=[q.boosted_pt_1, q.boosted_eta_1],
+    output=[q.id_wgt_mu_boosted_1],
+    scopes=["mt", "mm"],
+)
+TauEmbeddingBoostedMuonIsoSF_1 = Producer(
+    name="TauEmbeddingBoostedMuonIsoSF_1",
+    call='scalefactor::embedding::muon_sf({df}, {input}, {output}, "{embedding_muon_sf_file}", "emb", "{embedding_muon_iso_sf}")',
+    input=[q.boosted_pt_1, q.boosted_eta_1],
+    output=[q.iso_wgt_mu_boosted_1],
+    scopes=["mt", "mm"],
+)
+
 MTGenerateSingleMuonTriggerSF = ExtendedVectorProducer(
     name="MTGenerateSingleMuonTriggerSF",
     call='scalefactor::embedding::muon_sf({df}, {input}, {output}, "{embedding_muon_sf_file}", "emb", "{embedding_trigger_sf}", {muon_trg_extrapolation})',
@@ -224,6 +240,22 @@ TauEmbeddingElectronIsoSF_2 = Producer(
     output=[q.iso_wgt_ele_2],
     scopes=["ee"],
 )
+
+TauEmbeddingBoostedElectronIDSF_1 = Producer(
+    name="TauEmbeddingBoostedElectronIDSF_1",
+    call='scalefactor::embedding::electron_sf({df}, {input}, {output}, "{embedding_electron_sf_file}", "emb", "{embedding_electron_id_sf}")',
+    input=[q.boosted_pt_1, q.boosted_eta_1],
+    output=[q.id_wgt_ele_boosted_1],
+    scopes=["et", "ee", "em"],
+)
+TauEmbeddingBoostedElectronIsoSF_1 = Producer(
+    name="TauEmbeddingBoostedElectronIsoSF_1",
+    call='scalefactor::embedding::electron_sf({df}, {input}, {output}, "{embedding_electron_sf_file}", "emb", "{embedding_electron_iso_sf}")',
+    input=[q.boosted_pt_1, q.boosted_eta_1],
+    output=[q.iso_wgt_ele_boosted_1],
+    scopes=["et", "ee", "em"],
+)
+
 ETGenerateSingleElectronTriggerSF = ExtendedVectorProducer(
     name="ETGenerateSingleElectronTriggerSF",
     call='scalefactor::embedding::electron_sf({df}, {input}, {output}, "{embedding_electron_sf_file}", "emb", "{embedding_trigger_sf}", {electron_trg_extrapolation})',

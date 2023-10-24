@@ -7,7 +7,7 @@ def add_diTauTriggerSetup(configuration: Configuration):
     configuration.add_config_parameters(
         ["mt", "mm", "em"],
         {
-            "singlemoun_trigger": EraModifier(
+            "singlemuon_trigger": EraModifier(
                 {
                     "2018": [
                         {
@@ -28,15 +28,15 @@ def add_diTauTriggerSetup(configuration: Configuration):
                             "trigger_particle_id": 13,
                             "max_deltaR_triggermatch": 0.4,
                         },
-                        {
-                            "flagname": "trg_single_mu50",
-                            "hlt_path": "HLT_Mu50",
-                            "ptcut": 55,
-                            "etacut": 2.5,
-                            "filterbit": 10,
-                            "trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
+                        # {
+                        #     "flagname": "trg_single_mu50",
+                        #     "hlt_path": "HLT_Mu50",
+                        #     "ptcut": 55,
+                        #     "etacut": 2.5,
+                        #     "filterbit": 10,
+                        #     "trigger_particle_id": 13,
+                        #     "max_deltaR_triggermatch": 0.4,
+                        # },
                     ],
                     "2017": [
                         {
@@ -94,6 +94,39 @@ def add_diTauTriggerSetup(configuration: Configuration):
                             "ptcut": 23,
                             "etacut": 2.5,
                             "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                    ],
+                }
+            ),
+            "boosted_singlemuon_trigger": EraModifier(
+                {
+                    "2018": [
+                        {
+                            "flagname": "trg_single_mu24_boosted",
+                            "hlt_path": "HLT_IsoMu24",
+                            "ptcut": 25,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_mu27_boosted",
+                            "hlt_path": "HLT_IsoMu27",
+                            "ptcut": 28,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_mu50_boosted",
+                            "hlt_path": "HLT_Mu50",
+                            "ptcut": 55,
+                            "etacut": 2.5,
+                            "filterbit": 10,
                             "trigger_particle_id": 13,
                             "max_deltaR_triggermatch": 0.4,
                         },
@@ -267,6 +300,30 @@ def add_diTauTriggerSetup(configuration: Configuration):
                             "ptcut": 26,
                             "etacut": 2.1,
                             "filterbit": 1,
+                            "trigger_particle_id": 11,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                    ],
+                }
+            ),
+            "boosted_singleelectron_trigger": EraModifier(
+                {
+                    "2018": [
+                        {
+                            "flagname": "trg_single_ele32_boosted",
+                            "hlt_path": "HLT_Ele35_WPTight_Gsf",
+                            "ptcut": 33,
+                            "etacut": 2.5,
+                            "filterbit": 1,
+                            "trigger_particle_id": 11,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_ele115_boosted",
+                            "hlt_path": "HLT_Ele115_CaloIdVT_GsfTrkIdT",
+                            "ptcut": 118,
+                            "etacut": 2.5,
+                            "filterbit": 10,
                             "trigger_particle_id": 11,
                             "max_deltaR_triggermatch": 0.4,
                         },

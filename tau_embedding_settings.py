@@ -7,6 +7,7 @@ from .producers import scalefactors as scalefactors
 from .producers import pairquantities as pairquantities
 from .producers import genparticles as genparticles
 from .producers import taus as taus
+from .producers import boostedtaus as boostedtaus
 from .producers import jets as jets
 from .producers import triggers as triggers
 from .producers import electrons as electrons
@@ -269,7 +270,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/embedding/tau_trigger2018_UL.json",
+                    "2018": "data/embedding/tau_trigger2018_UL.json.gz",
                 }
             ),
         },
@@ -280,6 +281,8 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             producers=[
                 embedding.TauEmbeddingMuonIDSF_1,
                 embedding.TauEmbeddingMuonIsoSF_1,
+                embedding.TauEmbeddingBoostedMuonIDSF_1,
+                embedding.TauEmbeddingBoostedMuonIsoSF_1,
                 embedding.MTGenerateSingleMuonTriggerSF,
             ],
             samples=["embedding"],
@@ -291,6 +294,8 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             producers=[
                 embedding.TauEmbeddingElectronIDSF_1,
                 embedding.TauEmbeddingElectronIsoSF_1,
+                embedding.TauEmbeddingBoostedElectronIDSF_1,
+                embedding.TauEmbeddingBoostedElectronIsoSF_1,
                 embedding.ETGenerateSingleElectronTriggerSF,
             ],
             samples=["embedding"],
@@ -1027,7 +1032,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             "down": 0.9865 + 0.0039,
         }
         configuration.add_config_parameters(
-            ["mt", "et"],
+            ["mt", "et", "tt"],
             {
                 "tau_ES_shift_DM0": EraModifier(
                     {
@@ -1064,11 +1069,21 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             },
         )
         configuration.add_modification_rule(
-            ["mt", "et"],
+            ["mt", "et", "tt"],
             ReplaceProducer(
                 producers=[
                     taus.TauEnergyCorrection,
                     taus.TauEnergyCorrection_Embedding,
+                ],
+                samples=["embedding"],
+            ),
+        )
+        configuration.add_modification_rule(
+            ["mt", "et"],
+            ReplaceProducer(
+                producers=[
+                    boostedtaus.boostedTauEnergyCorrection,
+                    boostedtaus.boostedTauEnergyCorrection_data,
                 ],
                 samples=["embedding"],
             ),
@@ -1078,7 +1093,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             SystematicShift(
                 name="tauEs1prong0pizeroUp",
                 shift_config={
-                    ("mt", "et"): {
+                    ("mt", "et", "tt"): {
                         "tau_ES_shift_DM0": EraModifier(
                             {
                                 "2016preVFP": tauES_2016preVFP["up"],
@@ -1089,7 +1104,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                         )
                     }
                 },
-                producers={("mt", "et"): taus.TauPtCorrection_byValue},
+                producers={("mt", "et", "tt"): taus.TauPtCorrection_byValue},
             ),
             samples=["embedding"],
         )
@@ -1097,7 +1112,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             SystematicShift(
                 name="tauEs1prong0pizeroDown",
                 shift_config={
-                    ("mt", "et"): {
+                    ("mt", "et", "tt"): {
                         "tau_ES_shift_DM0": EraModifier(
                             {
                                 "2016preVFP": tauES_2016preVFP["down"],
@@ -1108,7 +1123,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                         )
                     }
                 },
-                producers={("mt", "et"): taus.TauPtCorrection_byValue},
+                producers={("mt", "et", "tt"): taus.TauPtCorrection_byValue},
             ),
             samples=["embedding"],
         )
@@ -1116,7 +1131,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             SystematicShift(
                 name="tauEs1prong1pizeroUp",
                 shift_config={
-                    ("mt", "et"): {
+                    ("mt", "et", "tt"): {
                         "tau_ES_shift_DM1": EraModifier(
                             {
                                 "2016preVFP": tauES_2016preVFP["up"],
@@ -1127,7 +1142,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                         )
                     }
                 },
-                producers={("mt", "et"): taus.TauPtCorrection_byValue},
+                producers={("mt", "et", "tt"): taus.TauPtCorrection_byValue},
             ),
             samples=["embedding"],
         )
@@ -1135,7 +1150,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             SystematicShift(
                 name="tauEs1prong1pizeroDown",
                 shift_config={
-                    ("mt", "et"): {
+                    ("mt", "et", "tt"): {
                         "tau_ES_shift_DM1": EraModifier(
                             {
                                 "2016preVFP": tauES_2016preVFP["down"],
@@ -1146,7 +1161,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                         )
                     }
                 },
-                producers={("mt", "et"): taus.TauPtCorrection_byValue},
+                producers={("mt", "et", "tt"): taus.TauPtCorrection_byValue},
             ),
             samples=["embedding"],
         )
@@ -1154,7 +1169,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             SystematicShift(
                 name="tauEs3prong0pizeroUp",
                 shift_config={
-                    ("mt", "et"): {
+                    ("mt", "et", "tt"): {
                         "tau_ES_shift_DM10": EraModifier(
                             {
                                 "2016preVFP": tauES_2016preVFP["up"],
@@ -1165,7 +1180,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                         )
                     }
                 },
-                producers={("mt", "et"): taus.TauPtCorrection_byValue},
+                producers={("mt", "et", "tt"): taus.TauPtCorrection_byValue},
             ),
             samples=["embedding"],
         )
@@ -1173,7 +1188,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             SystematicShift(
                 name="tauEs3prong0pizeroDown",
                 shift_config={
-                    ("mt", "et"): {
+                    ("mt", "et", "tt"): {
                         "tau_ES_shift_DM10": EraModifier(
                             {
                                 "2016preVFP": tauES_2016preVFP["down"],
@@ -1184,7 +1199,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                         )
                     }
                 },
-                producers={("mt", "et"): taus.TauPtCorrection_byValue},
+                producers={("mt", "et", "tt"): taus.TauPtCorrection_byValue},
             ),
             samples=["embedding"],
         )
@@ -1192,7 +1207,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             SystematicShift(
                 name="tauEs3prong1pizeroUp",
                 shift_config={
-                    ("mt", "et"): {
+                    ("mt", "et", "tt"): {
                         "tau_ES_shift_DM11": EraModifier(
                             {
                                 "2016preVFP": tauES_2016preVFP["up"],
@@ -1203,7 +1218,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                         )
                     }
                 },
-                producers={("mt", "et"): taus.TauPtCorrection_byValue},
+                producers={("mt", "et", "tt"): taus.TauPtCorrection_byValue},
             ),
             samples=["embedding"],
         )
@@ -1211,7 +1226,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             SystematicShift(
                 name="tauEs3prong1pizeroDown",
                 shift_config={
-                    ("mt", "et"): {
+                    ("mt", "et", "tt"): {
                         "tau_ES_shift_DM11": EraModifier(
                             {
                                 "2016preVFP": tauES_2016preVFP["down"],
@@ -1222,7 +1237,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                         )
                     }
                 },
-                producers={("mt", "et"): taus.TauPtCorrection_byValue},
+                producers={("mt", "et", "tt"): taus.TauPtCorrection_byValue},
             ),
             samples=["embedding"],
         )
