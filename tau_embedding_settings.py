@@ -731,7 +731,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                     "2016preVFP": "data/embedding/tau_2016preVFPUL.json.gz",
                     "2016postVFP": "data/embedding/tau_2016postVFPUL.json.gz",
                     "2017": "data/embedding/tau_2017UL.json.gz",
-                    "2018": "data/embedding/tau_2018UL.json.gz",
+                    "2018": "data/jsonpog-integration/POG/TAU/2018_UL/tau_embed.json.gz",
                 }
             ),
             "tau_emb_sf_vsjet_tau20to25": "nom",
@@ -739,7 +739,8 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             "tau_emb_sf_vsjet_tau30to35": "nom",
             "tau_emb_sf_vsjet_tau35to40": "nom",
             "tau_emb_sf_vsjet_tau40toInf": "nom",
-            "tau_emb_id_sf_correctionset": "TauID_sf_embedding_ptbinned",
+            "tau_emb_id_sf_correctionset": "test_DeepTau2017v2p1VSjet_pt-dm",
+            "tau_emb_vsjet_sf_dependence": "pt", 
             "vsjet_tau_id_sf_embedding": [
                 {
                     "tau_1_vsjet_sf_outputname": "id_wgt_tau_vsJet_{wp}_1".format(
@@ -752,15 +753,27 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                 }
                 for wp in [
                     "VVVLoose",
-                    # "VVLoose",
-                    # "VLoose",
-                    # "Loose",
+                    "VVLoose",
+                    "VLoose",
+                    "Loose",
                     "Medium",
                     "Tight",
-                    # "VTight",
-                    # "VVTight",
+                    "VTight",
+                    "VVTight",
                 ]
             ],
+        },
+    )
+    configuration.add_config_parameters(
+        ["tt", "mt"],
+        {
+            "tau_emb_vsele_WP_for_vsjet_sf": "VVLoose",
+        },
+    )
+    configuration.add_config_parameters(
+        ["et"],
+        {
+            "tau_emb_vsele_WP_for_vsjet_sf": "Tight",
         },
     )
     # replace TauID producers for embedding samples
@@ -772,14 +785,15 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                     "2016preVFP": "data/embedding/tau_2016preVFPUL.json.gz",
                     "2016postVFP": "data/embedding/tau_2016postVFPUL.json.gz",
                     "2017": "data/embedding/tau_2017UL.json.gz",
-                    "2018": "data/embedding/tau_2018UL.json.gz",
+                    "2018": "data/jsonpog-integration/POG/TAU/2018_UL/tau_embed.json.gz",
                 }
             ),
             "tau_emb_sf_vsjet_tauDM0": "nom",
             "tau_emb_sf_vsjet_tauDM1": "nom",
             "tau_emb_sf_vsjet_tauDM10": "nom",
             "tau_emb_sf_vsjet_tauDM11": "nom",
-            "tau_emb_id_sf_correctionset": "TauID_sf_embedding_dmbinned",
+            "tau_emb_id_sf_correctionset": "test_DeepTau2017v2p1VSjet_pt-dm",
+            "tau_emb_vsjet_sf_dependence": "dm", 
             "vsjet_tau_id_sf_embedding": [
                 {
                     "tau_1_vsjet_sf_outputname": "id_wgt_tau_vsJet_{wp}_1".format(
@@ -792,13 +806,13 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                 }
                 for wp in [
                     "VVVLoose",
-                    # "VVLoose",
-                    # "VLoose",
-                    # "Loose",
+                    "VVLoose",
+                    "VLoose",
+                    "Loose",
                     "Medium",
                     "Tight",
-                    # "VTight",
-                    # "VVTight",
+                    "VTight",
+                    "VVTight",
                 ]
             ],
         },
@@ -1185,7 +1199,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             ),
         )
         configuration.add_modification_rule(
-            ["mt", "et"],
+            ["mt", "et", "tt"],
             ReplaceProducer(
                 producers=[
                     boostedtaus.boostedTauEnergyCorrection,

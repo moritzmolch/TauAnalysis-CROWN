@@ -48,6 +48,28 @@ RawFakeFactors_nmssm_tt_2 = Producer(
     output=[q.raw_fake_factor_2],
     scopes=["tt"],
 )
+RawFakeFactors_nmssm_tt_boosted_1 = Producer(
+    name="RawFakeFactors_nmssm_tt_boosted_1",
+    call='fakefactors::raw_fakefactor_nmssm_tt({df}, {output}, 0, {input}, "{ff_variation_boosted}", "{ff_file_boosted}")',
+    input=[
+        q.pt_1,
+        q.pt_2,
+        q.njets,
+    ],
+    output=[q.raw_fake_factor_boosted_1],
+    scopes=["tt"],
+)
+RawFakeFactors_nmssm_tt_boosted_2 = Producer(
+    name="RawFakeFactors_nmssm_tt_boosted_2",
+    call='fakefactors::raw_fakefactor_nmssm_tt({df}, {output}, 1, {input}, "{ff_variation_boosted}", "{ff_file_boosted}")',
+    input=[
+        q.pt_1,
+        q.pt_2,
+        q.njets,
+    ],
+    output=[q.raw_fake_factor_boosted_2],
+    scopes=["tt"],
+)
 
 FakeFactors_nmssm_lt = Producer(
     name="FakeFactors_nmssm_lt",
@@ -100,6 +122,30 @@ FakeFactors_nmssm_tt_2 = Producer(
         q.m_vis,
     ],
     output=[q.fake_factor_2],
+    scopes=["tt"],
+)
+FakeFactors_nmssm_tt_boosted_1 = Producer(
+    name="FakeFactors_nmssm_tt_boosted_1",
+    call='fakefactors::fakefactor_nmssm_tt({df}, {output}, 0, {input}, "{ff_variation_boosted}", "{ff_file_boosted}", "{ff_corr_file_boosted}")',
+    input=[
+        q.pt_1,
+        q.pt_2,
+        q.njets,
+        q.m_vis,
+    ],
+    output=[q.fake_factor_boosted_1],
+    scopes=["tt"],
+)
+FakeFactors_nmssm_tt_boosted_2 = Producer(
+    name="FakeFactors_nmssm_tt_boosted_2",
+    call='fakefactors::fakefactor_nmssm_tt({df}, {output}, 1, {input}, "{ff_variation_boosted}", "{ff_file_boosted}", "{ff_corr_file_boosted}")',
+    input=[
+        q.pt_1,
+        q.pt_2,
+        q.njets,
+        q.m_vis,
+    ],
+    output=[q.fake_factor_boosted_2],
     scopes=["tt"],
 )
 

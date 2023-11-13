@@ -269,24 +269,6 @@ ETGenerateSingleElectronTriggerSF = ExtendedVectorProducer(
 
 TTGenerateDoubleTauTriggerSF_1 = Producer(
     name="TTGenerateDoubleTauTriggerSF_1",
-<<<<<<< HEAD
-    call='scalefactor::tau::tau_trigger_sf({df}, {input}, {output}, "{embedding_ditau_trigger_wp}", "{embedding_ditau_trigger_file}", "{embedding_ditau_trigger_type}", "{embedding_ditau_trigger_corrtype}", "{embedding_ditau_trigger_syst}")',
-    input=[q.pt_1, q.tau_decaymode_1],
-    output=[q.emb_trg_wgt_1],
-    scopes=["tt"],
-    #vec_config="tau_trigger_sf",
-)
-TTGenerateDoubleTauTriggerSF_2 = Producer(
-    name="TTGenerateDoubleTauTriggerSF_2",
-    call='scalefactor::tau::tau_trigger_sf({df}, {input}, {output}, "{embedding_ditau_trigger_wp}", "{embedding_ditau_trigger_file}", "{embedding_ditau_trigger_type}", "{embedding_ditau_trigger_corrtype}", "{embedding_ditau_trigger_syst}")',
-    input=[q.pt_2, q.tau_decaymode_2],
-    output=[q.emb_trg_wgt_2],
-    scopes=["tt"],
-    #vec_config="tau_trigger_sf",
-)
-
-
-=======
     call='scalefactor::embedding::ditau_trigger_sf({df}, {input}, {output}, "{emb_ditau_trigger_wp}", "{emb_ditau_trigger_file}", "{emb_ditau_trigger_type}", "{emb_ditau_trigger_corrtype}", "{emb_ditau_trigger_syst}")',
     input=[q.pt_1, q.tau_decaymode_1],
     output=[q.emb_trg_wgt_1],
@@ -300,15 +282,14 @@ TTGenerateDoubleTauTriggerSF_2 = Producer(
     scopes=["tt"],
 )
 
->>>>>>> main
 ###############################
 # Tau ID/Iso/Trigger SFS
 ###############################
 
 Tau_2_VsJetTauID_lt_SF = ExtendedVectorProducer(
     name="Tau_2_VsJetTauID_lt_SF",
-    call='scalefactor::tau::id_vsJet_lt_embedding({df}, {input}, "{vsjet_tau_id_WP}", "{tau_emb_sf_vsjet_tau20to25}", "{tau_emb_sf_vsjet_tau25to30}", "{tau_emb_sf_vsjet_tau30to35}", "{tau_emb_sf_vsjet_tau35to40}", "{tau_emb_sf_vsjet_tau40toInf}", {output}, "{tau_emb_sf_file}", "{tau_emb_id_sf_correctionset}")',
-    input=[q.pt_2],
+    call='scalefactor::tau::id_vsJet_lt_embedding({df}, {input}, {vec_open}{tau_dms}{vec_close}, "{vsjet_tau_id_WP}", "{tau_emb_vsele_WP_for_vsjet_sf}", "{tau_emb_sf_vsjet_tau20to25}", "{tau_emb_sf_vsjet_tau25to30}", "{tau_emb_sf_vsjet_tau30to35}", "{tau_emb_sf_vsjet_tau35to40}", "{tau_emb_sf_vsjet_tau40toInf}", "{tau_emb_vsjet_sf_dependence}", {output}, "{tau_emb_sf_file}", "{tau_emb_id_sf_correctionset}")',
+    input=[q.pt_2, q.tau_decaymode_2, q.gen_match_2],
     output="tau_2_vsjet_sf_outputname",
     scope=["et", "mt"],
     vec_config="vsjet_tau_id_sf_embedding",
@@ -316,8 +297,8 @@ Tau_2_VsJetTauID_lt_SF = ExtendedVectorProducer(
 
 Tau_1_VsJetTauID_tt_SF = ExtendedVectorProducer(
     name="Tau_1_VsJetTauID_tt_SF",
-    call='scalefactor::tau::id_vsJet_tt_embedding({df}, {input}, "{vsjet_tau_id_WP}", "{tau_emb_sf_vsjet_tauDM0}", "{tau_emb_sf_vsjet_tauDM1}", "{tau_emb_sf_vsjet_tauDM10}", "{tau_emb_sf_vsjet_tauDM11}", {output}, "{tau_emb_sf_file}", "{tau_emb_id_sf_correctionset}")',
-    input=[q.tau_decaymode_1],
+    call='scalefactor::tau::id_vsJet_tt({df}, {input}, {vec_open}{tau_dms}{vec_close}, "{vsjet_tau_id_WP}", "{tau_emb_vsele_WP_for_vsjet_sf}", "{tau_emb_sf_vsjet_tauDM0}", "{tau_emb_sf_vsjet_tauDM1}", "{tau_emb_sf_vsjet_tauDM10}", "{tau_emb_sf_vsjet_tauDM11}", "{tau_emb_vsjet_sf_dependence}", {output}, "{tau_emb_sf_file}", "{tau_emb_id_sf_correctionset}")',
+    input=[q.pt_1, q.tau_decaymode_1, q.gen_match_1],
     output="tau_1_vsjet_sf_outputname",
     scope=["tt"],
     vec_config="vsjet_tau_id_sf_embedding",
@@ -325,8 +306,8 @@ Tau_1_VsJetTauID_tt_SF = ExtendedVectorProducer(
 
 Tau_2_VsJetTauID_tt_SF = ExtendedVectorProducer(
     name="Tau_2_VsJetTauID_tt_SF",
-    call='scalefactor::tau::id_vsJet_tt_embedding({df}, {input}, "{vsjet_tau_id_WP}", "{tau_emb_sf_vsjet_tauDM0}", "{tau_emb_sf_vsjet_tauDM1}", "{tau_emb_sf_vsjet_tauDM10}", "{tau_emb_sf_vsjet_tauDM11}", {output}, "{tau_emb_sf_file}", "{tau_emb_id_sf_correctionset}")',
-    input=[q.tau_decaymode_2],
+    call='scalefactor::tau::id_vsJet_tt({df}, {input}, {vec_open}{tau_dms}{vec_close}, "{vsjet_tau_id_WP}", "{tau_emb_vsele_WP_for_vsjet_sf}", "{tau_emb_sf_vsjet_tauDM0}", "{tau_emb_sf_vsjet_tauDM1}", "{tau_emb_sf_vsjet_tauDM10}", "{tau_emb_sf_vsjet_tauDM11}", "{tau_emb_vsjet_sf_dependence}", {output}, "{tau_emb_sf_file}", "{tau_emb_id_sf_correctionset}")',
+    input=[q.pt_2, q.tau_decaymode_2, q.gen_match_2],
     output="tau_2_vsjet_sf_outputname",
     scope=["tt"],
     vec_config="vsjet_tau_id_sf_embedding",

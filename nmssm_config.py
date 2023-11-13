@@ -343,12 +343,6 @@ def build_config(
             "vsjet_tau_id": [
                 {
                     "tau_id_discriminator": "DeepTau2017v2p1VSjet",
-                    "tau_1_vsjet_sf_outputname": "id_wgt_tau_vsJet_{wp}_1".format(
-                        wp=wp
-                    ),
-                    "tau_2_vsjet_sf_outputname": "id_wgt_tau_vsJet_{wp}_2".format(
-                        wp=wp
-                    ),
                     "vsjet_tau_id_WP": "{wp}".format(wp=wp),
                     "tau_1_vsjet_id_outputname": "id_tau_vsJet_{wp}_1".format(wp=wp),
                     "tau_2_vsjet_id_outputname": "id_tau_vsJet_{wp}_2".format(wp=wp),
@@ -417,6 +411,8 @@ def build_config(
             "iso_boostedtau_id": [
                 {
                     "boostedtau_id_discriminator": "MVAoldDM2017v2",
+                    "boostedtau_1_iso_id_outputname": "id_boostedtau_iso_{wp}_1".format(wp=wp),
+                    "boostedtau_1_iso_sf_outputname": "id_wgt_boostedtau_iso_{wp}_1".format(wp=wp),
                     "boostedtau_2_iso_id_outputname": "id_boostedtau_iso_{wp}_2".format(wp=wp),
                     "boostedtau_2_iso_sf_outputname": "id_wgt_boostedtau_iso_{wp}_2".format(wp=wp),
                     "iso_boostedtau_id_WP": "{wp}".format(wp=wp),
@@ -435,6 +431,8 @@ def build_config(
             "antiele_boostedtau_id": [
                 {
                     "boostedtau_id_discriminator": "antiEleMVA6",
+                    "boostedtau_1_antiele_id_outputname": "id_boostedtau_antiEle_{wp}_1".format(wp=wp),
+                    "boostedtau_1_antiele_sf_outputname": "id_wgt_boostedtau_antiEle_{wp}_1".format(wp=wp),
                     "boostedtau_2_antiele_id_outputname": "id_boostedtau_antiEle_{wp}_2".format(wp=wp),
                     "boostedtau_2_antiele_sf_outputname": "id_wgt_boostedtau_antiEle_{wp}_2".format(wp=wp),
                     "antiele_boostedtau_id_WP": "{wp}".format(wp=wp),
@@ -451,6 +449,8 @@ def build_config(
             "antimu_boostedtau_id": [
                 {
                     "boostedtau_id_discriminator": "antiMu3",
+                    "boostedtau_1_antimu_id_outputname": "id_boostedtau_antiMu_{wp}_1".format(wp=wp),
+                    "boostedtau_1_antimu_sf_outputname": "id_wgt_boostedtau_antiMu_{wp}_1".format(wp=wp),
                     "boostedtau_2_antimu_id_outputname": "id_boostedtau_antiMu_{wp}_2".format(wp=wp),
                     "boostedtau_2_antimu_sf_outputname": "id_wgt_boostedtau_antiMu_{wp}_2".format(wp=wp),
                     "antimu_boostedtau_id_WP": "{wp}".format(wp=wp),
@@ -468,6 +468,62 @@ def build_config(
             "boostedtau_sf_antimu_wheel3": "nom",
             "boostedtau_sf_antimu_wheel4": "nom",
             "boostedtau_sf_antimu_wheel5": "nom",
+        },
+    )
+    configuration.add_config_parameters(
+        ["mt", "tt"],
+        {
+            "vsjet_tau_id_sf": [
+                {
+                    "tau_id_discriminator": "DeepTau2017v2p1VSjet",
+                    "tau_1_vsjet_sf_outputname": "id_wgt_tau_vsJet_{wp}_1".format(
+                        wp=wp
+                    ),
+                    "tau_2_vsjet_sf_outputname": "id_wgt_tau_vsJet_{wp}_2".format(
+                        wp=wp
+                    ),
+                    "vsjet_tau_id_WP": "{wp}".format(wp=wp),
+                    "vsele_WP_for_vsjet_sf": "VVLoose",
+                }
+                for wp, bit in {
+                    # "VVVLoose": 1,
+                    # "VVLoose": 2,
+                    # "VLoose": 3,
+                    "Loose": 4,
+                    "Medium": 5,
+                    "Tight": 6,
+                    "VTight": 7,
+                    # "VVTight": 8,
+                }.items()
+            ],
+        },
+    )
+    configuration.add_config_parameters(
+        ["et"],
+        {
+            "vsjet_tau_id_sf": [
+                {
+                    "tau_id_discriminator": "DeepTau2017v2p1VSjet",
+                    "tau_1_vsjet_sf_outputname": "id_wgt_tau_vsJet_{wp}_1".format(
+                        wp=wp
+                    ),
+                    "tau_2_vsjet_sf_outputname": "id_wgt_tau_vsJet_{wp}_2".format(
+                        wp=wp
+                    ),
+                    "vsjet_tau_id_WP": "{wp}".format(wp=wp),
+                    "vsele_WP_for_vsjet_sf": "Tight",
+                }
+                for wp, bit in {
+                    # "VVVLoose": 1,
+                    # "VVLoose": 2,
+                    # "VLoose": 3,
+                    "Loose": 4,
+                    "Medium": 5,
+                    "Tight": 6,
+                    "VTight": 7,
+                    # "VVTight": 8,
+                }.items()
+            ],
         },
     )
     # MT / ET tau id sf variations
@@ -497,6 +553,11 @@ def build_config(
             "tau_sf_vsjet_tauDM10": "nom",
             "tau_sf_vsjet_tauDM11": "nom",
             "tau_vsjet_sf_dependence": "dm",  # or "dm", "eta"
+            "boostedtau_sf_iso_tauDM0": "nom",
+            "boostedtau_sf_iso_tauDM1": "nom",
+            "boostedtau_sf_iso_tauDM10": "nom",
+            "boostedtau_sf_iso_tauDM11": "nom",
+            "boostedtau_iso_sf_dependence": "dm",  # or "dm", "eta"
         },
     )
 
@@ -534,6 +595,8 @@ def build_config(
             "iso_boostedtau_id_bit": 2,
             "antiele_boostedtau_id_bit": 2,
             "antimu_boostedtau_id_bit": 1,
+            "boosted_pairselection_min_dR": 0.1,
+            "boosted_pairselection_max_dR": 5.0,
         },
     )
 
@@ -989,19 +1052,22 @@ def build_config(
             # taus.BaseTaus,
             taus.GoodTaus,
             taus.NumberOfGoodTaus,
-            # boostedtaus.boostedTauEnergyCorrection,
-            # boostedtaus.GoodBoostedTaus,
-            # boostedtaus.NumberOfGoodBoostedTaus,
+            boostedtaus.boostedTauEnergyCorrection,
+            boostedtaus.GoodBoostedTaus,
+            boostedtaus.NumberOfGoodBoostedTaus,
             pairselection.TTPairSelection,
+            pairselection.boostedTTPairSelection,
             pairselection.GoodTTPairFilter,
             pairselection.LVTau1,
             pairselection.LVTau2,
-            # boostedtaus.boostedLVTau1,
-            # boostedtaus.boostedLVTau2,
+            boostedtaus.boostedLVTau1,
+            boostedtaus.boostedLVTau2,
+            boostedtaus.boostedLVTau1_uncorrected,
+            boostedtaus.boostedLVTau2_uncorrected,
             pairselection.LVTau1Uncorrected,
             pairselection.LVTau2Uncorrected,
             pairquantities.TTDiTauPairQuantities,
-            # boostedtaus.boostedTTDiTauPairQuantities,
+            boostedtaus.boostedTTDiTauPairQuantities,
             genparticles.TTGenDiTauPairQuantities,
             scalefactors.Tau_1_VsJetTauID_SF,
             scalefactors.Tau_1_VsEleTauID_SF,
@@ -1009,10 +1075,17 @@ def build_config(
             scalefactors.Tau_2_VsJetTauID_tt_SF,
             scalefactors.Tau_2_VsEleTauID_SF,
             scalefactors.Tau_2_VsMuTauID_SF,
+            scalefactors.Tau_1_oldIsoTauID_tt_SF,
+            scalefactors.Tau_1_antiEleTauID_SF,
+            scalefactors.Tau_1_antiMuTauID_SF,
+            scalefactors.Tau_2_oldIsoTauID_tt_SF,
+            scalefactors.Tau_2_antiEleTauID_SF,
+            scalefactors.Tau_2_antiMuTauID_SF,
             triggers.TTGenerateDoubleTriggerFlags,
             # triggers.BoostedTTGenerateDoubleTriggerFlags,
             triggers.GenerateSingleTrailingTauTriggerFlags,
             triggers.GenerateSingleLeadingTauTriggerFlags,
+            triggers.BoostedTTTriggerFlags,
         ],
     )
     configuration.add_producers(
@@ -1048,11 +1121,19 @@ def build_config(
                 scalefactors.Tau_2_VsMuTauID_SF,
                 scalefactors.Tau_2_VsJetTauID_lt_SF,
                 scalefactors.Tau_2_VsEleTauID_SF,
+            ],
+            samples="data",
+        ),
+    )
+    configuration.add_modification_rule(
+        ["et", "mt"],
+        RemoveProducer(
+            producers=[
                 scalefactors.Tau_2_antiMuTauID_SF,
                 scalefactors.Tau_2_oldIsoTauID_lt_SF,
                 scalefactors.Tau_2_antiEleTauID_SF,
             ],
-            samples="data",
+            samples=["data", "embedding"],
         ),
     )
     configuration.add_modification_rule(
@@ -1083,6 +1164,20 @@ def build_config(
         ),
     )
     configuration.add_modification_rule(
+        ["tt"],
+        RemoveProducer(
+            producers=[
+                scalefactors.Tau_1_oldIsoTauID_tt_SF,
+                scalefactors.Tau_1_antiEleTauID_SF,
+                scalefactors.Tau_1_antiMuTauID_SF,
+                scalefactors.Tau_2_oldIsoTauID_tt_SF,
+                scalefactors.Tau_2_antiEleTauID_SF,
+                scalefactors.Tau_2_antiMuTauID_SF,
+            ],
+            samples=["data", "embedding"],
+        ),
+    )
+    configuration.add_modification_rule(
         scopes,
         RemoveProducer(
             producers=[
@@ -1100,7 +1195,7 @@ def build_config(
         ),
     )
     configuration.add_modification_rule(
-        ["et", "mt"],
+        ["et", "mt", "tt"],
         ReplaceProducer(
             producers=[boostedtaus.boostedTauEnergyCorrection, boostedtaus.boostedTauEnergyCorrection_data],
             samples="data",
@@ -1165,6 +1260,7 @@ def build_config(
         RemoveProducer(
             producers=[
                 pairquantities.tau_gen_match_1,
+                pairquantities.tau_gen_match_2,
             ],
             samples="data",
         ),
@@ -1738,12 +1834,19 @@ def build_config(
             scalefactors.Tau_2_VsJetTauID_tt_SF.output_group,
             scalefactors.Tau_2_VsEleTauID_SF.output_group,
             scalefactors.Tau_2_VsMuTauID_SF.output_group,
+            scalefactors.Tau_1_oldIsoTauID_tt_SF.output_group,
+            scalefactors.Tau_1_antiEleTauID_SF.output_group,
+            scalefactors.Tau_1_antiMuTauID_SF.output_group,
+            scalefactors.Tau_2_oldIsoTauID_tt_SF.output_group,
+            scalefactors.Tau_2_antiEleTauID_SF.output_group,
+            scalefactors.Tau_2_antiMuTauID_SF.output_group,
             pairquantities.VsJetTauIDFlag_1.output_group,
             pairquantities.VsEleTauIDFlag_1.output_group,
             pairquantities.VsMuTauIDFlag_1.output_group,
             pairquantities.VsJetTauIDFlag_2.output_group,
             pairquantities.VsEleTauIDFlag_2.output_group,
             pairquantities.VsMuTauIDFlag_2.output_group,
+            triggers.BoostedTTTriggerFlags.output_group,
             triggers.TTGenerateDoubleTriggerFlags.output_group,
             triggers.GenerateSingleTrailingTauTriggerFlags.output_group,
             triggers.GenerateSingleLeadingTauTriggerFlags.output_group,
@@ -1758,6 +1861,7 @@ def build_config(
             q.electron_veto_flag,
             q.dimuon_veto,
             q.dilepton_veto,
+            # q.boosted_tau_gen_match_1,
             # q.boosted_tau_gen_match_2,
         ],
     )

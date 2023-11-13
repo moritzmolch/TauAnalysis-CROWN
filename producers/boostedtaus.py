@@ -189,6 +189,32 @@ boostedLVEl1_uncorrected = Producer(
     output=[q.boosted_p4_1_uncorrected],
     scopes=["et", "ee"],
 )
+boostedLVTau1 = Producer(
+    name="boostedLVTau1",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.boosteddileptonpair,
+        q.boostedTau_pt_corrected,
+        nanoAOD.boostedTau_eta,
+        nanoAOD.boostedTau_phi,
+        q.boostedTau_mass_corrected,
+    ],
+    output=[q.boosted_p4_1],
+    scopes=["tt"],
+)
+boostedLVTau1_uncorrected = Producer(
+    name="boostedLVTau1_uncorrected",
+    call="lorentzvectors::build({df}, {input_vec}, 0, {output})",
+    input=[
+        q.boosteddileptonpair,
+        nanoAOD.boostedTau_pt,
+        nanoAOD.boostedTau_eta,
+        nanoAOD.boostedTau_phi,
+        nanoAOD.boostedTau_mass,
+    ],
+    output=[q.boosted_p4_1_uncorrected],
+    scopes=["tt"],
+)
 boostedLVTau2 = Producer(
     name="boostedLVTau2",
     call="lorentzvectors::build({df}, {input_vec}, 1, {output})",
@@ -345,6 +371,58 @@ boosted_electron_iso_1 = Producer(
     scopes=["et", "ee"],
 )
 
+boosted_tau_q_1 = Producer(
+    name="boosted_tau_q_1",
+    call="quantities::charge({df}, {output}, 0, {input})",
+    input=[q.boosteddileptonpair, nanoAOD.boostedTau_charge],
+    output=[q.boosted_q_1],
+    scopes=["tt"],
+)
+boosted_tau_iso_1 = Producer(
+    name="boosted_tau_iso_1",
+    call="quantities::isolation({df}, {output}, 0, {input})",
+    input=[q.boosteddileptonpair, nanoAOD.boostedTau_iso_IDraw],
+    output=[q.boosted_iso_1],
+    scopes=["tt"],
+)
+boosted_tau_decaymode_1 = Producer(
+    name="boosted_taudecaymode_1",
+    call="quantities::tau::decaymode({df}, {output}, 0, {input})",
+    input=[q.boosteddileptonpair, nanoAOD.boostedTau_decayMode],
+    output=[q.boosted_tau_decaymode_1],
+    scopes=["tt"],
+)
+boosted_tau_gen_match_1 = Producer(
+    name="boosted_tau_gen_match_1",
+    call="quantities::tau::genmatch({df}, {output}, 0, {input})",
+    input=[q.boosteddileptonpair, nanoAOD.boostedTau_genMatch],
+    output=[q.boosted_tau_gen_match_1],
+    scopes=["tt"],
+)
+isoTauIDFlag_1 = ExtendedVectorProducer(
+    name="isoTauIDFlag_1",
+    call="quantities::tau::TauIDFlag({df}, {output}, 0, {input}, {iso_boostedtau_id_WPbit})",
+    input=[q.boosteddileptonpair, nanoAOD.boostedTau_iso_ID],
+    output="boostedtau_1_iso_id_outputname",
+    scope=["tt"],
+    vec_config="iso_boostedtau_id",
+)
+antiEleTauIDFlag_1 = ExtendedVectorProducer(
+    name="antiEleTauIDFlag_1",
+    call="quantities::tau::TauIDFlag({df}, {output}, 0, {input}, {antiele_boostedtau_id_WPbit})",
+    input=[q.boosteddileptonpair, nanoAOD.boostedTau_antiEle_ID],
+    output="boostedtau_1_antiele_id_outputname",
+    scope=["tt"],
+    vec_config="antiele_boostedtau_id",
+)
+antiMuTauIDFlag_1 = ExtendedVectorProducer(
+    name="antiMuTauIDFlag_1",
+    call="quantities::tau::TauIDFlag({df}, {output}, 0, {input}, {antimu_boostedtau_id_WPbit})",
+    input=[q.boosteddileptonpair, nanoAOD.boostedTau_antiMu_ID],
+    output="boostedtau_1_antimu_id_outputname",
+    scope=["tt"],
+    vec_config="antimu_boostedtau_id",
+)
 boosted_tau_q_2 = Producer(
     name="boosted_tau_q_2",
     call="quantities::charge({df}, {output}, 1, {input})",
@@ -527,6 +605,26 @@ UnrollboostedElLV1 = ProducerGroup(
         boosted_electron_iso_1,
     ],
 )
+UnrollboostedTauLV1 = ProducerGroup(
+    name="UnrollboostedTauLV1",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["tt"],
+    subproducers=[
+        boosted_pt_1,
+        boosted_eta_1,
+        boosted_phi_1,
+        boosted_mass_1,
+        boosted_tau_q_1,
+        boosted_tau_iso_1,
+        boosted_tau_decaymode_1,
+        # boosted_tau_gen_match_1,
+        isoTauIDFlag_1,
+        antiEleTauIDFlag_1,
+        antiMuTauIDFlag_1,
+    ],
+)
 UnrollboostedTauLV2 = ProducerGroup(
     name="UnrollboostedTauLV2",
     call=None,
@@ -595,5 +693,25 @@ boostedETDiTauPairQuantities = ProducerGroup(
         boosted_eta_add,
         boosted_phi_add,
         boosted_mass_add,
+    ],
+)
+boostedTTDiTauPairQuantities = ProducerGroup(
+    name="boostedTTDiTauPairQuantities",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["tt"],
+    subproducers=[
+        UnrollboostedTauLV1,
+        UnrollboostedTauLV2,
+        boosted_p4_vis,
+        boosted_m_vis,
+        boosted_pt_vis,
+        boosted_deltaR_ditaupair,
+        boosted_mt_1,
+        boosted_mt_2,
+        boosted_p4_tautaubb,
+        boosted_pt_tautaubb,
+        boosted_mass_tautaubb,
     ],
 )

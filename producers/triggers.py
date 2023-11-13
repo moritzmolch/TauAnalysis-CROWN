@@ -158,6 +158,14 @@ GenerateSingleLeadingTauTriggerFlags = ExtendedVectorProducer(
     scope=["tt"],
     vec_config="singletau_trigger_leading",
 )
+BoostedTTTriggerFlags = ExtendedVectorProducer(
+    name="BoostedTTTriggerFlags",
+    call='trigger::GenerateTriggerFlag({df}, {output}, "{hlt_path}")',
+    input=[],
+    output="flagname",
+    scope=["tt"],
+    vec_config="boosted_ditau_trigger",
+)
 GenerateSingleTrailingTauTriggerFlags = ExtendedVectorProducer(
     name="GenerateSingleTrailingTauTriggerFlags",
     call='trigger::GenerateSingleTriggerFlag({df}, {output}, {input}, "{hlt_path}", {ptcut}, {etacut}, {trigger_particle_id}, {filterbit}, {max_deltaR_triggermatch} )',

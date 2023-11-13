@@ -364,10 +364,28 @@ def add_diTauTriggerSetup(configuration: Configuration):
                 {
                     "2018": [
                         {
+                            "flagname": "trg_single_ele27_boosted",
+                            "hlt_path": "HLT_Ele27_WPTight_Gsf",
+                            "ptcut": 28,
+                            "etacut": 2.1,
+                            "filterbit": 1,
+                            "trigger_particle_id": 11,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
                             "flagname": "trg_single_ele32_boosted",
                             "hlt_path": "HLT_Ele35_WPTight_Gsf",
                             "ptcut": 33,
                             "etacut": 2.5,
+                            "filterbit": 1,
+                            "trigger_particle_id": 11,
+                            "max_deltaR_triggermatch": 0.4,
+                        },
+                        {
+                            "flagname": "trg_single_ele35_boosted",
+                            "hlt_path": "HLT_Ele35_WPTight_Gsf",
+                            "ptcut": 36,
+                            "etacut": 2.1,
                             "filterbit": 1,
                             "trigger_particle_id": 11,
                             "max_deltaR_triggermatch": 0.4,
@@ -681,6 +699,20 @@ def add_diTauTriggerSetup(configuration: Configuration):
                             "max_deltaR_triggermatch": 0.4,
                         },
                     ],
+                }
+            ),
+            "boosted_ditau_trigger": EraModifier(
+                {
+                    "2018": [
+                        {
+                            "flagname": "trg_ak8jet400_trimmass30",
+                            "hlt_path": "HLT_AK8PFJet400_TrimMass30",
+                        },
+                        {
+                            "flagname": "trg_ht500_met100_mht100_tightid",
+                            "hlt_path": "HLT_PFHT500_PFMET100_PFMHT100_IDTight",
+                        },
+                    ]
                 }
             ),
         },

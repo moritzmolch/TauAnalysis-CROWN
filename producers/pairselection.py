@@ -52,7 +52,7 @@ GoodMTPairFlag = Producer(
     output=[],
     scopes=["mt"],
 )
-GoodboostedMTPairFlag = Producer(
+GoodBoostedMTPairFlag = Producer(
     name="GoodboostedMTPairFlag",
     call="pairselection::flagGoodPairs({df}, {output}, {input})",
     input=[q.boosteddileptonpair],
@@ -65,7 +65,7 @@ GoodMTPairFilter = Filter(
     call='basefunctions::FilterFlagsAny({df}, "GoodMuTauPairs", {input})',
     input=[],
     scopes=["mt"],
-    subproducers=[GoodMTPairFlag, GoodboostedMTPairFlag],
+    subproducers=[GoodMTPairFlag, GoodBoostedMTPairFlag],
 )
 
 MuMuPairSelection = Producer(
@@ -199,7 +199,7 @@ GoodETPairFlag = Producer(
     output=[],
     scopes=["et"],
 )
-GoodboostedETPairFlag = Producer(
+GoodBoostedETPairFlag = Producer(
     name="GoodboostedETPairFlag",
     call="pairselection::flagGoodPairs({df}, {output}, {input})",
     input=[q.boosteddileptonpair],
@@ -212,7 +212,7 @@ GoodETPairFilter = Filter(
     call='basefunctions::FilterFlagsAny({df}, "GoodElTauPairs", {input})',
     input=[],
     scopes=["et"],
-    subproducers=[GoodETPairFlag, GoodboostedETPairFlag],
+    subproducers=[GoodETPairFlag, GoodBoostedETPairFlag],
 )
 
 ####################
@@ -225,11 +225,24 @@ TTPairSelection = Producer(
         q.Tau_pt_corrected,
         nanoAOD.Tau_eta,
         nanoAOD.Tau_phi,
-        nanoAOD.Tau_mass,
+        q.Tau_mass_corrected,
         nanoAOD.Tau_IDraw,
         q.good_taus_mask,
     ],
     output=[q.dileptonpair],
+    scopes=["tt"],
+)
+boostedTTPairSelection = Producer(
+    name="boostedTTPairSelection",
+    call="boosted_ditau_pairselection::tautau::PairSelection({df}, {input_vec}, {output}, {boosted_pairselection_min_dR}, {boosted_pairselection_max_dR})",
+    input=[
+        q.boostedTau_pt_corrected,
+        nanoAOD.boostedTau_eta,
+        nanoAOD.boostedTau_phi,
+        q.boostedTau_mass_corrected,
+        q.good_boostedtaus_mask,
+    ],
+    output=[q.boosteddileptonpair],
     scopes=["tt"],
 )
 
@@ -240,13 +253,20 @@ GoodTTPairFlag = Producer(
     output=[],
     scopes=["tt"],
 )
+GoodBoostedTTPairFlag = Producer(
+    name="GoodTTPairFlag",
+    call="pairselection::flagGoodPairs({df}, {output}, {input})",
+    input=[q.boosteddileptonpair],
+    output=[],
+    scopes=["tt"],
+)
 
 GoodTTPairFilter = Filter(
     name="GoodTTPairFilter",
     call='basefunctions::FilterFlagsAny({df}, "GoodTauTauPairs", {input})',
     input=[],
     scopes=["tt"],
-    subproducers=[GoodTTPairFlag],
+    subproducers=[GoodTTPairFlag, GoodBoostedTTPairFlag],
 )
 ####################
 ## ElMu Pair Selection
