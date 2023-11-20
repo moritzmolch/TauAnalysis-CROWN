@@ -1011,33 +1011,56 @@ boosted_p4_fastmtt_et = Producer(
     output=[q.boosted_p4_fastmtt],
     scopes=["et"],
 )
+boosted_p4_fastmtt_tt = Producer(
+    name="boosted_p4_fastmtt_tt",
+    call='quantities::p4_fastmtt({df}, {output}, {input}, "tt")',
+    input=[
+        q.boosted_pt_1,
+        q.boosted_pt_2,
+        q.boosted_eta_1,
+        q.boosted_eta_2,
+        q.boosted_phi_1,
+        q.boosted_phi_2,
+        q.boosted_mass_1,
+        q.boosted_mass_2,
+        q.met_boosted,
+        q.metphi_boosted,
+        q.metcov00,
+        q.metcov01,
+        q.metcov11,
+        q.boosted_tau_decaymode_1,
+        q.boosted_tau_decaymode_2,
+    ],
+    output=[q.boosted_p4_fastmtt],
+    scopes=["tt"],
+)
 boosted_pt_fastmtt = Producer(
     name="boosted_pt_fastmtt",
     call="quantities::pt({df}, {output}, {input})",
     input=[q.boosted_p4_fastmtt],
     output=[q.boosted_pt_fastmtt],
-    scopes=["mt", "et"],
+    scopes=["mt", "et", "tt"],
 )
 boosted_eta_fastmtt = Producer(
     name="boosted_eta_fastmtt",
     call="quantities::eta({df}, {output}, {input})",
     input=[q.boosted_p4_fastmtt],
     output=[q.boosted_eta_fastmtt],
-    scopes=["mt", "et"],
+    scopes=["mt", "et", "tt"],
 )
 boosted_phi_fastmtt = Producer(
     name="boosted_phi_fastmtt",
     call="quantities::phi({df}, {output}, {input})",
     input=[q.boosted_p4_fastmtt],
     output=[q.boosted_phi_fastmtt],
-    scopes=["mt", "et"],
+    scopes=["mt", "et", "tt"],
 )
 boosted_m_fastmtt = Producer(
     name="boosted_m_fastmtt",
     call="quantities::mass({df}, {output}, {input})",
     input=[q.boosted_p4_fastmtt],
     output=[q.boosted_m_fastmtt],
-    scopes=["mt", "et"],
+    scopes=["mt", "et", "tt"],
 )
 BoostedFastMTTQuantities = ProducerGroup(
     name="BoostedFastMTTQuantities",
@@ -1048,5 +1071,6 @@ BoostedFastMTTQuantities = ProducerGroup(
     subproducers={
         "mt": [boosted_p4_fastmtt_mt, boosted_pt_fastmtt, boosted_eta_fastmtt, boosted_phi_fastmtt, boosted_m_fastmtt],
         "et": [boosted_p4_fastmtt_et, boosted_pt_fastmtt, boosted_eta_fastmtt, boosted_phi_fastmtt, boosted_m_fastmtt],
+        "tt": [boosted_p4_fastmtt_tt, boosted_pt_fastmtt, boosted_eta_fastmtt, boosted_phi_fastmtt, boosted_m_fastmtt],
     },
 )
