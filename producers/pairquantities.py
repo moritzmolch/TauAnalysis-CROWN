@@ -1067,7 +1067,7 @@ BoostedFastMTTQuantities = ProducerGroup(
     call=None,
     input=None,
     output=None,
-    scopes=["mt", "et"],
+    scopes=["mt", "et", "tt"],
     subproducers={
         "mt": [boosted_p4_fastmtt_mt, boosted_pt_fastmtt, boosted_eta_fastmtt, boosted_phi_fastmtt, boosted_m_fastmtt],
         "et": [boosted_p4_fastmtt_et, boosted_pt_fastmtt, boosted_eta_fastmtt, boosted_phi_fastmtt, boosted_m_fastmtt],

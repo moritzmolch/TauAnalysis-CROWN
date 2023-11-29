@@ -56,7 +56,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/boosted/fake_factors_et.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/boosted/fake_factors_et_mc.json.gz",
                 }
             ),
             "ff_corr_file_boosted": EraModifier(
@@ -64,7 +64,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/boosted/FF_corrections_et.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/boosted/FF_corrections_et_mc.json.gz",
                 }
             ),
         },
@@ -95,7 +95,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/boosted/fake_factors_mt.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/boosted/fake_factors_mt_mc.json.gz",
                 }
             ),
             "ff_corr_file_boosted": EraModifier(
@@ -103,7 +103,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/boosted/FF_corrections_mt.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/boosted/FF_corrections_mt_mc.json.gz",
                 }
             ),
         },
@@ -134,7 +134,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/boosted/fake_factors_tt.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/boosted/fake_factors_tt_mc.json.gz",
                 }
             ),
             "ff_corr_file_boosted": EraModifier(
@@ -142,7 +142,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/boosted/FF_corrections_tt.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/boosted/FF_corrections_tt_mc.json.gz",
                 }
             ),
         },

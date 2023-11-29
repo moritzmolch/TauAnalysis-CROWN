@@ -1,6 +1,6 @@
 from ..quantities import output as q
 from ..quantities import nanoAOD as nanoAOD
-from code_generation.producer import Producer
+from code_generation.producer import Producer, ProducerGroup
 
 
 YHKinFit_YToBB = Producer(
@@ -19,10 +19,12 @@ YHKinFit_YToBB = Producer(
         q.bpair_eta_1,
         q.bpair_phi_1,
         q.bpair_mass_1,
+        q.bpair_reg_res_1,
         q.bpair_pt_2,
         q.bpair_eta_2,
         q.bpair_phi_2,
         q.bpair_mass_2,
+        q.bpair_reg_res_2,
         q.met,
         q.metphi,
         q.metcov00,
@@ -60,10 +62,12 @@ YHKinFit_YToTauTau = Producer(
         q.bpair_eta_1,
         q.bpair_phi_1,
         q.bpair_mass_1,
+        q.bpair_reg_res_1,
         q.bpair_pt_2,
         q.bpair_eta_2,
         q.bpair_phi_2,
         q.bpair_mass_2,
+        q.bpair_reg_res_2,
         q.met,
         q.metphi,
         q.metcov00,
@@ -85,6 +89,25 @@ YHKinFit_YToTauTau = Producer(
     scopes=["mt", "et", "tt"],
 )
 
+YHKinFit = ProducerGroup(
+    name="YHKinFit",
+    call='hhkinfit::BestYHKinFit({df}, {output}, {input})',
+    input=[],
+    output=[
+        q.kinfit_convergence,
+        q.kinfit_mX,
+        q.kinfit_mY,
+        q.kinfit_mh,
+        q.kinfit_chi2,
+        q.kinfit_prob,
+        q.kinfit_pull1,
+        q.kinfit_pull2,
+        q.kinfit_pullBalance,
+    ],
+    scopes=["mt", "et", "tt"],
+    subproducers=[YHKinFit_YToBB, YHKinFit_YToTauTau],
+)
+
 YHKinFit_YToBB_boosted = Producer(
     name="YHKinFit_YToBB_boosted",
     call='hhkinfit::YHKinFit({df}, {output}, {input}, "YToBB")',
@@ -101,10 +124,12 @@ YHKinFit_YToBB_boosted = Producer(
         q.bpair_eta_1_boosted,
         q.bpair_phi_1_boosted,
         q.bpair_mass_1_boosted,
+        q.bpair_reg_res_1_boosted,
         q.bpair_pt_2_boosted,
         q.bpair_eta_2_boosted,
         q.bpair_phi_2_boosted,
         q.bpair_mass_2_boosted,
+        q.bpair_reg_res_2_boosted,
         q.met_boosted,
         q.metphi_boosted,
         q.metcov00,
@@ -142,10 +167,12 @@ YHKinFit_YToTauTau_boosted = Producer(
         q.bpair_eta_1_boosted,
         q.bpair_phi_1_boosted,
         q.bpair_mass_1_boosted,
+        q.bpair_reg_res_1_boosted,
         q.bpair_pt_2_boosted,
         q.bpair_eta_2_boosted,
         q.bpair_phi_2_boosted,
         q.bpair_mass_2_boosted,
+        q.bpair_reg_res_2_boosted,
         q.met_boosted,
         q.metphi_boosted,
         q.metcov00,
@@ -165,4 +192,23 @@ YHKinFit_YToTauTau_boosted = Producer(
         q.kinfit_pullBalance_YToTauTau_boosted,
     ],
     scopes=["mt", "et", "tt"],
+)
+
+YHKinFit_boosted = ProducerGroup(
+    name="YHKinFit_boosted",
+    call='hhkinfit::BestYHKinFit({df}, {output}, {input})',
+    input=[],
+    output=[
+        q.kinfit_convergence_boosted,
+        q.kinfit_mX_boosted,
+        q.kinfit_mY_boosted,
+        q.kinfit_mh_boosted,
+        q.kinfit_chi2_boosted,
+        q.kinfit_prob_boosted,
+        q.kinfit_pull1_boosted,
+        q.kinfit_pull2_boosted,
+        q.kinfit_pullBalance_boosted,
+    ],
+    scopes=["mt", "et", "tt"],
+    subproducers=[YHKinFit_YToBB_boosted, YHKinFit_YToTauTau_boosted],
 )
