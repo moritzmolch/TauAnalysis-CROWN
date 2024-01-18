@@ -720,7 +720,7 @@ def build_config(
         "global",
         AppendProducer(
             producers=[event.JSONFilter],
-            samples=["data,embedding"],
+            samples=["data", "embedding"],
         ),
     )
 
