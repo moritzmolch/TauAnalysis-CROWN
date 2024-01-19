@@ -14,18 +14,36 @@ import numpy as np
 matplotlib.use("Agg")
 hep.style.use("CMS")
 
-parser = argparse.ArgumentParser(description="Script for visually comparing two correctionlibs by their individual corrections")
+parser = argparse.ArgumentParser(
+    description="Script for visually comparing two correctionlibs by their individual corrections"
+)
 parser.add_argument("--input-a", type=str, help="path to a json.gz correctionlib file")
-parser.add_argument("--input-b", type=str, help="path to a json.gz correctionlib file that is used for comparison")
-parser.add_argument("--tag-a", type=str, help="Name that will be plotted in the legend in form of '$sf_{<tag-a>}$'", default="A")
-parser.add_argument("--tag-b", type=str, help="Name that will be plotted in the legend in form of '$sf_{<tag-b>}$'", default="B")
+parser.add_argument(
+    "--input-b",
+    type=str,
+    help="path to a json.gz correctionlib file that is used for comparison",
+)
+parser.add_argument(
+    "--tag-a",
+    type=str,
+    help="Name that will be plotted in the legend in form of '$sf_{<tag-a>}$'",
+    default="A",
+)
+parser.add_argument(
+    "--tag-b",
+    type=str,
+    help="Name that will be plotted in the legend in form of '$sf_{<tag-b>}$'",
+    default="B",
+)
 parser.add_argument(
     "--correction-name",
     type=str,
     help="Name of a correction that will only be plotted. Other corrections are skipped when specified",
     default="",
 )
-parser.add_argument("--output", type=str, help="Output directory", default="comparison_plots")
+parser.add_argument(
+    "--output", type=str, help="Output directory", default="comparison_plots"
+)
 args = parser.parse_args()
 
 
@@ -35,7 +53,7 @@ def windowed(
 ) -> Generator[Tuple[Any, ...], None, None]:
     assert n > 0
     for i in range(0, len(iterable) - n + 1):
-        yield tuple(iterable[i: i + n])
+        yield tuple(iterable[i : i + n])
 
 
 def to_latex(string: str) -> str:
@@ -53,22 +71,37 @@ def to_latex(string: str) -> str:
 class KeyTo:
     @staticmethod
     def latex(key: Tuple) -> str:
-        return ", ".join([f"{to_latex(name)}$\\in$[{interval[0]}, {interval[1]}]{'' if 'eta' in name else ' GeV'}" for name, interval in key])
+        return ", ".join(
+            [
+                f"{to_latex(name)}$\\in$[{interval[0]}, {interval[1]}]{'' if 'eta' in name else ' GeV'}"
+                for name, interval in key
+            ]
+        )
 
     @staticmethod
     def path(key: Tuple) -> str:
-        return "_".join([f"_{name}_{interval[0]}_{interval[1]}" for name, interval in key])
+        return "_".join(
+            [f"_{name}_{interval[0]}_{interval[1]}" for name, interval in key]
+        )
 
     @staticmethod
     def prompt(key: Tuple) -> str:
-        return ", ".join([f"{name}=[{interval[0]}, {interval[1]}]" for name, interval in key])
+        return ", ".join(
+            [f"{name}=[{interval[0]}, {interval[1]}]" for name, interval in key]
+        )
 
 
-def is_equal_binning(first_obj: "CorrectionHelper", second_obj: "CorrectionHelper") -> bool:
-    if isinstance(first_obj, CorrectionHelper) and isinstance(second_obj, CorrectionHelper):
+def is_equal_binning(
+    first_obj: "CorrectionHelper", second_obj: "CorrectionHelper"
+) -> bool:
+    if isinstance(first_obj, CorrectionHelper) and isinstance(
+        second_obj, CorrectionHelper
+    ):
         assert first_obj._inputs == second_obj._inputs
         for item in first_obj._inputs:
-            if not np.all(first_obj.histogram_edges[item] == second_obj.histogram_edges[item]):
+            if not np.all(
+                first_obj.histogram_edges[item] == second_obj.histogram_edges[item]
+            ):
                 return False
         return True
     else:
@@ -76,13 +109,21 @@ def is_equal_binning(first_obj: "CorrectionHelper", second_obj: "CorrectionHelpe
 
 
 class CorrectionHelper(object):
-    def __init__(self, correction: correctionlib.Correction, raw_correction_data: dict) -> None:
+    def __init__(
+        self, correction: correctionlib.Correction, raw_correction_data: dict
+    ) -> None:
         self._correction = correction
         self._raw_correction_data = raw_correction_data["data"]
         self._histogram_edges: Union[dict, None] = None
 
-        self._inputs = [it["name"] for it in raw_correction_data["inputs"] if it["name"] != "type"]
-        self.types = [""] if "type" not in {it["name"] for it in raw_correction_data["inputs"]} else ["mc", "emb"]
+        self._inputs = [
+            it["name"] for it in raw_correction_data["inputs"] if it["name"] != "type"
+        ]
+        self.types = (
+            [""]
+            if "type" not in {it["name"] for it in raw_correction_data["inputs"]}
+            else ["mc", "emb"]
+        )
         self.ylabel = to_latex(raw_correction_data["output"]["name"])
 
     def __getattribute__(self, name: str, *args: Any, **kwargs: Any) -> Any:
@@ -98,7 +139,9 @@ class CorrectionHelper(object):
             _tmp = self._raw_correction_data
             for item in self._inputs:
                 if "abs" in item:
-                    self._histogram_edges[item] = np.unique(np.append([0.0], np.abs(_tmp["edges"])))
+                    self._histogram_edges[item] = np.unique(
+                        np.append([0.0], np.abs(_tmp["edges"]))
+                    )
                 else:
                     self._histogram_edges[item] = np.array(_tmp["edges"])
                 _tmp = _tmp["content"][0]
@@ -106,13 +149,19 @@ class CorrectionHelper(object):
 
     @property
     def windowed_histogram_edges(self) -> Dict[str, np.ndarray]:
-        return {k: np.array(list(windowed(v, 2))) for k, v in self.histogram_edges.items()}
+        return {
+            k: np.array(list(windowed(v, 2))) for k, v in self.histogram_edges.items()
+        }
 
     def adjust_binning_with(self, other: "CorrectionHelper") -> None:
         if isinstance(other, CorrectionHelper):
             assert self._inputs == other._inputs
             for item in self._inputs:
-                merged_binning = np.unique(np.concatenate([self.histogram_edges[item], other.histogram_edges[item]]))
+                merged_binning = np.unique(
+                    np.concatenate(
+                        [self.histogram_edges[item], other.histogram_edges[item]]
+                    )
+                )
                 self.histogram_edges[item] = merged_binning
                 other.histogram_edges[item] = merged_binning
         else:
@@ -121,15 +170,24 @@ class CorrectionHelper(object):
     def unroll(self, axis: int = 0) -> None:
         self.edges = self.histogram_edges[self._inputs[axis]]
         self.xlabel = f"{to_latex(self._inputs[axis])}{' (GeV)' if 'eta' not in self._inputs[axis] else ''}"
-        self.unrolled: Dict[str, Dict[tuple, np.ndarray]] = {key: {} for key in self.types}
+        self.unrolled: Dict[str, Dict[tuple, np.ndarray]] = {
+            key: {} for key in self.types
+        }
 
         walking_inputs = [item for idx, item in enumerate(self._inputs) if idx != axis]
         for key in self.types:
-            for windows in product(*[self.windowed_histogram_edges[item] for item in walking_inputs]):
-                args = [self.edges[:-1] + np.diff(self.edges) / 2, *tuple(map(np.mean, windows))]
+            for windows in product(
+                *[self.windowed_histogram_edges[item] for item in walking_inputs]
+            ):
+                args = [
+                    self.edges[:-1] + np.diff(self.edges) / 2,
+                    *tuple(map(np.mean, windows)),
+                ]
                 if key:
                     args.append(key)
-                self.unrolled[key][tuple(zip(walking_inputs, map(tuple, windows)))] = self.evaluate(*args)
+                self.unrolled[key][
+                    tuple(zip(walking_inputs, map(tuple, windows)))
+                ] = self.evaluate(*args)
 
 
 def get_corrections(filename: str) -> Dict[str, CorrectionHelper]:
@@ -156,12 +214,19 @@ def plot_corrections(
 ) -> None:
     correction_count = count()
 
-    for correction_key_a, correction_key_b in combinations([*corrections_a.keys(), *corrections_b.keys()], 2):
-        if correction_key_a != correction_key_b or (specific_correction and correction_key_a != specific_correction):
+    for correction_key_a, correction_key_b in combinations(
+        [*corrections_a.keys(), *corrections_b.keys()], 2
+    ):
+        if correction_key_a != correction_key_b or (
+            specific_correction and correction_key_a != specific_correction
+        ):
             continue
         else:
             nth_correction = next(correction_count)
-            correction_a, correction_b = corrections_a[correction_key_a], corrections_b[correction_key_b]
+            correction_a, correction_b = (
+                corrections_a[correction_key_a],
+                corrections_b[correction_key_b],
+            )
             name = correction_key_a
             processes = correction_a.types
 
@@ -212,7 +277,8 @@ def plot_corrections(
                     )
 
                 hep.histplot(
-                    correction_a.unrolled[correction_type][window] / correction_b.unrolled[correction_type][window],
+                    correction_a.unrolled[correction_type][window]
+                    / correction_b.unrolled[correction_type][window],
                     correction_a.edges,
                     label=f"${correction_a.ylabel}_{{{correction_tag_a}}}$ / ${correction_b.ylabel}_{{{correction_tag_b}}}$",
                     ax=ax[1],
@@ -222,7 +288,12 @@ def plot_corrections(
                     markerfacecolor="none",
                 )
 
-                _max_y_value: float = np.max([np.max(correction.unrolled[correction_type][window]) for correction in [correction_a, correction_b]])
+                _max_y_value: float = np.max(
+                    [
+                        np.max(correction.unrolled[correction_type][window])
+                        for correction in [correction_a, correction_b]
+                    ]
+                )
 
                 ax[0].set(
                     xscale="log",
@@ -235,7 +306,9 @@ def plot_corrections(
                     ylabel="ratio",
                 )
 
-                hep.cms.label("Own Work", ax=ax[0], loc=2, data=not correction_type == "mc")
+                hep.cms.label(
+                    "Own Work", ax=ax[0], loc=2, data=not correction_type == "mc"
+                )
                 [_ax.legend() for _ax in ax]
 
             if not os.path.exists(output_directory):
