@@ -606,10 +606,11 @@ def build_config(
         {
             "muon_index_in_pair": 0,
             "min_muon_pt": 20.0,
-            "max_muon_eta": 2.4,
+            "max_muon_eta": 2.1,
             "muon_iso_cut": 4.0,
         },
     )
+    
     # Muon scale factors configuration
     configuration.add_config_parameters(
         ["mt", "mm", "em"],
@@ -664,7 +665,7 @@ def build_config(
         {
             "electron_index_in_pair": 0,
             "min_electron_pt": 25.0,
-            "max_electron_eta": 2.5,
+            "max_electron_eta": 2.1,
             "electron_iso_cut": 4.0,
         },
     )
@@ -790,7 +791,7 @@ def build_config(
     )
     # muon trigger SF settings from embedding measurements
     configuration.add_config_parameters(
-        ["mt"],
+        ["mt", "mm"],
         {
             "singlemuon_trigger_sf_mc": [
                 {
@@ -1215,7 +1216,7 @@ def build_config(
                 fatjets.FatJetEnergyCorrection,
                 fatjets.FatJetEnergyCorrection_data,
             ],
-            samples="data",
+            samples=["data"],
         ),
     )
 
@@ -1324,22 +1325,7 @@ def build_config(
             samples=["embedding", "embedding_mc"],
         ),
     )
-    # configuration.add_modification_rule(
-    #     "global",
-    #     AppendProducer(
-    #         producers=jets.RenameJetsData,
-    #         samples=["embedding", "embedding_mc"],
-    #         update_output=False,
-    #     ),
-    # )
-    # configuration.add_modification_rule(
-    #     "global",
-    #     AppendProducer(
-    #         producers=fatjets.RenameFatJetsData,
-    #         samples=["embedding", "embedding_mc"],
-    #         update_output=False,
-    #     ),
-    # )
+    
     configuration.add_modification_rule(
         "global",
         AppendProducer(producers=event.JSONFilter, samples=["data", "embedding"]),
@@ -1445,6 +1431,7 @@ def build_config(
                 scalefactors.TauEmbeddingMuonIsoSF_1_MC,
                 scalefactors.TauEmbeddingMuonIDSF_2_MC,
                 scalefactors.TauEmbeddingMuonIsoSF_2_MC,
+                scalefactors.MTGenerateSingleMuonTriggerSF_MC,
             ],
             samples=[
                 sample
@@ -1850,6 +1837,12 @@ def build_config(
             pairquantities.VsJetTauIDFlag_2.output_group,
             pairquantities.VsEleTauIDFlag_2.output_group,
             pairquantities.VsMuTauIDFlag_2.output_group,
+            boostedtaus.isoTauIDFlag_1.output_group,
+            boostedtaus.antiEleTauIDFlag_1.output_group,
+            boostedtaus.antiMuTauIDFlag_1.output_group,
+            boostedtaus.isoTauIDFlag_2.output_group,
+            boostedtaus.antiEleTauIDFlag_2.output_group,
+            boostedtaus.antiMuTauIDFlag_2.output_group,
             triggers.BoostedTTTriggerFlags.output_group,
             triggers.TTGenerateDoubleTriggerFlags.output_group,
             triggers.GenerateSingleTrailingTauTriggerFlags.output_group,
@@ -2470,7 +2463,7 @@ def build_config(
     #########################
     # Jet energy correction for data
     #########################
-    add_jetCorrectionData(configuration, era)
+    # add_jetCorrectionData(configuration, era)
 
     #########################
     # Finalize and validate the configuration
