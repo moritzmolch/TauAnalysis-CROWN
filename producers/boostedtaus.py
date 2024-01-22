@@ -366,7 +366,7 @@ boosted_electron_q_1 = Producer(
 boosted_electron_iso_1 = Producer(
     name="boosted_electron_iso_1",
     call="quantities::isolation({df}, {output}, 0, {input})",
-    input=[q.boosteddileptonpair, nanoAOD.Electron_IDWP90],
+    input=[q.boosteddileptonpair, nanoAOD.Electron_iso],
     output=[q.boosted_iso_1],
     scopes=["et", "ee"],
 )
