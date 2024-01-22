@@ -65,7 +65,7 @@ BBGenPair = Producer(
     call="pairselection::buildgenpair({df}, {input}, {output})",
     input=[q.dibjetpair, nanoAOD.Jet_associatedGenJet, nanoAOD.Jet_associatedGenJet],
     output=[q.gen_dibjetpair],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 YbbTrueGenPair = Producer(
     name="YbbTrueGenPair",
@@ -78,7 +78,7 @@ YbbTrueGenPair = Producer(
         nanoAOD.GenParticle_pt,
     ],
     output=[q.gen_truebpair],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 YtautauTrueGenPair = Producer(
     name="YtautauTrueGenPair",
@@ -91,7 +91,7 @@ YtautauTrueGenPair = Producer(
         nanoAOD.GenParticle_pt,
     ],
     output=[q.gen_truetaupair],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 EmbeddingGenPair = Producer(
     name="EmbeddingGenPair",
@@ -173,7 +173,7 @@ LVGenJet1 = Producer(
         nanoAOD.GenJet_mass,
     ],
     output=[q.genjet_p4_1],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 LVGenJet2 = Producer(
     name="LVGenJet2",
@@ -186,7 +186,7 @@ LVGenJet2 = Producer(
         nanoAOD.GenJet_mass,
     ],
     output=[q.genjet_p4_2],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 LVTrueGenB1 = Producer(
     name="LVTrueGenB1",
@@ -355,147 +355,147 @@ genjet_pt_1 = Producer(
     call="quantities::pt({df}, {output}, {input})",
     input=[q.genjet_p4_1],
     output=[q.genjet_pt_1],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 genjet_pt_2 = Producer(
     name="genjet_pt_2",
     call="quantities::pt({df}, {output}, {input})",
     input=[q.genjet_p4_2],
     output=[q.genjet_pt_2],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 genjet_eta_1 = Producer(
     name="genjet_eta_1",
     call="quantities::eta({df}, {output}, {input})",
     input=[q.genjet_p4_1],
     output=[q.genjet_eta_1],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 genjet_eta_2 = Producer(
     name="genjet_eta_2",
     call="quantities::eta({df}, {output}, {input})",
     input=[q.genjet_p4_2],
     output=[q.genjet_eta_2],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 genjet_phi_1 = Producer(
     name="genjet_phi_1",
     call="quantities::phi({df}, {output}, {input})",
     input=[q.genjet_p4_1],
     output=[q.genjet_phi_1],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 genjet_phi_2 = Producer(
     name="genjet_phi_2",
     call="quantities::phi({df}, {output}, {input})",
     input=[q.genjet_p4_2],
     output=[q.genjet_phi_2],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 genjet_mass_1 = Producer(
     name="genjet_mass_1",
     call="quantities::mass({df}, {output}, {input})",
     input=[q.genjet_p4_1],
     output=[q.genjet_mass_1],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 genjet_mass_2 = Producer(
     name="genjet_mass_2",
     call="quantities::mass({df}, {output}, {input})",
     input=[q.genjet_p4_2],
     output=[q.genjet_mass_2],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 genjet_hadFlavour_1 = Producer(
     name="genjet_hadFlavour_1",
     call="quantities::jet::flavor({df}, {output}, {input}, 0)",
     input=[nanoAOD.GenJet_hadFlavour, q.gen_dibjetpair],
     output=[q.genjet_hadFlavour_1],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 genjet_hadFlavour_2 = Producer(
     name="genjet_hadFlavour_2",
     call="quantities::jet::flavor({df}, {output}, {input}, 1)",
     input=[nanoAOD.GenJet_hadFlavour, q.gen_dibjetpair],
     output=[q.genjet_hadFlavour_2],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 genjet_m_inv = Producer(
     name="genjet_m_inv",
     call="quantities::m_vis({df}, {output}, {input_vec})",
     input=[q.genjet_p4_1, q.genjet_p4_2],
     output=[q.genjet_m_inv],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 gen_b_pt_1 = Producer(
     name="gen_b_pt_1",
     call="quantities::pt({df}, {output}, {input})",
     input=[q.gen_b_p4_1],
     output=[q.gen_b_pt_1],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 gen_b_pt_2 = Producer(
     name="gen_b_pt_2",
     call="quantities::pt({df}, {output}, {input})",
     input=[q.gen_b_p4_2],
     output=[q.gen_b_pt_2],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 gen_b_eta_1 = Producer(
     name="gen_b_eta_1",
     call="quantities::eta({df}, {output}, {input})",
     input=[q.gen_b_p4_1],
     output=[q.gen_b_eta_1],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 gen_b_eta_2 = Producer(
     name="gen_b_eta_2",
     call="quantities::eta({df}, {output}, {input})",
     input=[q.gen_b_p4_2],
     output=[q.gen_b_eta_2],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 gen_b_phi_1 = Producer(
     name="gen_b_phi_1",
     call="quantities::phi({df}, {output}, {input})",
     input=[q.gen_b_p4_1],
     output=[q.gen_b_phi_1],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 gen_b_phi_2 = Producer(
     name="gen_b_phi_2",
     call="quantities::phi({df}, {output}, {input})",
     input=[q.gen_b_p4_2],
     output=[q.gen_b_phi_2],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 gen_b_mass_1 = Producer(
     name="gen_b_mass_1",
     call="quantities::mass({df}, {output}, {input})",
     input=[q.gen_b_p4_1],
     output=[q.gen_b_mass_1],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 gen_b_mass_2 = Producer(
     name="gen_b_mass_2",
     call="quantities::mass({df}, {output}, {input})",
     input=[q.gen_b_p4_2],
     output=[q.gen_b_mass_2],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 gen_b_m_inv = Producer(
     name="gen_b_m_inv",
     call="quantities::m_vis({df}, {output}, {input_vec})",
     input=[q.gen_b_p4_1, q.gen_b_p4_2],
     output=[q.gen_b_m_inv],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 gen_b_deltaR = Producer(
     name="gen_b_deltaR",
     call="quantities::deltaR({df}, {output}, {input})",
     input=[q.gen_b_p4_1, q.gen_b_p4_2],
     output=[q.gen_b_deltaR],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 
 gen_tau_pt_1 = Producer(
@@ -574,7 +574,7 @@ UnrollGenJetLV1 = ProducerGroup(
     call=None,
     input=None,
     output=None,
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
     subproducers=[
         genjet_pt_1,
         genjet_eta_1,
@@ -588,7 +588,7 @@ UnrollGenJetLV2 = ProducerGroup(
     call=None,
     input=None,
     output=None,
-    scopes=["et", "mt", "tt"],
+    scopes=["et", "mt", "tt", "mm"],
     subproducers=[
         genjet_pt_2,
         genjet_eta_2,
@@ -602,7 +602,7 @@ UnrollGenBLV1 = ProducerGroup(
     call=None,
     input=None,
     output=None,
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
     subproducers=[gen_b_pt_1, gen_b_eta_1, gen_b_phi_1, gen_b_mass_1],
 )
 UnrollGenBLV2 = ProducerGroup(
@@ -610,7 +610,7 @@ UnrollGenBLV2 = ProducerGroup(
     call=None,
     input=None,
     output=None,
-    scopes=["et", "mt", "tt"],
+    scopes=["et", "mt", "tt", "mm"],
     subproducers=[gen_b_pt_2, gen_b_eta_2, gen_b_phi_2, gen_b_mass_2],
 )
 UnrollGenTrueTauLV1 = ProducerGroup(
@@ -698,7 +698,7 @@ GenDiBjetPairQuantities = ProducerGroup(
     call=None,
     input=None,
     output=None,
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
     subproducers=[
         BBGenPair,
         LVGenJet1,
@@ -713,7 +713,7 @@ GenBPairQuantities = ProducerGroup(
     call=None,
     input=None,
     output=None,
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
     subproducers=[
         YbbTrueGenPair,
         LVTrueGenB1,

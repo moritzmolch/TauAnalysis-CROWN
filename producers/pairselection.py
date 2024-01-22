@@ -326,7 +326,7 @@ BBPairSelection = Producer(
         q.good_jet_collection,
     ],
     output=[q.dibjetpair],
-    scopes=["et", "mt", "tt"],
+    scopes=["et", "mt", "tt", "mm"],
 )
 BBPairSelection_boosted = Producer(
     name="BBPairSelection_boosted",
@@ -341,27 +341,27 @@ BBPairSelection_boosted = Producer(
         q.good_jet_collection_boosted,
     ],
     output=[q.dibjetpair_boosted],
-    scopes=["et", "mt", "tt"],
+    scopes=["et", "mt", "tt", "mm"],
 )
 GoodBBPairFlag = Producer(
     name="GoodBBPairFlag",
     call="pairselection::flagGoodPairs({df}, {output}, {input})",
     input=[q.dibjetpair],
     output=[],
-    scopes=["et", "mt", "tt"],
+    scopes=["et", "mt", "tt", "mm"],
 )
 GoodBBPairFlag_boosted = Producer(
     name="GoodBBPairFlag",
     call="pairselection::flagGoodPairs({df}, {output}, {input})",
     input=[q.dibjetpair_boosted],
     output=[],
-    scopes=["et", "mt", "tt"],
+    scopes=["et", "mt", "tt", "mm"],
 )
 GoodBBPairFilter = Filter(
     name="GoodBBPairFilter",
     call='basefunctions::FilterFlagsAny({df}, "GoodBBPairs", {input})',
     input=[],
-    scopes=["et", "mt", "tt"],
+    scopes=["et", "mt", "tt", "mm"],
     subproducers=[GoodBBPairFlag, GoodBBPairFlag_boosted],
 )
 
@@ -570,7 +570,7 @@ LVbjet1 = Producer(
         q.Jet_mass_corrected_bReg,
     ],
     output=[q.bpair_p4_1],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 LVbjet2 = Producer(
     name="LVbjet2",
@@ -583,7 +583,7 @@ LVbjet2 = Producer(
         q.Jet_mass_corrected_bReg,
     ],
     output=[q.bpair_p4_2],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 LVbjet1_boosted = Producer(
     name="LVbjet1_boosted",
@@ -596,7 +596,7 @@ LVbjet1_boosted = Producer(
         q.Jet_mass_corrected_bReg,
     ],
     output=[q.bpair_p4_1_boosted],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
 LVbjet2_boosted = Producer(
     name="LVbjet2_boosted",
@@ -609,5 +609,5 @@ LVbjet2_boosted = Producer(
         q.Jet_mass_corrected_bReg,
     ],
     output=[q.bpair_p4_2_boosted],
-    scopes=["mt", "et", "tt"],
+    scopes=["mt", "et", "tt", "mm"],
 )
