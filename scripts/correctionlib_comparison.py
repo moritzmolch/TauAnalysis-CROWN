@@ -240,16 +240,17 @@ def plot_single_correction(
             )
 
         for _correction_b_bins, _correction_b_tag in zip(correction_b_bins, correction_b_tag):
-            hep.histplot(
-                correction_a_bins[idx] / _correction_b_bins[idx],
-                correction_edges[idx],
-                label=f"${ylabel}_{{{correction_a_tag}}}$ / ${ylabel}_{{{_correction_b_tag}}}$",
-                ax=ax[1],
-                histtype="errorbar",
-                yerr=False,
-                xerr=True,
-                markerfacecolor="none",
-            )
+            with np.errstate(divide="ignore", invalid="ignore"):
+                hep.histplot(
+                    correction_a_bins[idx] / _correction_b_bins[idx],
+                    correction_edges[idx],
+                    label=f"${ylabel}_{{{correction_a_tag}}}$ / ${ylabel}_{{{_correction_b_tag}}}$",
+                    ax=ax[1],
+                    histtype="errorbar",
+                    yerr=False,
+                    xerr=True,
+                    markerfacecolor="none",
+                )
 
         shared_ratio_ylim = max(shared_ratio_ylim, max(map(lambda it: abs(1 - it), ax[1].get_ylim())))
 
