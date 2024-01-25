@@ -98,8 +98,8 @@ def build_config(
         {
             "embedding_selection_sf_file": EraModifier(
                 {
-                    "2016preVFP": "data/embedding/muon_2016preVFPUL.json.gz",
-                    "2016postVFP": "data/embedding/muon_2016postVFPUL.json.gz",
+                    "2016preVFP": "data/embedding/embeddingselection_2016preVFPUL.json.gz",
+                    "2016postVFP": "data/embedding/embeddingselection_2016postVFPUL.json.gz",
                     "2017": "data/embedding/muon_2017UL.json.gz",
                     "2018": "data/embedding/muon_2018UL.json.gz",
                 }
@@ -208,37 +208,11 @@ def build_config(
                             "p2_trigger_particle_id": 13,
                             "max_deltaR_triggermatch": 0.4,
                         },
-                        {
-                            "flagname": "trg_double_mu17_mu8_mass8",
-                            "hlt_path": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8",
-                            "p1_ptcut": 17,
-                            "p2_ptcut": 8,
-                            "p1_etacut": 2.5,
-                            "p2_etacut": 2.5,
-                            "p1_filterbit": 4,
-                            "p1_trigger_particle_id": 13,
-                            "p2_filterbit": 4,
-                            "p2_trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
                     ],
                     "2016preVFP": [
                         {
                             "flagname": "trg_double_mu17_mu8",
                             "hlt_path": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ",
-                            "p1_ptcut": 17,
-                            "p2_ptcut": 8,
-                            "p1_etacut": 2.5,
-                            "p2_etacut": 2.5,
-                            "p1_filterbit": 4,
-                            "p1_trigger_particle_id": 13,
-                            "p2_filterbit": 4,
-                            "p2_trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                        {
-                            "flagname": "trg_double_mu17_mu8_mass8",
-                            "hlt_path": "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8",
                             "p1_ptcut": 17,
                             "p2_ptcut": 8,
                             "p1_etacut": 2.5,
