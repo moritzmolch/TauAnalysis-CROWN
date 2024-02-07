@@ -19,7 +19,6 @@ measure_elefakeES = False
 
 
 def setup_embedding(configuration: Configuration, scopes: List[str]):
-
     configuration.add_config_parameters(
         "global",
         {
@@ -208,7 +207,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
     configuration.add_config_parameters(
         ["mt", "mm"],
         {
-             "singlemuon_trigger_sf": EraModifier(
+            "singlemuon_trigger_sf": EraModifier(
                 {
                     "2018": [
                         {
@@ -436,7 +435,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
     configuration.add_modification_rule(
         "global",
         RemoveProducer(
-            producers=jets.JetEnergyCorrection, samples=["embedding", "embdding_mc"]
+            producers=jets.JetEnergyCorrection, samples=["embedding", "embedding_mc"]
         ),
     )
 
@@ -969,58 +968,58 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             name="singleMuonTriggerSFUp",
             shift_config={
                 ("mt", "mm"): {
-        "singlemuon_trigger_sf": EraModifier(
-                {
-                    "2018": [
+                    "singlemuon_trigger_sf": EraModifier(
                         {
-                            "flagname": "trg_wgt_single_mu24",
-                            "embedding_trigger_sf": "Trg_IsoMu24_pt_eta_bins",
-                            "muon_trg_extrapolation": 1.02, 
-                        },
-                        {
-                            "flagname": "trg_wgt_single_mu27",
-                            "embedding_trigger_sf": "Trg_IsoMu27_pt_eta_bins",
-                            "muon_trg_extrapolation": 1.02, 
-                        },
-                        {
-                            "flagname": "trg_wgt_single_mu24ormu27",
-                            "embedding_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
-                            "muon_trg_extrapolation": 1.02,  
-                        },
-                    ],
-                    "2017": [
-                        {
-                            "flagname": "trg_wgt_single_mu24",
-                            "embedding_trigger_sf": "Trg_IsoMu24_pt_eta_bins",
-                            "muon_trg_extrapolation": 1.02,  
-                        },
-                        {
-                            "flagname": "trg_wgt_single_mu27",
-                            "embedding_trigger_sf": "Trg_IsoMu27_pt_eta_bins",
-                            "muon_trg_extrapolation": 1.02, 
-                        },
-                        {
-                            "flagname": "trg_wgt_single_mu24ormu27",
-                            "embedding_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
-                            "muon_trg_extrapolation": 1.02, 
-                        },
-                    ],
-                    "2016postVFP": [
-                        {
-                            "flagname": "trg_wgt_single_mu22",
-                            "embedding_trigger_sf": "Trg_pt_eta_bins",
-                            "muon_trg_extrapolation": 1.02,  
-                        },
-                    ],
-                    "2016preVFP": [
-                        {
-                            "flagname": "trg_wgt_single_mu22",
-                            "embedding_trigger_sf": "Trg_pt_eta_bins",
-                            "muon_trg_extrapolation": 1.02,  # for nominal case
-                        },
-                    ],
-                }
-            )
+                            "2018": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "embedding_trigger_sf": "Trg_IsoMu24_pt_eta_bins",
+                                    "muon_trg_extrapolation": 1.02,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu27",
+                                    "embedding_trigger_sf": "Trg_IsoMu27_pt_eta_bins",
+                                    "muon_trg_extrapolation": 1.02,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu24ormu27",
+                                    "embedding_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
+                                    "muon_trg_extrapolation": 1.02,
+                                },
+                            ],
+                            "2017": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "embedding_trigger_sf": "Trg_IsoMu24_pt_eta_bins",
+                                    "muon_trg_extrapolation": 1.02,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu27",
+                                    "embedding_trigger_sf": "Trg_IsoMu27_pt_eta_bins",
+                                    "muon_trg_extrapolation": 1.02,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu24ormu27",
+                                    "embedding_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
+                                    "muon_trg_extrapolation": 1.02,
+                                },
+                            ],
+                            "2016postVFP": [
+                                {
+                                    "flagname": "trg_wgt_single_mu22",
+                                    "embedding_trigger_sf": "Trg_pt_eta_bins",
+                                    "muon_trg_extrapolation": 1.02,
+                                },
+                            ],
+                            "2016preVFP": [
+                                {
+                                    "flagname": "trg_wgt_single_mu22",
+                                    "embedding_trigger_sf": "Trg_pt_eta_bins",
+                                    "muon_trg_extrapolation": 1.02,  # for nominal case
+                                },
+                            ],
+                        }
+                    )
                 }
             },
             producers={
@@ -1035,59 +1034,58 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             name="singleMuonTriggerSFDown",
             shift_config={
                 ("mt", "mm"): {
-
-              "singlemuon_trigger_sf": EraModifier(
-                {
-                    "2018": [
+                    "singlemuon_trigger_sf": EraModifier(
                         {
-                            "flagname": "trg_wgt_single_mu24",
-                            "embedding_trigger_sf": "Trg_IsoMu24_pt_eta_bins",
-                            "muon_trg_extrapolation": 0.98, 
-                        },
-                        {
-                            "flagname": "trg_wgt_single_mu27",
-                            "embedding_trigger_sf": "Trg_IsoMu27_pt_eta_bins",
-                            "muon_trg_extrapolation": 0.98,  
-                        },
-                        {
-                            "flagname": "trg_wgt_single_mu24ormu27",
-                            "embedding_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
-                            "muon_trg_extrapolation": 0.98,  
-                        },
-                    ],
-                    "2017": [
-                        {
-                            "flagname": "trg_wgt_single_mu24",
-                            "embedding_trigger_sf": "Trg_IsoMu24_pt_eta_bins",
-                            "muon_trg_extrapolation": 0.98,  
-                        },
-                        {
-                            "flagname": "trg_wgt_single_mu27",
-                            "embedding_trigger_sf": "Trg_IsoMu27_pt_eta_bins",
-                            "muon_trg_extrapolation": 0.98, 
-                        },
-                        {
-                            "flagname": "trg_wgt_single_mu24ormu27",
-                            "embedding_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
-                            "muon_trg_extrapolation": 0.98,  
-                        },
-                    ],
-                    "2016postVFP": [
-                        {
-                            "flagname": "trg_wgt_single_mu22",
-                            "embedding_trigger_sf": "Trg_pt_eta_bins",
-                            "muon_trg_extrapolation": 0.98,  
-                        },
-                    ],
-                    "2016preVFP": [
-                        {
-                            "flagname": "trg_wgt_single_mu22",
-                            "embedding_trigger_sf": "Trg_pt_eta_bins",
-                            "muon_trg_extrapolation": 0.98,  
-                        },
-                    ],
-                }
-            )                  
+                            "2018": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "embedding_trigger_sf": "Trg_IsoMu24_pt_eta_bins",
+                                    "muon_trg_extrapolation": 0.98,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu27",
+                                    "embedding_trigger_sf": "Trg_IsoMu27_pt_eta_bins",
+                                    "muon_trg_extrapolation": 0.98,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu24ormu27",
+                                    "embedding_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
+                                    "muon_trg_extrapolation": 0.98,
+                                },
+                            ],
+                            "2017": [
+                                {
+                                    "flagname": "trg_wgt_single_mu24",
+                                    "embedding_trigger_sf": "Trg_IsoMu24_pt_eta_bins",
+                                    "muon_trg_extrapolation": 0.98,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu27",
+                                    "embedding_trigger_sf": "Trg_IsoMu27_pt_eta_bins",
+                                    "muon_trg_extrapolation": 0.98,
+                                },
+                                {
+                                    "flagname": "trg_wgt_single_mu24ormu27",
+                                    "embedding_trigger_sf": "Trg_IsoMu27_or_IsoMu24_pt_eta_bins",
+                                    "muon_trg_extrapolation": 0.98,
+                                },
+                            ],
+                            "2016postVFP": [
+                                {
+                                    "flagname": "trg_wgt_single_mu22",
+                                    "embedding_trigger_sf": "Trg_pt_eta_bins",
+                                    "muon_trg_extrapolation": 0.98,
+                                },
+                            ],
+                            "2016preVFP": [
+                                {
+                                    "flagname": "trg_wgt_single_mu22",
+                                    "embedding_trigger_sf": "Trg_pt_eta_bins",
+                                    "muon_trg_extrapolation": 0.98,
+                                },
+                            ],
+                        }
+                    )
                 }
             },
             producers={
@@ -1154,11 +1152,13 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             "nominal": 1.0,
             "down": 1.0 + 0.0,
         }
-        tauES_2017 = {  # ToDo: Measure these values for 2017 and add them to the configuration
-            "up": 1.0 - 0.0,
-            "nominal": 1.0,
-            "down": 1.0 + 0.0,
-        }
+        tauES_2017 = (
+            {  # ToDo: Measure these values for 2017 and add them to the configuration
+                "up": 1.0 - 0.0,
+                "nominal": 1.0,
+                "down": 1.0 + 0.0,
+            }
+        )
         tauES_2018 = {
             "up": 0.9865 - 0.0039,
             "nominal": 0.9865,
