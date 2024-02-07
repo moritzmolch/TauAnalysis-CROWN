@@ -15,7 +15,7 @@ from code_generation.systematics import SystematicShift
 from code_generation.modifiers import EraModifier
 
 measure_tauES = False
-measure_elefakeES = False
+measure_eleES = False
 
 
 def setup_embedding(configuration: Configuration, scopes: List[str]):
@@ -1365,7 +1365,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             samples=["embedding"],
         )
 
-    if measure_elefakeES:
+    if measure_eleES:
         ###################
         # Ele fake ES variations for measurement
         # first set the initial variation to nominal
@@ -1409,73 +1409,21 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                 samples=["embedding"],
             )
     else:
-        ele_energyscale_2016preVFP = {
-            "barrel": {
-                "up": 0.9957 + 0.005,
-                "nominal": 0.9957,
-                "down": 0.9957 - 0.005,
-            },
-            "endcap": {
-                "up": 0.9945 + 0.0125,
-                "nominal": 0.9945,
-                "down": 0.9945 - 0.0125,
-            },
-        }
-        ele_energyscale_2016postVFP = {
-            "barrel": {
-                "up": 0.9953 + 0.005,
-                "nominal": 0.9953,
-                "down": 0.9953 - 0.005,
-            },
-            "endcap": {
-                "up": 0.9930 + 0.0125,
-                "nominal": 0.9930,
-                "down": 0.9930 - 0.0125,
-            },
-        }
-        ele_energyscale_2017 = {  # ToDo: Set to sensible value
-            "barrel": {
-                "up": 1.0 + 0.0,
-                "nominal": 1.0,
-                "down": 1.0 - 0.0,
-            },
-            "endcap": {
-                "up": 1.0 + 0.0,
-                "nominal": 1.0,
-                "down": 1.0 - 0.0,
-            },
-        }
-        ele_energyscale_2018 = {
-            "barrel": {
-                "up": 0.9958 + 0.005,
-                "nominal": 0.9958,
-                "down": 0.9958 - 0.005,
-            },
-            "endcap": {
-                "up": 0.9921 + 0.0125,
-                "nominal": 0.9921,
-                "down": 0.9921 - 0.0125,
-            },
-        }
+        # add embedding electron energy scale scalefactors
         configuration.add_config_parameters(
             "global",
             {
-                "ele_energyscale_barrel": EraModifier(
+                "embedding_electron_es_sf_file": EraModifier(
                     {
-                        "2016preVFP": ele_energyscale_2016preVFP["barrel"]["nominal"],
-                        "2016postVFP": ele_energyscale_2016postVFP["barrel"]["nominal"],
-                        "2017": ele_energyscale_2017["barrel"]["nominal"],
-                        "2018": ele_energyscale_2018["barrel"]["nominal"],
+                        "2016preVFP": "data/embedding/eleES_2016preVFPUL.json.gz",
+                        "2016postVFP": "data/embedding/eleES_2016postVFPUL.json.gz",
+                        "2017": "data/embedding/eleES_2017UL.json.gz",
+                        "2018": "data/embedding/eleES_2018UL.json.gz",
                     }
                 ),
-                "ele_energyscale_endcap": EraModifier(
-                    {
-                        "2016preVFP": ele_energyscale_2016preVFP["endcap"]["nominal"],
-                        "2016postVFP": ele_energyscale_2016postVFP["endcap"]["nominal"],
-                        "2017": ele_energyscale_2017["endcap"]["nominal"],
-                        "2018": ele_energyscale_2018["endcap"]["nominal"],
-                    }
-                ),
+                "ele_ES_json_name": "eleES",
+                "ele_energyscale_barrel": "nom",
+                "ele_energyscale_endcap": "nom",
             },
         )
         configuration.add_modification_rule(
@@ -1491,22 +1439,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
         configuration.add_shift(
             SystematicShift(
                 name="eleEsBarrelUp",
-                shift_config={
-                    ("global"): {
-                        "ele_energyscale_barrel": EraModifier(
-                            {
-                                "2016preVFP": ele_energyscale_2016preVFP["barrel"][
-                                    "up"
-                                ],
-                                "2016postVFP": ele_energyscale_2016postVFP["barrel"][
-                                    "up"
-                                ],
-                                "2017": ele_energyscale_2017["barrel"]["up"],
-                                "2018": ele_energyscale_2018["barrel"]["up"],
-                            }
-                        )
-                    }
-                },
+                shift_config={("global"): {"ele_energyscale_barrel": "up"}},
                 producers={("global"): electrons.ElectronPtCorrectionEmbedding},
             ),
             samples=["embedding"],
@@ -1515,20 +1448,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             SystematicShift(
                 name="eleEsBarrelDown",
                 shift_config={
-                    ("global"): {
-                        "ele_energyscale_barrel": EraModifier(
-                            {
-                                "2016preVFP": ele_energyscale_2016preVFP["barrel"][
-                                    "down"
-                                ],
-                                "2016postVFP": ele_energyscale_2016postVFP["barrel"][
-                                    "down"
-                                ],
-                                "2017": ele_energyscale_2017["barrel"]["down"],
-                                "2018": ele_energyscale_2018["barrel"]["down"],
-                            }
-                        )
-                    }
+                    ("global"): {"ele_energyscale_barrel": "down"},
                 },
                 producers={("global"): electrons.ElectronPtCorrectionEmbedding},
             ),
@@ -1539,18 +1459,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                 name="eleEsEndcapUp",
                 shift_config={
                     ("global"): {
-                        "ele_energyscale_endcap": EraModifier(
-                            {
-                                "2016preVFP": ele_energyscale_2016preVFP["endcap"][
-                                    "up"
-                                ],
-                                "2016postVFP": ele_energyscale_2016postVFP["endcap"][
-                                    "up"
-                                ],
-                                "2017": ele_energyscale_2017["endcap"]["up"],
-                                "2018": ele_energyscale_2018["endcap"]["up"],
-                            }
-                        )
+                        "ele_energyscale_endcap": "up",
                     }
                 },
                 producers={("global"): electrons.ElectronPtCorrectionEmbedding},
@@ -1562,18 +1471,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                 name="eleEsEndcapDown",
                 shift_config={
                     ("global"): {
-                        "ele_energyscale_endcap": EraModifier(
-                            {
-                                "2016preVFP": ele_energyscale_2016preVFP["endcap"][
-                                    "down"
-                                ],
-                                "2016postVFP": ele_energyscale_2016postVFP["endcap"][
-                                    "down"
-                                ],
-                                "2017": ele_energyscale_2017["endcap"]["down"],
-                                "2018": ele_energyscale_2018["endcap"]["down"],
-                            }
-                        )
+                        "ele_energyscale_endcap": "down",
                     }
                 },
                 producers={("global"): electrons.ElectronPtCorrectionEmbedding},
