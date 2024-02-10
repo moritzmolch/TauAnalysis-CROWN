@@ -39,7 +39,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/resolved/fake_factors_et_v2.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/resolved/fake_factors_et_v3.json.gz",
                 }
             ),
             "ff_corr_file": EraModifier(
@@ -47,7 +47,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/resolved/FF_corrections_et_v2.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/resolved/FF_corrections_et_v3.json.gz",
                 }
             ),
             "ff_variation_boosted": "nominal",
@@ -56,7 +56,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/boosted/fake_factors_et_mc.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/boosted/fake_factors_et_v2.json.gz",
                 }
             ),
             "ff_corr_file_boosted": EraModifier(
@@ -64,7 +64,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/boosted/FF_corrections_et_mc.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/boosted/FF_corrections_et_v2.json.gz",
                 }
             ),
         },
@@ -95,7 +95,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/boosted/fake_factors_mt_mc.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/boosted/fake_factors_mt_v4.json.gz",
                 }
             ),
             "ff_corr_file_boosted": EraModifier(
@@ -103,7 +103,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/boosted/FF_corrections_mt_mc.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/boosted/FF_corrections_mt_v4.json.gz",
                 }
             ),
         },
@@ -117,7 +117,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/resolved/fake_factors_tt_mc.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/resolved/fake_factors_tt_v3.json.gz",
                 }
             ),
             "ff_corr_file": EraModifier(
@@ -125,7 +125,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/resolved/FF_corrections_tt_mc.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/resolved/FF_corrections_tt_v3.json.gz",
                 }
             ),
             "ff_variation_boosted": "nominal",
@@ -134,7 +134,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/boosted/fake_factors_tt_mc.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/boosted/fake_factors_tt_v3.json.gz",
                 }
             ),
             "ff_corr_file_boosted": EraModifier(
@@ -142,7 +142,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/fake_factors/nmssm/2018/boosted/FF_corrections_tt_mc.json.gz",
+                    "2018": "data/fake_factors/nmssm/2018/boosted/FF_corrections_tt_v3.json.gz",
                 }
             ),
         },
