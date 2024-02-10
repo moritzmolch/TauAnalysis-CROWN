@@ -297,3 +297,10 @@ LHE_Scale_weight = Producer(
     output=[q.lhe_scale_weight],
     scopes=["global", "em", "et", "mt", "tt", "mm", "ee"],
 )
+NMSSM_LHE_Scale_weight = Producer(
+    name="NMSSM_LHE_Scale_weight",
+    call="reweighting::nmssm_lhe_scale_weights({df}, {output}, {input}, {muR}, {muF})",
+    input=[nanoAOD.LHEScaleWeight],
+    output=[q.lhe_scale_weight],
+    scopes=["global", "em", "et", "mt", "tt", "mm", "ee"],
+)

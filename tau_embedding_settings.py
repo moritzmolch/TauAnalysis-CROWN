@@ -188,6 +188,8 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             ),
             "embedding_muon_id_sf": "ID_pt_eta_bins",
             "embedding_muon_iso_sf": "Iso_pt_eta_bins",
+            "embedding_muon_id_extrapolation": 1.0,
+            "embedding_muon_iso_extrapolation": 1.0,
         },
     )
     # add electron scalefactors from embedding measurements
@@ -204,6 +206,8 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             ),
             "embedding_electron_id_sf": "ID90_pt_eta_bins",
             "embedding_electron_iso_sf": "Iso_pt_eta_bins",
+            "embedding_electron_id_extrapolation": 1.0,
+            "embedding_electron_iso_extrapolation": 1.0,
         },
     )
     # muon trigger SF settings from embedding measurements
@@ -336,10 +340,10 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
     configuration.add_config_parameters(
         ["tt"],
         {
-            "emb_ditau_trigger_wp": "Medium",
-            "emb_ditau_trigger_type": "ditau",
-            "emb_ditau_trigger_corrtype": "sf",
-            "emb_ditau_trigger_syst": "nom",
+            "ditau_trigger_wp": "Medium",
+            "ditau_trigger_type": "ditau",
+            "ditau_trigger_corrtype": "sf",
+            "ditau_trigger_syst": "nom",
             "emb_ditau_trigger_file": EraModifier(
                 {
                     "2016preVFP": "",
@@ -378,20 +382,10 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
     )
     configuration.add_modification_rule(
         ["tt"],
-        AppendProducer(
-            producers=[
-                embedding.TTGenerateDoubleTauTriggerSF_1,
-                embedding.TTGenerateDoubleTauTriggerSF_2,
-            ],
-            samples=["embedding"],
+        ReplaceProducer(
+            producers=[scalefactors.TTGenerateDoubleTauTriggerSF_MC, embedding.TTGenerateDoubleTauTriggerSF],
+            samples=["embedding", "embedding_mc"],
         ),
-    )
-    configuration.add_outputs(
-        "tt", 
-        [
-            q.emb_trg_wgt_1,
-            q.emb_trg_wgt_2,
-        ],
     )
     configuration.add_modification_rule(
         ["em"],
@@ -922,6 +916,134 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             )
 
     #########################
+    # Electron id/iso sf shifts
+    #########################
+    configuration.add_shift(
+        SystematicShift(
+            name="electronIdSFUp",
+            scopes=["et"],
+            shift_config={
+                ("et"): {"embedding_electron_id_extrapolation": 1.02},
+            },
+            producers={
+                ("et"): [
+                    embedding.TauEmbeddingElectronIDSF_1,
+                ],
+            },
+        ),
+        samples=["embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="electronIdSFDown",
+            scopes=["et"],
+            shift_config={
+                ("et"): {"embedding_electron_id_extrapolation": 0.98},
+            },
+            producers={
+                ("et"): [
+                    embedding.TauEmbeddingElectronIDSF_1,
+                ],
+            },
+        ),
+        samples=["embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="electronIsoSFUp",
+            scopes=["et"],
+            shift_config={
+                ("et"): {"embedding_electron_iso_extrapolation": 1.02},
+            },
+            producers={
+                ("et"): [
+                    embedding.TauEmbeddingElectronIsoSF_1,
+                ],
+            },
+        ),
+        samples=["embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="electronIsoSFDown",
+            scopes=["et"],
+            shift_config={
+                ("et"): {"embedding_electron_iso_extrapolation": 0.98},
+            },
+            producers={
+                ("et"): [
+                    embedding.TauEmbeddingElectronIsoSF_1,
+                ],
+            },
+        ),
+        samples=["embedding", "embedding_mc"],
+    )
+
+    #########################
+    # Muon id/iso sf shifts
+    #########################
+    configuration.add_shift(
+        SystematicShift(
+            name="muonIdSFUp",
+            scopes=["mt"],
+            shift_config={
+                ("mt"): {"embedding_muon_id_extrapolation": 1.02},
+            },
+            producers={
+                ("mt"): [
+                    embedding.TauEmbeddingMuonIDSF_1,
+                ],
+            },
+        ),
+        samples=["embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="muonIdSFDown",
+            scopes=["mt"],
+            shift_config={
+                ("mt"): {"embedding_muon_id_extrapolation": 0.98},
+            },
+            producers={
+                ("mt"): [
+                    embedding.TauEmbeddingMuonIDSF_1,
+                ],
+            },
+        ),
+        samples=["embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="muonIsoSFUp",
+            scopes=["mt"],
+            shift_config={
+                ("mt"): {"embedding_muon_iso_extrapolation": 1.02},
+            },
+            producers={
+                ("mt"): [
+                    embedding.TauEmbeddingMuonIsoSF_1,
+                ],
+            },
+        ),
+        samples=["embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="muonIsoSFDown",
+            scopes=["mt"],
+            shift_config={
+                ("mt"): {"embedding_muon_iso_extrapolation": 0.98},
+            },
+            producers={
+                ("mt"): [
+                    embedding.TauEmbeddingMuonIsoSF_1,
+                ],
+            },
+        ),
+        samples=["embedding", "embedding_mc"],
+    )
+
+    #########################
     # Trigger shifts
     #########################
     configuration.add_shift(
@@ -1124,6 +1246,31 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
         ),
         samples=["embedding", "embedding_mc"],
     )
+    configuration.add_shift(
+        SystematicShift(
+            name="ditauTriggerSFUp",
+            shift_config={
+                ("tt"): {"ditau_trigger_syst": "up"}
+            },
+            producers={
+                ("tt"): embedding.TTGenerateDoubleTauTriggerSF,
+            },
+        ),
+        samples=["embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="ditauTriggerSFDown",
+            shift_config={
+                ("tt"): {"ditau_trigger_syst": "down"}
+            },
+            producers={
+                ("tt"): embedding.TTGenerateDoubleTauTriggerSF,
+            },
+        ),
+        samples=["embedding", "embedding_mc"],
+    )
+
     if measure_tauES:
         ###################
         # Tau ES variations for measurement

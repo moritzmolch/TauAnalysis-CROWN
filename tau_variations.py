@@ -84,6 +84,7 @@ def add_tauVariations(configuration: Configuration, sample: str):
             producers={("et", "mt"): scalefactors.Tau_2_VsJetTauID_lt_SF},
         )
     )
+    # vsJet shifts tt, tau dm dependent
     configuration.add_shift(
         SystematicShift(
             name="vsJetTauDM0Down",
@@ -96,7 +97,6 @@ def add_tauVariations(configuration: Configuration, sample: str):
             },
         )
     )
-    # vsJet shifts tt, tau dm dependent
     configuration.add_shift(
         SystematicShift(
             name="vsJetTauDM0Up",

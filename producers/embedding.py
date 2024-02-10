@@ -153,7 +153,7 @@ TauEmbeddingSelectionSF = ProducerGroup(
 
 TauEmbeddingMuonIDSF_1 = Producer(
     name="TauEmbeddingMuonIDSF_1",
-    call='scalefactor::embedding::muon_sf({df}, {input}, {output}, "{embedding_muon_sf_file}", "emb", "{embedding_muon_id_sf}")',
+    call='scalefactor::embedding::muon_sf({df}, {input}, {output}, "{embedding_muon_sf_file}", "emb", "{embedding_muon_id_sf}", {embedding_muon_id_extrapolation})',
     input=[q.pt_1, q.eta_1],
     output=[q.id_wgt_mu_1],
     scopes=["mt", "mm"],
@@ -161,7 +161,7 @@ TauEmbeddingMuonIDSF_1 = Producer(
 
 TauEmbeddingMuonIDSF_2 = Producer(
     name="TauEmbeddingMuonIDSF_2",
-    call='scalefactor::embedding::muon_sf({df}, {input}, {output}, "{embedding_muon_sf_file}", "emb", "{embedding_muon_id_sf}")',
+    call='scalefactor::embedding::muon_sf({df}, {input}, {output}, "{embedding_muon_sf_file}", "emb", "{embedding_muon_id_sf}", {embedding_muon_id_extrapolation})',
     input=[q.pt_2, q.eta_2],
     output=[q.id_wgt_mu_2],
     scopes=["mm", "em"],
@@ -169,7 +169,7 @@ TauEmbeddingMuonIDSF_2 = Producer(
 
 TauEmbeddingMuonIsoSF_1 = Producer(
     name="TauEmbeddingMuonIsoSF_1",
-    call='scalefactor::embedding::muon_sf({df}, {input}, {output}, "{embedding_muon_sf_file}", "emb", "{embedding_muon_iso_sf}")',
+    call='scalefactor::embedding::muon_sf({df}, {input}, {output}, "{embedding_muon_sf_file}", "emb", "{embedding_muon_iso_sf}", {embedding_muon_iso_extrapolation})',
     input=[q.pt_1, q.eta_1],
     output=[q.iso_wgt_mu_1],
     scopes=["mt", "mm"],
@@ -177,7 +177,7 @@ TauEmbeddingMuonIsoSF_1 = Producer(
 
 TauEmbeddingMuonIsoSF_2 = Producer(
     name="TauEmbeddingMuonIsoSF_2",
-    call='scalefactor::embedding::muon_sf({df}, {input}, {output}, "{embedding_muon_sf_file}", "emb", "{embedding_muon_iso_sf}")',
+    call='scalefactor::embedding::muon_sf({df}, {input}, {output}, "{embedding_muon_sf_file}", "emb", "{embedding_muon_iso_sf}", {embedding_muon_iso_extrapolation})',
     input=[q.pt_2, q.eta_2],
     output=[q.iso_wgt_mu_2],
     scopes=["mm", "em"],
@@ -187,14 +187,14 @@ TauEmbeddingBoostedMuonIDSF_1 = Producer(
     name="TauEmbeddingBoostedMuonIDSF_1",
     call='scalefactor::embedding::muon_sf({df}, {input}, {output}, "{embedding_muon_sf_file}", "emb", "{embedding_muon_id_sf}")',
     input=[q.boosted_pt_1, q.boosted_eta_1],
-    output=[q.id_wgt_mu_boosted_1],
+    output=[q.emb_id_wgt_mu_boosted_1],
     scopes=["mt", "mm"],
 )
 TauEmbeddingBoostedMuonIsoSF_1 = Producer(
     name="TauEmbeddingBoostedMuonIsoSF_1",
     call='scalefactor::embedding::muon_sf({df}, {input}, {output}, "{embedding_muon_sf_file}", "emb", "{embedding_muon_iso_sf}")',
     input=[q.boosted_pt_1, q.boosted_eta_1],
-    output=[q.iso_wgt_mu_boosted_1],
+    output=[q.emb_iso_wgt_mu_boosted_1],
     scopes=["mt", "mm"],
 )
 
@@ -211,7 +211,7 @@ MTGenerateSingleMuonTriggerSF = ExtendedVectorProducer(
 
 TauEmbeddingElectronIDSF_1 = Producer(
     name="TauEmbeddingElectronIDSF_1",
-    call='scalefactor::embedding::electron_sf({df}, {input}, {output}, "{embedding_electron_sf_file}", "emb", "{embedding_electron_id_sf}")',
+    call='scalefactor::embedding::electron_sf({df}, {input}, {output}, "{embedding_electron_sf_file}", "emb", "{embedding_electron_id_sf}", {embedding_electron_id_extrapolation})',
     input=[q.pt_1, q.eta_1],
     output=[q.id_wgt_ele_1],
     scopes=["et", "ee", "em"],
@@ -219,7 +219,7 @@ TauEmbeddingElectronIDSF_1 = Producer(
 
 TauEmbeddingElectronIDSF_2 = Producer(
     name="TauEmbeddingElectronIDSF_2",
-    call='scalefactor::embedding::electron_sf({df}, {input}, {output}, "{embedding_electron_sf_file}", "emb", "{embedding_electron_id_sf}")',
+    call='scalefactor::embedding::electron_sf({df}, {input}, {output}, "{embedding_electron_sf_file}", "emb", "{embedding_electron_id_sf}", {embedding_electron_id_extrapolation})',
     input=[q.pt_2, q.eta_2],
     output=[q.id_wgt_ele_2],
     scopes=["ee"],
@@ -227,7 +227,7 @@ TauEmbeddingElectronIDSF_2 = Producer(
 
 TauEmbeddingElectronIsoSF_1 = Producer(
     name="TauEmbeddingElectronIsoSF_1",
-    call='scalefactor::embedding::electron_sf({df}, {input}, {output}, "{embedding_electron_sf_file}", "emb", "{embedding_electron_iso_sf}")',
+    call='scalefactor::embedding::electron_sf({df}, {input}, {output}, "{embedding_electron_sf_file}", "emb", "{embedding_electron_iso_sf}", {embedding_electron_iso_extrapolation})',
     input=[q.pt_1, q.eta_1],
     output=[q.iso_wgt_ele_1],
     scopes=["et", "ee", "em"],
@@ -235,7 +235,7 @@ TauEmbeddingElectronIsoSF_1 = Producer(
 
 TauEmbeddingElectronIsoSF_2 = Producer(
     name="TauEmbeddingElectronIsoSF_2",
-    call='scalefactor::embedding::electron_sf({df}, {input}, {output}, "{embedding_electron_sf_file}", "emb", "{embedding_electron_iso_sf}")',
+    call='scalefactor::embedding::electron_sf({df}, {input}, {output}, "{embedding_electron_sf_file}", "emb", "{embedding_electron_iso_sf}", {embedding_electron_iso_extrapolation})',
     input=[q.pt_2, q.eta_2],
     output=[q.iso_wgt_ele_2],
     scopes=["ee"],
@@ -266,20 +266,30 @@ ETGenerateSingleElectronTriggerSF = ExtendedVectorProducer(
 )
 
 # Di-tau trigger SFs
-
 TTGenerateDoubleTauTriggerSF_1 = Producer(
     name="TTGenerateDoubleTauTriggerSF_1",
-    call='scalefactor::embedding::ditau_trigger_sf({df}, {input}, {output}, "{emb_ditau_trigger_wp}", "{emb_ditau_trigger_file}", "{emb_ditau_trigger_type}", "{emb_ditau_trigger_corrtype}", "{emb_ditau_trigger_syst}")',
+    call='scalefactor::embedding::ditau_trigger_sf({df}, {input}, {output}, "{ditau_trigger_wp}", "{emb_ditau_trigger_file}", "tauTriggerSF", "{ditau_trigger_type}", "{ditau_trigger_corrtype}", "{ditau_trigger_syst}")',
     input=[q.pt_1, q.tau_decaymode_1],
-    output=[q.emb_trg_wgt_1],
+    output=[q.trg_wgt_double_tau_1],
     scopes=["tt"],
 )
 TTGenerateDoubleTauTriggerSF_2 = Producer(
     name="TTGenerateDoubleTauTriggerSF_2",
-    call='scalefactor::embedding::ditau_trigger_sf({df}, {input}, {output}, "{emb_ditau_trigger_wp}", "{emb_ditau_trigger_file}", "{emb_ditau_trigger_type}", "{emb_ditau_trigger_corrtype}", "{emb_ditau_trigger_syst}")',
+    call='scalefactor::embedding::ditau_trigger_sf({df}, {input}, {output}, "{ditau_trigger_wp}", "{emb_ditau_trigger_file}", "tauTriggerSF", "{ditau_trigger_type}", "{ditau_trigger_corrtype}", "{ditau_trigger_syst}")',
     input=[q.pt_2, q.tau_decaymode_2],
-    output=[q.emb_trg_wgt_2],
+    output=[q.trg_wgt_double_tau_2],
     scopes=["tt"],
+)
+TTGenerateDoubleTauTriggerSF = ProducerGroup(
+    name="TTGenerateDoubleTauTriggerSF",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["tt"],
+    subproducers=[
+        TTGenerateDoubleTauTriggerSF_1,
+        TTGenerateDoubleTauTriggerSF_2,
+    ],
 )
 
 ###############################

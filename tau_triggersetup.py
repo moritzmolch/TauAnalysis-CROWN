@@ -393,7 +393,7 @@ def add_diTauTriggerSetup(configuration: Configuration):
                         {
                             "flagname": "trg_single_ele115_boosted",
                             "hlt_path": "HLT_Ele115_CaloIdVT_GsfTrkIdT",
-                            "ptcut": 118,
+                            "ptcut": 120,
                             "etacut": 2.5,
                             "filterbit": 10,
                             "trigger_particle_id": 11,
@@ -705,12 +705,136 @@ def add_diTauTriggerSetup(configuration: Configuration):
                 {
                     "2018": [
                         {
-                            "flagname": "trg_ak8jet400_trimmass30",
+                            "flagname": "trg_ak8pfht750_trimmass50",
+                            "hlt_path": "HLT_AK8PFHT750_TrimMass50",
+                        },
+                        {
+                            "flagname": "trg_ak8pfht800_trimmass50",
+                            "hlt_path": "HLT_AK8PFHT800_TrimMass50",
+                        },
+                        {
+                            "flagname": "trg_ak8pfjet60",
+                            "hlt_path": "HLT_AK8PFJet60",
+                        },
+                        {
+                            "flagname": "trg_ak8pfjet80",
+                            "hlt_path": "HLT_AK8PFJet80",
+                        },
+                        {
+                            "flagname": "trg_ak8pfjet140",
+                            "hlt_path": "HLT_AK8PFJet140",
+                        },
+                        {
+                            "flagname": "trg_ak8pfjet200",
+                            "hlt_path": "HLT_AK8PFJet200",
+                        },
+                        {
+                            "flagname": "trg_ak8pfjet260",
+                            "hlt_path": "HLT_AK8PFJet260",
+                        },
+                        {
+                            "flagname": "trg_ak8pfjet320",
+                            "hlt_path": "HLT_AK8PFJet320",
+                        },
+                        {
+                            "flagname": "trg_ak8pfjet400",
+                            "hlt_path": "HLT_AK8PFJet400",
+                        },
+                        {
+                            "flagname": "trg_ak8pfjet40",
+                            "hlt_path": "HLT_AK8PFJet40",
+                        },
+                        {
+                            "flagname": "trg_ak8pfjet450",
+                            "hlt_path": "HLT_AK8PFJet450",
+                        },
+                        {
+                            "flagname": "trg_ak8pfjet500",
+                            "hlt_path": "HLT_AK8PFJet500",
+                        },
+                        {
+                            "flagname": "trg_ak8pfjet360_trimmass30",
+                            "hlt_path": "HLT_AK8PFJet360_TrimMass30",
+                        },
+                        {
+                            "flagname": "trg_ak8pfjet400_trimmass30",
                             "hlt_path": "HLT_AK8PFJet400_TrimMass30",
                         },
                         {
-                            "flagname": "trg_ht500_met100_mht100_tightid",
+                            "flagname": "trg_pfht250",
+                            "hlt_path": "HLT_PFHT250",
+                        },
+                        {
+                            "flagname": "trg_pfht350",
+                            "hlt_path": "HLT_PFHT350",
+                        },
+                        {
+                            "flagname": "trg_pfjet40",
+                            "hlt_path": "HLT_PFJet40",
+                        },
+                        {
+                            "flagname": "trg_pfjet60",
+                            "hlt_path": "HLT_PFJet60",
+                        },
+                        {
+                            "flagname": "trg_pfjet80",
+                            "hlt_path": "HLT_PFJet80",
+                        },
+                        {
+                            "flagname": "trg_pfjet140",
+                            "hlt_path": "HLT_PFJet140",
+                        },
+                        {
+                            "flagname": "trg_pfjet200",
+                            "hlt_path": "HLT_PFJet200",
+                        },
+                        {
+                            "flagname": "trg_pfjet260",
+                            "hlt_path": "HLT_PFJet260",
+                        },
+                        {
+                            "flagname": "trg_pfjet320",
+                            "hlt_path": "HLT_PFJet320",
+                        },
+                        {
+                            "flagname": "trg_pfjet400",
+                            "hlt_path": "HLT_PFJet400",
+                        },
+                        {
+                            "flagname": "trg_pfjet450",
+                            "hlt_path": "HLT_PFJet450",
+                        },
+                        {
+                            "flagname": "trg_pfjet500",
+                            "hlt_path": "HLT_PFJet500",
+                        },
+                        {
+                            "flagname": "trg_pfjet550",
+                            "hlt_path": "HLT_PFJet550",
+                        },
+                        {
+                            "flagname": "trg_pfht500_pfmet100_pfmht100_idtight",
                             "hlt_path": "HLT_PFHT500_PFMET100_PFMHT100_IDTight",
+                        },
+                        {
+                            "flagname": "trg_pfht500_pfmet110_pfmht110_idtight",
+                            "hlt_path": "HLT_PFHT500_PFMET110_PFMHT110_IDTight",
+                        },
+                        {
+                            "flagname": "trg_pfmet110_pfmht110_idtight",
+                            "hlt_path": "HLT_PFMET110_PFMHT110_IDTight",
+                        },
+                        {
+                            "flagname": "trg_pfmet120_pfmht120_idtight",
+                            "hlt_path": "HLT_PFMET120_PFMHT120_IDTight",
+                        },
+                        {
+                            "flagname": "trg_pfmetnomu110_pfmhtnomu110_idtight",
+                            "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight",
+                        },
+                        {
+                            "flagname": "trg_pfmetnomu120_pfmhtnomu120_idtight",
+                            "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
                         },
                     ]
                 }

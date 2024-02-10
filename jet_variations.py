@@ -130,9 +130,16 @@ def add_jetVariations(
                     "global": {
                         "jet_jes_shift": 1,
                         "jet_jes_sources": JEC_sources,
+                        "fatjet_jes_shift": 1,
+                        "fatjet_jes_sources": JEC_sources,
                     }
                 },
-                producers={"global": jets.JetEnergyCorrection},
+                producers={
+                    "global": {
+                        jets.JetEnergyCorrection,
+                        fatjets.FatJetEnergyCorrection,
+                    },
+                },
             ),
             samples=[
                 sample
@@ -147,9 +154,17 @@ def add_jetVariations(
                     "global": {
                         "jet_jes_shift": -1,
                         "jet_jes_sources": JEC_sources,
+                        "fatjet_jes_shift": -1,
+                        "fatjet_jes_sources": JEC_sources,
                     }
                 },
-                producers={"global": jets.JetEnergyCorrection},
+                producers={
+                "global": {
+                    jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
+                },
+                ("mt", "et", "tt"): {scalefactors.btagging_SF},
+            },
             ),
             samples=[
                 sample
@@ -159,7 +174,7 @@ def add_jetVariations(
         )
 
     #########################
-    # Jet energy scale - reduced set
+    # Jet energy scale - reduced set (only present for AK4 jets)
     #########################
     JEC_sources = '{"Regrouped_Absolute"}'
     configuration.add_shift(
@@ -169,12 +184,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": 1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_jesAbsolute"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -192,12 +210,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_jesAbsolute"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -217,6 +238,8 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": 1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {
                     "btag_sf_variation": "up_jesAbsolute_{}".format(era)
@@ -225,6 +248,7 @@ def add_jetVariations(
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -242,6 +266,8 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {
                     "btag_sf_variation": "down_jesAbsolute_{}".format(era)
@@ -250,6 +276,7 @@ def add_jetVariations(
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -269,12 +296,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": 1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_jesFlavorQCD"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -292,12 +322,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_jesFlavorQCD"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -317,12 +350,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": 1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_jesBBEC1"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -340,12 +376,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_jesBBEC1"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -365,12 +404,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": 1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_jesBBEC1_{}".format(era)},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -388,6 +430,8 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {
                     "btag_sf_variation": "down_jesBBEC1_{}".format(era)
@@ -396,6 +440,7 @@ def add_jetVariations(
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -415,12 +460,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": 1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_jesHF"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -438,12 +486,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_jesHF"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -463,12 +514,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": 1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_jesHF_{}".format(era)},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -486,12 +540,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_jesHF_{}".format(era)},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -511,12 +568,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": 1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_jesEC2"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -534,12 +594,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_jesEC2"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -559,12 +622,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": 1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_jesEC2_{}".format(era)},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -582,12 +648,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_jesEC2_{}".format(era)},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -607,12 +676,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": 1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_jesRelativeBal"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -630,12 +702,15 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_jesRelativeBal"},
             },
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -655,6 +730,8 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": 1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": 1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {
                     "btag_sf_variation": "up_jesRelativeSample_{}".format(era)
@@ -663,6 +740,7 @@ def add_jetVariations(
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
@@ -680,6 +758,8 @@ def add_jetVariations(
                 "global": {
                     "jet_jes_shift": -1,
                     "jet_jes_sources": JEC_sources,
+                    "fatjet_jes_shift": -1,
+                    "fatjet_jes_sources": JEC_sources,
                 },
                 ("mt", "et", "tt"): {
                     "btag_sf_variation": "down_jesRelativeSample_{}".format(era)
@@ -688,6 +768,7 @@ def add_jetVariations(
             producers={
                 "global": {
                     jets.JetEnergyCorrection,
+                    fatjets.FatJetEnergyCorrection,
                 },
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
