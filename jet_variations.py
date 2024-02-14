@@ -101,7 +101,7 @@ def add_jetVariations(configuration: Configuration, era: str):
                 },
                 producers={"global": jets.JetEnergyCorrection},
             ),
-            exclude_samples["data", "embedding", "embedding_mc"],
+            exclude_samples=["data", "embedding", "embedding_mc"],
         )
     #########################
     # Jet energy scale - individual
