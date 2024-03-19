@@ -186,7 +186,7 @@ def build_config(
         "global",
         {
             "min_fatjet_pt": 160,
-            "max_fatjet_eta": 4.7,
+            "max_fatjet_eta": 2.5,
             "fatjet_id": 6, 
             "fatjet_reapplyJES": False,
             "fatjet_jes_sources": '{""}',

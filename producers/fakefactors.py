@@ -82,6 +82,7 @@ FakeFactors_nmssm_lt = Producer(
         q.pt_1,
         q.iso_1,
         q.m_vis,
+        q.deltaR_ditaupair,
     ],
     output=[q.fake_factor],
     scopes=["mt", "et"],

@@ -4,7 +4,6 @@ from .producers import pairquantities as pairquantities
 from .producers import hhkinfit as hhkinfit
 from .quantities import output as q
 from code_generation.friend_trees import FriendTreeConfiguration
-from code_generation.modifiers import EraModifier
 
 
 def build_config(
@@ -35,10 +34,7 @@ def build_config(
             pairquantities.FastMTTQuantities,
             pairquantities.BoostedFastMTTQuantities,
             hhkinfit.YHKinFit, 
-            # hhkinfit.YHKinFit_YToTauTau,
-            # hhkinfit.YHKinFit_YToBB,
             hhkinfit.YHKinFit_boosted, 
-            # hhkinfit.YHKinFit_YToTauTau_boosted, 
         ],
     )
 
