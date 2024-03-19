@@ -2,7 +2,7 @@ from ..quantities import output as q
 from ..quantities import nanoAOD as nanoAOD
 from code_generation.producer import Producer, ProducerGroup, ExtendedVectorProducer
 
-# resolved tautau analysis 
+# resolved tautau analysis
 Transform_njets = Producer(
     name="Transform_njets",
     call='ml::StandardTransformer({df}, {input}, {output}, "{feature_transformation_file}", "i")',
@@ -832,7 +832,11 @@ Evaluate_PNN_boosted = ExtendedVectorProducer(
         # q.massX,
         # q.massY,
     ],
-    output=["boosted_pnn_output_vector", "boosted_predicted_class", "boosted_predicted_max_value"],
+    output=[
+        "boosted_pnn_output_vector",
+        "boosted_predicted_class",
+        "boosted_predicted_max_value",
+    ],
     scope=["mt"],
     vec_config="pnn_mass_parameters",
 )
@@ -877,7 +881,11 @@ Evaluate_PNN_ORT_boosted = ExtendedVectorProducer(
         # q.massX,
         # q.massY,
     ],
-    output=["boosted_pnn_output_vector", "boosted_predicted_class", "boosted_predicted_max_value"],
+    output=[
+        "boosted_pnn_output_vector",
+        "boosted_predicted_class",
+        "boosted_predicted_max_value",
+    ],
     scope=["mt"],
     vec_config="pnn_mass_parameters",
 )

@@ -91,7 +91,7 @@ YHKinFit_YToTauTau = Producer(
 
 YHKinFit = ProducerGroup(
     name="YHKinFit",
-    call='hhkinfit::BestYHKinFit({df}, {output}, {input})',
+    call="hhkinfit::BestYHKinFit({df}, {output}, {input})",
     input=[],
     output=[
         q.kinfit_convergence,
@@ -196,7 +196,7 @@ YHKinFit_YToTauTau_boosted = Producer(
 
 YHKinFit_boosted = ProducerGroup(
     name="YHKinFit_boosted",
-    call='hhkinfit::BestYHKinFit({df}, {output}, {input})',
+    call="hhkinfit::BestYHKinFit({df}, {output}, {input})",
     input=[],
     output=[
         q.kinfit_convergence_boosted,

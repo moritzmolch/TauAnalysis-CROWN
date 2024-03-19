@@ -28,7 +28,7 @@ def build_config(
         available_scopes,
         quantities_map,
     )
-    
+
     # fake factor configurations
     configuration.add_config_parameters(
         ["mt"],
@@ -78,8 +78,15 @@ def build_config(
                     "massX_value": massX,
                     "massX_output": "massX_{massX}".format(massX=massX),
                 }
-                for massX in [ 
-                    "800", "850", "900", "950", "1000", "1100", "1200", "1300",
+                for massX in [
+                    "800",
+                    "850",
+                    "900",
+                    "950",
+                    "1000",
+                    "1100",
+                    "1200",
+                    "1300",
                 ]
             ],
             "massY_definitions": [
@@ -87,20 +94,48 @@ def build_config(
                     "massY_value": massY,
                     "massY_output": "massY_{massY}".format(massY=massY),
                 }
-                for massY in [ 
-                    "60", "70", "80", "90", "100", "125", "150", "250", "300", "400", "500", "600", "700", "800", "900", "1000", "1100",
+                for massY in [
+                    "60",
+                    "70",
+                    "80",
+                    "90",
+                    "100",
+                    "125",
+                    "150",
+                    "250",
+                    "300",
+                    "400",
+                    "500",
+                    "600",
+                    "700",
+                    "800",
+                    "900",
+                    "1000",
+                    "1100",
                 ]
             ],
             "pnn_mass_parameters": [
                 {
                     "massX_parameter": massX,
                     "massY_parameter": massY,
-                    "pnn_output_vector": "pnn_output_{massX}_{massY}".format(massX=massX, massY=massY),
-                    "boosted_pnn_output_vector": "boosted_pnn_output_{massX}_{massY}".format(massX=massX, massY=massY),
-                    "predicted_class": "max_index_{massX}_{massY}".format(massX=massX, massY=massY),
-                    "predicted_max_value": "max_score_{massX}_{massY}".format(massX=massX, massY=massY),
-                    "boosted_predicted_class": "boosted_max_index_{massX}_{massY}".format(massX=massX, massY=massY),
-                    "boosted_predicted_max_value": "boosted_max_score_{massX}_{massY}".format(massX=massX, massY=massY),
+                    "pnn_output_vector": "pnn_output_{massX}_{massY}".format(
+                        massX=massX, massY=massY
+                    ),
+                    "boosted_pnn_output_vector": "boosted_pnn_output_{massX}_{massY}".format(
+                        massX=massX, massY=massY
+                    ),
+                    "predicted_class": "max_index_{massX}_{massY}".format(
+                        massX=massX, massY=massY
+                    ),
+                    "predicted_max_value": "max_score_{massX}_{massY}".format(
+                        massX=massX, massY=massY
+                    ),
+                    "boosted_predicted_class": "boosted_max_index_{massX}_{massY}".format(
+                        massX=massX, massY=massY
+                    ),
+                    "boosted_predicted_max_value": "boosted_max_score_{massX}_{massY}".format(
+                        massX=massX, massY=massY
+                    ),
                 }
                 for massX, massY in [
                     ("800", "60"),

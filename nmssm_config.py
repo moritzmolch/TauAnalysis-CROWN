@@ -187,7 +187,7 @@ def build_config(
         {
             "min_fatjet_pt": 160,
             "max_fatjet_eta": 2.5,
-            "fatjet_id": 6, 
+            "fatjet_id": 6,
             "fatjet_reapplyJES": False,
             "fatjet_jes_sources": '{""}',
             "fatjet_jes_shift": 0,
@@ -197,7 +197,7 @@ def build_config(
                     "2016preVFP": '"data/jsonpog-integration/POG/JME/2016preVFP_UL/fatJet_jerc.json.gz"',
                     "2016postVFP": '"data/jsonpog-integration/POG/JME/2016postVFP_UL/fatJet_jerc.json.gz"',
                     "2017": '"data/jsonpog-integration/POG/JME/2017_UL/fatJet_jerc.json.gz"',
-                    "2018": '"data/jsonpog-integration/POG/JME/2018_UL/jet_jerc.json.gz"', # using AK4 file for fatjets because it either was is just copied and tje fatjet file has no merged uncertainty scheme
+                    "2018": '"data/jsonpog-integration/POG/JME/2018_UL/jet_jerc.json.gz"',  # using AK4 file for fatjets because it either was is just copied and tje fatjet file has no merged uncertainty scheme
                 }
             ),
             "fatjet_jer_tag": EraModifier(
@@ -217,7 +217,7 @@ def build_config(
                     "2018": '"Summer19UL18_V5_MC"',
                 }
             ),
-            "fatjet_jec_algo": '"AK4PFchs"', # normally "AK8PFPuppi" would be used -> change to AK4 naming to get merged uncertainty scheme 
+            "fatjet_jec_algo": '"AK4PFchs"',  # normally "AK8PFPuppi" would be used -> change to AK4 naming to get merged uncertainty scheme
         },
     )
     # jet base selection:
@@ -226,7 +226,7 @@ def build_config(
         {
             "min_jet_pt": 30,
             "max_jet_eta": 4.7,
-            "jet_id": 6, 
+            "jet_id": 6,
             "jet_puid": EraModifier(
                 {
                     "2016preVFP": 1,  # 0==fail, 1==pass(loose), 3==pass(loose,medium), 7==pass(loose,medium,tight)
@@ -412,10 +412,18 @@ def build_config(
             "iso_boostedtau_id": [
                 {
                     "boostedtau_id_discriminator": "MVAoldDM2017v2",
-                    "boostedtau_1_iso_id_outputname": "id_boostedtau_iso_{wp}_1".format(wp=wp),
-                    "boostedtau_1_iso_sf_outputname": "id_wgt_boostedtau_iso_{wp}_1".format(wp=wp),
-                    "boostedtau_2_iso_id_outputname": "id_boostedtau_iso_{wp}_2".format(wp=wp),
-                    "boostedtau_2_iso_sf_outputname": "id_wgt_boostedtau_iso_{wp}_2".format(wp=wp),
+                    "boostedtau_1_iso_id_outputname": "id_boostedtau_iso_{wp}_1".format(
+                        wp=wp
+                    ),
+                    "boostedtau_1_iso_sf_outputname": "id_wgt_boostedtau_iso_{wp}_1".format(
+                        wp=wp
+                    ),
+                    "boostedtau_2_iso_id_outputname": "id_boostedtau_iso_{wp}_2".format(
+                        wp=wp
+                    ),
+                    "boostedtau_2_iso_sf_outputname": "id_wgt_boostedtau_iso_{wp}_2".format(
+                        wp=wp
+                    ),
                     "iso_boostedtau_id_WP": "{wp}".format(wp=wp),
                     "iso_boostedtau_id_WPbit": bit,
                 }
@@ -432,10 +440,18 @@ def build_config(
             "antiele_boostedtau_id": [
                 {
                     "boostedtau_id_discriminator": "antiEleMVA6",
-                    "boostedtau_1_antiele_id_outputname": "id_boostedtau_antiEle_{wp}_1".format(wp=wp),
-                    "boostedtau_1_antiele_sf_outputname": "id_wgt_boostedtau_antiEle_{wp}_1".format(wp=wp),
-                    "boostedtau_2_antiele_id_outputname": "id_boostedtau_antiEle_{wp}_2".format(wp=wp),
-                    "boostedtau_2_antiele_sf_outputname": "id_wgt_boostedtau_antiEle_{wp}_2".format(wp=wp),
+                    "boostedtau_1_antiele_id_outputname": "id_boostedtau_antiEle_{wp}_1".format(
+                        wp=wp
+                    ),
+                    "boostedtau_1_antiele_sf_outputname": "id_wgt_boostedtau_antiEle_{wp}_1".format(
+                        wp=wp
+                    ),
+                    "boostedtau_2_antiele_id_outputname": "id_boostedtau_antiEle_{wp}_2".format(
+                        wp=wp
+                    ),
+                    "boostedtau_2_antiele_sf_outputname": "id_wgt_boostedtau_antiEle_{wp}_2".format(
+                        wp=wp
+                    ),
                     "antiele_boostedtau_id_WP": "{wp}".format(wp=wp),
                     "antiele_boostedtau_id_WPbit": bit,
                 }
@@ -450,10 +466,18 @@ def build_config(
             "antimu_boostedtau_id": [
                 {
                     "boostedtau_id_discriminator": "antiMu3",
-                    "boostedtau_1_antimu_id_outputname": "id_boostedtau_antiMu_{wp}_1".format(wp=wp),
-                    "boostedtau_1_antimu_sf_outputname": "id_wgt_boostedtau_antiMu_{wp}_1".format(wp=wp),
-                    "boostedtau_2_antimu_id_outputname": "id_boostedtau_antiMu_{wp}_2".format(wp=wp),
-                    "boostedtau_2_antimu_sf_outputname": "id_wgt_boostedtau_antiMu_{wp}_2".format(wp=wp),
+                    "boostedtau_1_antimu_id_outputname": "id_boostedtau_antiMu_{wp}_1".format(
+                        wp=wp
+                    ),
+                    "boostedtau_1_antimu_sf_outputname": "id_wgt_boostedtau_antiMu_{wp}_1".format(
+                        wp=wp
+                    ),
+                    "boostedtau_2_antimu_id_outputname": "id_boostedtau_antiMu_{wp}_2".format(
+                        wp=wp
+                    ),
+                    "boostedtau_2_antimu_sf_outputname": "id_wgt_boostedtau_antiMu_{wp}_2".format(
+                        wp=wp
+                    ),
                     "antimu_boostedtau_id_WP": "{wp}".format(wp=wp),
                     "antimu_boostedtau_id_WPbit": bit,
                 }
@@ -542,7 +566,7 @@ def build_config(
             "boostedtau_sf_iso_tau40to500": "nom",
             "boostedtau_sf_iso_tau500to1000": "nom",
             "boostedtau_sf_iso_tau1000toinf": "nom",
-            "boostedtau_iso_sf_dependence": "pt", 
+            "boostedtau_iso_sf_dependence": "pt",
         },
     )
     # TT tau id sf variations
@@ -611,7 +635,7 @@ def build_config(
             "muon_iso_cut": 4.0,
         },
     )
-    
+
     # Muon scale factors configuration
     configuration.add_config_parameters(
         ["mt", "mm", "em"],
@@ -746,7 +770,17 @@ def build_config(
                     "2018": "data/recoil_corrections/PuppiMETSys_2018.root",
                 }
             ),
-            "applyRecoilCorrections": SampleModifier({"ttbar": False, "singletop": False, "diboson": False, "data": False, "embedding": False, "embedding_mc": False}, default=True),
+            "applyRecoilCorrections": SampleModifier(
+                {
+                    "ttbar": False,
+                    "singletop": False,
+                    "diboson": False,
+                    "data": False,
+                    "embedding": False,
+                    "embedding_mc": False,
+                },
+                default=True,
+            ),
             "apply_recoil_resolution_systematic": False,
             "apply_recoil_response_systematic": False,
             "recoil_systematic_shift_up": False,
@@ -1229,7 +1263,10 @@ def build_config(
     configuration.add_modification_rule(
         ["et", "mt", "tt"],
         ReplaceProducer(
-            producers=[boostedtaus.boostedTauEnergyCorrection, boostedtaus.boostedTauEnergyCorrection_data],
+            producers=[
+                boostedtaus.boostedTauEnergyCorrection,
+                boostedtaus.boostedTauEnergyCorrection_data,
+            ],
             samples="data",
         ),
     )
@@ -1364,7 +1401,7 @@ def build_config(
             samples=["embedding", "embedding_mc"],
         ),
     )
-    
+
     configuration.add_modification_rule(
         "global",
         AppendProducer(producers=event.JSONFilter, samples=["data", "embedding"]),
@@ -2293,7 +2330,15 @@ def build_config(
         samples=[
             sample
             for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc", "ttbar", "diboson", "singletop"]
+            if sample
+            not in [
+                "data",
+                "embedding",
+                "embedding_mc",
+                "ttbar",
+                "diboson",
+                "singletop",
+            ]
         ],
     )
     configuration.add_shift(
@@ -2317,7 +2362,15 @@ def build_config(
         samples=[
             sample
             for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc", "ttbar", "diboson", "singletop"]
+            if sample
+            not in [
+                "data",
+                "embedding",
+                "embedding_mc",
+                "ttbar",
+                "diboson",
+                "singletop",
+            ]
         ],
     )
     configuration.add_shift(
@@ -2341,7 +2394,15 @@ def build_config(
         samples=[
             sample
             for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc", "ttbar", "diboson", "singletop"]
+            if sample
+            not in [
+                "data",
+                "embedding",
+                "embedding_mc",
+                "ttbar",
+                "diboson",
+                "singletop",
+            ]
         ],
     )
     configuration.add_shift(
@@ -2365,7 +2426,15 @@ def build_config(
         samples=[
             sample
             for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc", "ttbar", "diboson", "singletop"]
+            if sample
+            not in [
+                "data",
+                "embedding",
+                "embedding_mc",
+                "ttbar",
+                "diboson",
+                "singletop",
+            ]
         ],
     )
     #########################
@@ -2528,7 +2597,7 @@ def build_config(
             if sample not in ["data", "embedding", "embedding_mc"]
         ],
     )
-    
+
     #########################
     # Muon id/iso sf shifts
     #########################
@@ -2608,7 +2677,7 @@ def build_config(
             if sample not in ["data", "embedding", "embedding_mc"]
         ],
     )
-    
+
     configuration.add_shift(
         SystematicShift(
             name="boostedMuonRecoSFUp",
@@ -2920,13 +2989,11 @@ def build_config(
             if sample not in ["data", "embedding", "embedding_mc"]
         ],
     )
-    
+
     configuration.add_shift(
         SystematicShift(
             name="ditauTriggerSFUp",
-            shift_config={
-                ("tt"): {"ditau_trigger_syst": "up"}
-            },
+            shift_config={("tt"): {"ditau_trigger_syst": "up"}},
             producers={
                 ("tt"): scalefactors.TTGenerateDoubleTauTriggerSF_MC,
             },
@@ -2940,9 +3007,7 @@ def build_config(
     configuration.add_shift(
         SystematicShift(
             name="ditauTriggerSFDown",
-            shift_config={
-                ("tt"): {"ditau_trigger_syst": "down"}
-            },
+            shift_config={("tt"): {"ditau_trigger_syst": "down"}},
             producers={
                 ("tt"): scalefactors.TTGenerateDoubleTauTriggerSF_MC,
             },

@@ -33,8 +33,8 @@ def build_config(
         [
             pairquantities.FastMTTQuantities,
             pairquantities.BoostedFastMTTQuantities,
-            hhkinfit.YHKinFit, 
-            hhkinfit.YHKinFit_boosted, 
+            hhkinfit.YHKinFit,
+            hhkinfit.YHKinFit_boosted,
         ],
     )
 

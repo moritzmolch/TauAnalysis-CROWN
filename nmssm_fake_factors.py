@@ -196,7 +196,6 @@ def build_config(
         ],
     )
 
-
     #########################
     # Finalize and validate the configuration
     #########################
