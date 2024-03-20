@@ -16,7 +16,7 @@ from code_generation.modifiers import EraModifier
 
 measure_tauES = False
 measure_eleES = False
-measure_tauID = False  # we assume that we want to measure tau ID scale factors and that's why we can't apply them as a default parameter
+measure_tauID = False
 
 
 def setup_embedding(configuration: Configuration, scopes: List[str]):
