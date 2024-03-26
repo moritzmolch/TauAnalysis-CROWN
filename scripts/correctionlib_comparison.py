@@ -2,7 +2,7 @@ import argparse
 import gzip
 import json
 import os
-from itertools import combinations, count, product
+from itertools import combinations, count, product, cycle
 from multiprocessing import Pool
 from typing import Any, Dict, Generator, List, Tuple, Union
 
@@ -35,7 +35,8 @@ parser.add_argument(
 
 parser.add_argument(
     "--correction-name",
-    type=str,
+    metavar="str",
+    nargs="+",
     help="Name of a correction that will only be plotted. Other corrections are skipped when specified",
     default="",
 )
@@ -224,32 +225,43 @@ def plot_single_correction(
             loc="left",
             fontsize=16,
         )
-        for correction, tag_name in zip(
+        for correction, tag_name, color, marker in zip(
             [correction_a_bins, *correction_b_bins],
             [correction_a_tag, *correction_b_tag],
+            cycle(plt.rcParams['axes.prop_cycle'].by_key()['color']),
+            cycle(["o", "v", "^", "s", "D"]),
         ):
             hep.histplot(
                 correction[idx],
                 correction_edges[idx],
-                label=tag_name,
+                label=f"${tag_name}$",
                 ax=ax[0],
                 histtype="errorbar",
                 yerr=False,
                 xerr=True,
                 markerfacecolor="none",
+                color=color,
+                marker=marker,
             )
 
-        for _correction_b_bins, _correction_b_tag in zip(correction_b_bins, correction_b_tag):
+        for _correction_b_bins, _correction_b_tag, _color, _marker in zip(
+            correction_b_bins,
+            correction_b_tag,
+            cycle(plt.rcParams['axes.prop_cycle'].by_key()['color'][1:]),
+            cycle(["o", "v", "^", "s", "D"]),
+        ):
             with np.errstate(divide="ignore", invalid="ignore"):
                 hep.histplot(
                     correction_a_bins[idx] / _correction_b_bins[idx],
                     correction_edges[idx],
-                    label=f"${ylabel}_{{{correction_a_tag}}}$ / ${ylabel}_{{{_correction_b_tag}}}$",
+                    label=f"$\\frac{{{ylabel}_{{{correction_a_tag}}}}}{{{ylabel}_{{{_correction_b_tag}}}}}$",
                     ax=ax[1],
                     histtype="errorbar",
                     yerr=False,
                     xerr=True,
                     markerfacecolor="none",
+                    color=_color,
+                    marker=_marker,
                 )
 
         shared_ratio_ylim = max(shared_ratio_ylim, max(map(lambda it: abs(1 - it), ax[1].get_ylim())))
@@ -263,7 +275,7 @@ def plot_single_correction(
         )
 
         hep.cms.label("Own Work", ax=ax[0], loc=2, data=not correction_type == "mc")
-        [_ax.legend() for _ax in ax]
+        [_ax.legend(loc="upper right") for _ax in ax]
 
     shared_ratio_ylim *= 1.25
     for correction_type, ax in zip(
@@ -320,7 +332,7 @@ def plot_corrections(
         ],
         2,
     ):
-        if name_a != name_b or (specific_correction and name_a != specific_correction):
+        if name_a != name_b or (specific_correction and (name_a not in specific_correction)):
             continue
         else:
             nth_correction = next(correction_count)
