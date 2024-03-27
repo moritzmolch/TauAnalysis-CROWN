@@ -248,13 +248,13 @@ def plot_single_correction(
             correction_b_bins,
             correction_b_tag,
             cycle(plt.rcParams['axes.prop_cycle'].by_key()['color'][1:]),
-            cycle(["o", "v", "^", "s", "D"]),
+            cycle(["v", "^", "s", "D"]),
         ):
             with np.errstate(divide="ignore", invalid="ignore"):
                 hep.histplot(
                     correction_a_bins[idx] / _correction_b_bins[idx],
                     correction_edges[idx],
-                    label=f"$\\frac{{{ylabel}_{{{correction_a_tag}}}}}{{{ylabel}_{{{_correction_b_tag}}}}}$",
+                    label=f"${_correction_b_tag}$",
                     ax=ax[1],
                     histtype="errorbar",
                     yerr=False,
@@ -275,7 +275,7 @@ def plot_single_correction(
         )
 
         hep.cms.label("Own Work", ax=ax[0], loc=2, data=not correction_type == "mc")
-        [_ax.legend(loc="upper right") for _ax in ax]
+        ax[0].legend(loc="upper right")
 
     shared_ratio_ylim *= 1.25
     for correction_type, ax in zip(
@@ -285,7 +285,7 @@ def plot_single_correction(
         ax[1].set(
             xscale="log",
             xlabel=xlabel,
-            ylabel="ratio",
+            ylabel=f"Ratio w.r.t. {correction_a_tag}",
             ylim=(1 - shared_ratio_ylim, 1 + shared_ratio_ylim),
             xlim=(correction_edges[idx][0], correction_edges[idx][-1]),
         )
