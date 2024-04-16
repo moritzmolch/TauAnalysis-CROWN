@@ -294,14 +294,10 @@ def build_config(
                     "vsjet_tau_id_WPbit": bit,
                 }
                 for wp, bit in {
-                    "VVVLoose": 1,
-                    "VVLoose": 2,
-                    "VLoose": 3,
                     "Loose": 4,
                     "Medium": 5,
                     "Tight": 6,
                     "VTight": 7,
-                    "VVTight": 8,
                 }.items()
             ],
             "vsele_tau_id": [
@@ -364,6 +360,7 @@ def build_config(
             "tau_sf_vsjet_tau500to1000": "nom",
             "tau_sf_vsjet_tau1000toinf": "nom",
             "tau_vsjet_sf_dependence": "pt",  # or "dm", "eta"
+            "tau_vsjet_vseleWP": "VVLoose",
         },
     )
     # TT tau id sf variations
@@ -375,6 +372,7 @@ def build_config(
             "tau_sf_vsjet_tauDM10": "nom",
             "tau_sf_vsjet_tauDM11": "nom",
             "tau_vsjet_sf_dependence": "dm",  # or "dm", "eta"
+            "tau_vsjet_vseleWP": "VVLoose",
         },
     )
 
