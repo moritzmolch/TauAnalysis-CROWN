@@ -610,7 +610,7 @@ def build_config(
         ["tt"],
         {
             "min_tau_pt": 35.0,
-            "max_tau_eta": 2.3,
+            "max_tau_eta": 2.1,
             "max_tau_dz": 0.2,
             "vsjet_tau_id_bit": 1,
             "vsele_tau_id_bit": 2,
@@ -642,10 +642,10 @@ def build_config(
         {
             "muon_sf_file": EraModifier(
                 {
-                    "2016preBFP": "data/jsonpog-integration/POG/MUO/2016preVFP_UL/muon_Z_v2.json.gz",
-                    "2016postVFP": "data/jsonpog-integration/POG/MUO/2016postVFP_UL/muon_Z_v2.json.gz",
-                    "2017": "data/jsonpog-integration/POG/MUO/2017_UL/muon_Z_v2.json.gz",
-                    "2018": "data/jsonpog-integration/POG/MUO/2018_UL/muon_Z_v2.json.gz",
+                    "2016preBFP": "data/jsonpog-integration/POG/MUO/2016preVFP_UL/muon_HighPt.json.gz",
+                    "2016postVFP": "data/jsonpog-integration/POG/MUO/2016postVFP_UL/muon_HighPt.json.gz",
+                    "2017": "data/jsonpog-integration/POG/MUO/2017_UL/muon_HighPt.json.gz",
+                    "2018": "data/jsonpog-integration/POG/MUO/2018_UL/muon_HighPt.json.gz",
                 }
             ),
             "muon_reco_sf_name": "NUM_TrackerMuons_DEN_genTracks",
