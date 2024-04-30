@@ -1,6 +1,5 @@
 from __future__ import annotations  # needed for type annotations in > python 3.7
 
-from typing import List
 from code_generation.configuration import Configuration
 from code_generation.systematics import SystematicShift
 from .producers import jets as jets
@@ -8,9 +7,7 @@ from .producers import fatjets as fatjets
 from .producers import scalefactors as scalefactors
 
 
-def add_jetVariations(
-    configuration: Configuration, available_sample_types: List[str], era: str
-):
+def add_jetVariations(configuration: Configuration, era: str):
     #########################
     # Jet energy resolution
     #########################
@@ -32,11 +29,7 @@ def add_jetVariations(
                 # ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     configuration.add_shift(
         SystematicShift(
@@ -56,11 +49,7 @@ def add_jetVariations(
                 # ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     #########################
     # Jet energy scale - Total
@@ -86,11 +75,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     configuration.add_shift(
         SystematicShift(
@@ -112,11 +97,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     #########################
     # HEM 15/16 issue
@@ -141,11 +122,7 @@ def add_jetVariations(
                     },
                 },
             ),
-            samples=[
-                sample
-                for sample in available_sample_types
-                if sample not in ["data", "embedding", "embedding_mc"]
-            ],
+            exclude_samples=["data", "embedding", "embedding_mc"],
         )
         configuration.add_shift(
             SystematicShift(
@@ -166,11 +143,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
             ),
-            samples=[
-                sample
-                for sample in available_sample_types
-                if sample not in ["data", "embedding", "embedding_mc"]
-            ],
+            exclude_samples=["data", "embedding", "embedding_mc"],
         )
 
     #########################
@@ -197,11 +170,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     configuration.add_shift(
         SystematicShift(
@@ -223,11 +192,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
 
     JEC_sources = '{"' + "Regrouped_Absolute_{}".format(era) + '"}'
@@ -253,11 +218,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     configuration.add_shift(
         SystematicShift(
@@ -281,11 +242,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
 
     JEC_sources = '{"Regrouped_FlavorQCD"}'
@@ -309,11 +266,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     configuration.add_shift(
         SystematicShift(
@@ -335,11 +288,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
 
     JEC_sources = '{"Regrouped_BBEC1"}'
@@ -363,11 +312,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     configuration.add_shift(
         SystematicShift(
@@ -389,11 +334,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
 
     JEC_sources = '{"' + "Regrouped_BBEC1_{}".format(era) + '"}'
@@ -417,11 +358,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     configuration.add_shift(
         SystematicShift(
@@ -445,11 +382,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
 
     JEC_sources = '{"Regrouped_HF"}'
@@ -473,11 +406,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     configuration.add_shift(
         SystematicShift(
@@ -499,11 +428,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
 
     JEC_sources = '{"' + "Regrouped_HF_{}".format(era) + '"}'
@@ -527,11 +452,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     configuration.add_shift(
         SystematicShift(
@@ -553,11 +474,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
 
     JEC_sources = '{"Regrouped_EC2"}'
@@ -581,11 +498,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     configuration.add_shift(
         SystematicShift(
@@ -607,11 +520,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
 
     JEC_sources = '{"' + "Regrouped_EC2_{}".format(era) + '"}'
@@ -635,11 +544,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     configuration.add_shift(
         SystematicShift(
@@ -661,11 +566,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
 
     JEC_sources = '{"Regrouped_RelativeBal"}'
@@ -689,11 +590,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     configuration.add_shift(
         SystematicShift(
@@ -715,11 +612,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
 
     JEC_sources = '{"' + "Regrouped_RelativeSample_{}".format(era) + '"}'
@@ -745,11 +638,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
     configuration.add_shift(
         SystematicShift(
@@ -773,11 +662,7 @@ def add_jetVariations(
                 ("mt", "et", "tt"): {scalefactors.btagging_SF},
             },
         ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
+        exclude_samples=["data", "embedding", "embedding_mc"],
     )
 
     #########################
@@ -796,11 +681,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -814,11 +695,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"AbsoluteScale"}'
@@ -834,11 +711,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -852,11 +725,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"AbsoluteMPFBias"}'
@@ -872,11 +741,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -890,11 +755,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"Fragmentation"}'
@@ -910,11 +771,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -928,11 +785,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"SinglePionECAL"}'
@@ -948,11 +801,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -966,11 +815,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"SinglePionHCAL"}'
@@ -986,11 +831,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1004,11 +845,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"FlavorQCD"}'
@@ -1024,11 +861,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1042,11 +875,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"TimePtEta"}'
@@ -1062,11 +891,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1080,11 +905,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"RelativeJEREC1"}'
@@ -1100,11 +921,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1118,11 +935,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"RelativeJEREC2"}'
@@ -1138,11 +951,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1156,11 +965,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"RelativeJERHF"}'
@@ -1176,11 +981,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1194,11 +995,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"RelativePtBB"}'
@@ -1214,11 +1011,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1232,11 +1025,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"RelativePtEC1"}'
@@ -1252,11 +1041,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1270,11 +1055,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"RelativePtEC2"}'
@@ -1290,11 +1071,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1308,11 +1085,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"RelativePtHF"}'
@@ -1328,11 +1101,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1346,11 +1115,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"RelativeBal"}'
@@ -1366,11 +1131,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1384,11 +1145,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"RelativeSample"}'
@@ -1404,11 +1161,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1422,11 +1175,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"RelativeFSR"}'
@@ -1442,11 +1191,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1460,11 +1205,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"RelativeStatFSR"}'
@@ -1480,11 +1221,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1498,11 +1235,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"RelativeStatEC"}'
@@ -1518,11 +1251,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1536,11 +1265,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"RelativeStatHF"}'
@@ -1556,11 +1281,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1574,11 +1295,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"PileUpDataMC"}'
@@ -1594,11 +1311,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1612,11 +1325,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"PileUpPtRef"}'
@@ -1632,11 +1341,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1650,11 +1355,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"PileUpPtBB"}'
@@ -1670,11 +1371,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1688,11 +1385,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"PileUpPtEC1"}'
@@ -1708,11 +1401,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1726,11 +1415,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"PileUpPtEC2"}'
@@ -1746,11 +1431,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1764,11 +1445,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     # JEC_sources = '{"PileUpPtHF"}'
@@ -1784,11 +1461,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
     # configuration.add_shift(
     #     SystematicShift(
@@ -1802,11 +1475,7 @@ def add_jetVariations(
     #         },
     #         producers={"global": jets.JetEnergyCorrection},
     #     ),
-    #     samples=[
-    #         sample
-    #         for sample in available_sample_types
-    #         if sample not in ["data", "embedding", "embedding_mc"]
-    #     ],
+    #     exclude_samples=["data", "embedding", "embedding_mc"],
     # )
 
     return configuration

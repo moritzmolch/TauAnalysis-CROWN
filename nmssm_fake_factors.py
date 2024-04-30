@@ -17,7 +17,6 @@ def build_config(
     available_scopes: List[str],
     quantities_map: Union[str, None] = None,
 ):
-
     configuration = FriendTreeConfiguration(
         era,
         sample,
