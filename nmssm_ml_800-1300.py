@@ -38,7 +38,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/ml/nmssm/2018/mt_mass_transformation.json",
+                    "2018": "payloads/ml/nmssm/2018/mt_mass_transformation.json",
                 }
             ),
             "model_file": EraModifier(
@@ -46,7 +46,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/ml/nmssm/2018/resolved_mt_best_pnn_EVTID.onnx",
+                    "2018": "payloads/ml/nmssm/2018/resolved_mt_best_pnn_EVTID.onnx",
                 }
             ),
             "feature_transformation_file": EraModifier(
@@ -54,7 +54,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/ml/nmssm/2018/resolved_mt_feature_transformation_EVTID.json",
+                    "2018": "payloads/ml/nmssm/2018/resolved_mt_feature_transformation_EVTID.json",
                 }
             ),
             "model_file_boosted": EraModifier(
@@ -62,7 +62,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/ml/nmssm/2018/boosted_mt_best_pnn_EVTID.onnx",
+                    "2018": "payloads/ml/nmssm/2018/boosted_mt_best_pnn_EVTID.onnx",
                 }
             ),
             "feature_transformation_file_boosted": EraModifier(
@@ -70,7 +70,7 @@ def build_config(
                     "2016preVFP": "",
                     "2016postVFP": "",
                     "2017": "",
-                    "2018": "data/ml/nmssm/2018/boosted_mt_feature_transformation_EVTID.json",
+                    "2018": "payloads/ml/nmssm/2018/boosted_mt_feature_transformation_EVTID.json",
                 }
             ),
             "massX_definitions": [
