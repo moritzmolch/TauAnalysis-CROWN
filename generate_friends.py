@@ -28,7 +28,7 @@ def run(args):
         "nmssm_Ytautau",
     ]
     available_eras = ["2016preVFP", "2016postVFP", "2017", "2018"]
-    available_scopes = ["et", "mt", "tt", "em", "ee", "mm"]
+    available_scopes = ["et", "mt", "tt", "mm"]
 
     ## setup variables
     shifts = set([shift for shift in args.shifts])

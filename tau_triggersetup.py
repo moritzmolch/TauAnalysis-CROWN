@@ -5,7 +5,7 @@ from code_generation.modifiers import EraModifier, SampleModifier
 def add_diTauTriggerSetup(configuration: Configuration):
     ## MT, MM scope trigger setup
     configuration.add_config_parameters(
-        ["mt", "mm", "em"],
+        ["mt", "mm"],
         {
             "singlemuon_trigger": EraModifier(
                 {
@@ -274,7 +274,7 @@ def add_diTauTriggerSetup(configuration: Configuration):
     )
     ## ET, EE scope trigger setup
     configuration.add_config_parameters(
-        ["et", "ee", "em"],
+        ["et"],
         {
             "singleelectron_trigger": EraModifier(
                 {
@@ -704,134 +704,134 @@ def add_diTauTriggerSetup(configuration: Configuration):
             "boosted_ditau_trigger": EraModifier(
                 {
                     "2018": [
-                        {
-                            "flagname": "trg_ak8pfht750_trimmass50",
-                            "hlt_path": "HLT_AK8PFHT750_TrimMass50",
-                        },
-                        {
-                            "flagname": "trg_ak8pfht800_trimmass50",
-                            "hlt_path": "HLT_AK8PFHT800_TrimMass50",
-                        },
-                        {
-                            "flagname": "trg_ak8pfjet60",
-                            "hlt_path": "HLT_AK8PFJet60",
-                        },
-                        {
-                            "flagname": "trg_ak8pfjet80",
-                            "hlt_path": "HLT_AK8PFJet80",
-                        },
-                        {
-                            "flagname": "trg_ak8pfjet140",
-                            "hlt_path": "HLT_AK8PFJet140",
-                        },
-                        {
-                            "flagname": "trg_ak8pfjet200",
-                            "hlt_path": "HLT_AK8PFJet200",
-                        },
-                        {
-                            "flagname": "trg_ak8pfjet260",
-                            "hlt_path": "HLT_AK8PFJet260",
-                        },
-                        {
-                            "flagname": "trg_ak8pfjet320",
-                            "hlt_path": "HLT_AK8PFJet320",
-                        },
-                        {
-                            "flagname": "trg_ak8pfjet400",
-                            "hlt_path": "HLT_AK8PFJet400",
-                        },
-                        {
-                            "flagname": "trg_ak8pfjet40",
-                            "hlt_path": "HLT_AK8PFJet40",
-                        },
-                        {
-                            "flagname": "trg_ak8pfjet450",
-                            "hlt_path": "HLT_AK8PFJet450",
-                        },
-                        {
-                            "flagname": "trg_ak8pfjet500",
-                            "hlt_path": "HLT_AK8PFJet500",
-                        },
-                        {
-                            "flagname": "trg_ak8pfjet360_trimmass30",
-                            "hlt_path": "HLT_AK8PFJet360_TrimMass30",
-                        },
+                        # {
+                        #     "flagname": "trg_ak8pfht750_trimmass50",
+                        #     "hlt_path": "HLT_AK8PFHT750_TrimMass50",
+                        # },
+                        # {
+                        #     "flagname": "trg_ak8pfht800_trimmass50",
+                        #     "hlt_path": "HLT_AK8PFHT800_TrimMass50",
+                        # },
+                        # {
+                        #     "flagname": "trg_ak8pfjet60",
+                        #     "hlt_path": "HLT_AK8PFJet60",
+                        # },
+                        # {
+                        #     "flagname": "trg_ak8pfjet80",
+                        #     "hlt_path": "HLT_AK8PFJet80",
+                        # },
+                        # {
+                        #     "flagname": "trg_ak8pfjet140",
+                        #     "hlt_path": "HLT_AK8PFJet140",
+                        # },
+                        # {
+                        #     "flagname": "trg_ak8pfjet200",
+                        #     "hlt_path": "HLT_AK8PFJet200",
+                        # },
+                        # {
+                        #     "flagname": "trg_ak8pfjet260",
+                        #     "hlt_path": "HLT_AK8PFJet260",
+                        # },
+                        # {
+                        #     "flagname": "trg_ak8pfjet320",
+                        #     "hlt_path": "HLT_AK8PFJet320",
+                        # },
+                        # {
+                        #     "flagname": "trg_ak8pfjet400",
+                        #     "hlt_path": "HLT_AK8PFJet400",
+                        # },
+                        # {
+                        #     "flagname": "trg_ak8pfjet40",
+                        #     "hlt_path": "HLT_AK8PFJet40",
+                        # },
+                        # {
+                        #     "flagname": "trg_ak8pfjet450",
+                        #     "hlt_path": "HLT_AK8PFJet450",
+                        # },
+                        # {
+                        #     "flagname": "trg_ak8pfjet500",
+                        #     "hlt_path": "HLT_AK8PFJet500",
+                        # },
+                        # {
+                        #     "flagname": "trg_ak8pfjet360_trimmass30",
+                        #     "hlt_path": "HLT_AK8PFJet360_TrimMass30",
+                        # },
                         {
                             "flagname": "trg_ak8pfjet400_trimmass30",
                             "hlt_path": "HLT_AK8PFJet400_TrimMass30",
                         },
-                        {
-                            "flagname": "trg_pfht250",
-                            "hlt_path": "HLT_PFHT250",
-                        },
-                        {
-                            "flagname": "trg_pfht350",
-                            "hlt_path": "HLT_PFHT350",
-                        },
-                        {
-                            "flagname": "trg_pfjet40",
-                            "hlt_path": "HLT_PFJet40",
-                        },
-                        {
-                            "flagname": "trg_pfjet60",
-                            "hlt_path": "HLT_PFJet60",
-                        },
-                        {
-                            "flagname": "trg_pfjet80",
-                            "hlt_path": "HLT_PFJet80",
-                        },
-                        {
-                            "flagname": "trg_pfjet140",
-                            "hlt_path": "HLT_PFJet140",
-                        },
-                        {
-                            "flagname": "trg_pfjet200",
-                            "hlt_path": "HLT_PFJet200",
-                        },
-                        {
-                            "flagname": "trg_pfjet260",
-                            "hlt_path": "HLT_PFJet260",
-                        },
-                        {
-                            "flagname": "trg_pfjet320",
-                            "hlt_path": "HLT_PFJet320",
-                        },
-                        {
-                            "flagname": "trg_pfjet400",
-                            "hlt_path": "HLT_PFJet400",
-                        },
-                        {
-                            "flagname": "trg_pfjet450",
-                            "hlt_path": "HLT_PFJet450",
-                        },
-                        {
-                            "flagname": "trg_pfjet500",
-                            "hlt_path": "HLT_PFJet500",
-                        },
-                        {
-                            "flagname": "trg_pfjet550",
-                            "hlt_path": "HLT_PFJet550",
-                        },
+                        # {
+                        #     "flagname": "trg_pfht250",
+                        #     "hlt_path": "HLT_PFHT250",
+                        # },
+                        # {
+                        #     "flagname": "trg_pfht350",
+                        #     "hlt_path": "HLT_PFHT350",
+                        # },
+                        # {
+                        #     "flagname": "trg_pfjet40",
+                        #     "hlt_path": "HLT_PFJet40",
+                        # },
+                        # {
+                        #     "flagname": "trg_pfjet60",
+                        #     "hlt_path": "HLT_PFJet60",
+                        # },
+                        # {
+                        #     "flagname": "trg_pfjet80",
+                        #     "hlt_path": "HLT_PFJet80",
+                        # },
+                        # {
+                        #     "flagname": "trg_pfjet140",
+                        #     "hlt_path": "HLT_PFJet140",
+                        # },
+                        # {
+                        #     "flagname": "trg_pfjet200",
+                        #     "hlt_path": "HLT_PFJet200",
+                        # },
+                        # {
+                        #     "flagname": "trg_pfjet260",
+                        #     "hlt_path": "HLT_PFJet260",
+                        # },
+                        # {
+                        #     "flagname": "trg_pfjet320",
+                        #     "hlt_path": "HLT_PFJet320",
+                        # },
+                        # {
+                        #     "flagname": "trg_pfjet400",
+                        #     "hlt_path": "HLT_PFJet400",
+                        # },
+                        # {
+                        #     "flagname": "trg_pfjet450",
+                        #     "hlt_path": "HLT_PFJet450",
+                        # },
+                        # {
+                        #     "flagname": "trg_pfjet500",
+                        #     "hlt_path": "HLT_PFJet500",
+                        # },
+                        # {
+                        #     "flagname": "trg_pfjet550",
+                        #     "hlt_path": "HLT_PFJet550",
+                        # },
                         {
                             "flagname": "trg_pfht500_pfmet100_pfmht100_idtight",
                             "hlt_path": "HLT_PFHT500_PFMET100_PFMHT100_IDTight",
                         },
-                        {
-                            "flagname": "trg_pfht500_pfmet110_pfmht110_idtight",
-                            "hlt_path": "HLT_PFHT500_PFMET110_PFMHT110_IDTight",
-                        },
-                        {
-                            "flagname": "trg_pfmet110_pfmht110_idtight",
-                            "hlt_path": "HLT_PFMET110_PFMHT110_IDTight",
-                        },
+                        # {
+                        #     "flagname": "trg_pfht500_pfmet110_pfmht110_idtight",
+                        #     "hlt_path": "HLT_PFHT500_PFMET110_PFMHT110_IDTight",
+                        # },
+                        # {
+                        #     "flagname": "trg_pfmet110_pfmht110_idtight",
+                        #     "hlt_path": "HLT_PFMET110_PFMHT110_IDTight",
+                        # },
                         {
                             "flagname": "trg_pfmet120_pfmht120_idtight",
                             "hlt_path": "HLT_PFMET120_PFMHT120_IDTight",
                         },
-                        {
-                            "flagname": "trg_pfmetnomu110_pfmhtnomu110_idtight",
-                            "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight",
-                        },
+                        # {
+                        #     "flagname": "trg_pfmetnomu110_pfmhtnomu110_idtight",
+                        #     "hlt_path": "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight",
+                        # },
                         {
                             "flagname": "trg_pfmetnomu120_pfmhtnomu120_idtight",
                             "hlt_path": "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
@@ -841,396 +841,151 @@ def add_diTauTriggerSetup(configuration: Configuration):
             ),
         },
     )
-    # EM scope trigger setup
-    configuration.add_config_parameters(
-        ["em"],
-        {
-            "elmu_cross_trigger": EraModifier(
-                {
-                    "2018": [
-                        {
-                            "flagname": "trg_cross_mu23ele12",
-                            "hlt_path": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
-                            "p1_ptcut": 12,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 5,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 24,
-                            "p2_etacut": 2.5,
-                            "p2_filterbit": 5,
-                            "p2_trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                        {
-                            "flagname": "trg_cross_mu8ele23",
-                            "hlt_path": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
-                            "p1_ptcut": 24,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 5,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 8,
-                            "p2_etacut": 2.5,
-                            "p2_filterbit": 5,
-                            "p2_trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                    ],
-                    "2017": [
-                        {
-                            "flagname": "trg_cross_mu23ele12",
-                            "hlt_path": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
-                            "p1_ptcut": 12,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 5,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 24,
-                            "p2_etacut": 2.5,
-                            "p2_filterbit": 5,
-                            "p2_trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                        {
-                            "flagname": "trg_cross_mu8ele23",
-                            "hlt_path": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
-                            "p1_ptcut": 24,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 5,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 8,
-                            "p2_etacut": 2.5,
-                            "p2_filterbit": 5,
-                            "p2_trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                    ],
-                    "2016postVFP": [
-                        {
-                            "flagname": "trg_cross_mu23ele12_dz",
-                            "hlt_path": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
-                            "p1_ptcut": 13,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 5,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 24,
-                            "p2_etacut": 2.5,
-                            "p2_filterbit": 5,
-                            "p2_trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                        {
-                            "flagname": "trg_cross_mu8ele23_dz",
-                            "hlt_path": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
-                            "p1_ptcut": 24,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 5,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 9,
-                            "p2_etacut": 2.5,
-                            "p2_filterbit": 5,
-                            "p2_trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                        {
-                            "flagname": "trg_cross_mu23ele12",
-                            "hlt_path": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
-                            "p1_ptcut": 13,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 5,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 24,
-                            "p2_etacut": 2.5,
-                            "p2_filterbit": 5,
-                            "p2_trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                        {
-                            "flagname": "trg_cross_mu8ele23",
-                            "hlt_path": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL",
-                            "p1_ptcut": 24,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 5,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 9,
-                            "p2_etacut": 2.5,
-                            "p2_filterbit": 5,
-                            "p2_trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                    ],
-                    "2016preVFP": [
-                        {
-                            "flagname": "trg_cross_mu23ele12_dz",
-                            "hlt_path": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
-                            "p1_ptcut": 13,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 5,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 24,
-                            "p2_etacut": 2.5,
-                            "p2_filterbit": 5,
-                            "p2_trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                        {
-                            "flagname": "trg_cross_mu8ele23_dz",
-                            "hlt_path": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
-                            "p1_ptcut": 24,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 5,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 9,
-                            "p2_etacut": 2.5,
-                            "p2_filterbit": 5,
-                            "p2_trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                        {
-                            "flagname": "trg_cross_mu23ele12",
-                            "hlt_path": "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL",
-                            "p1_ptcut": 13,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 5,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 24,
-                            "p2_etacut": 2.5,
-                            "p2_filterbit": 5,
-                            "p2_trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                        {
-                            "flagname": "trg_cross_mu8ele23",
-                            "hlt_path": "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL",
-                            "p1_ptcut": 24,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 5,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 9,
-                            "p2_etacut": 2.5,
-                            "p2_filterbit": 5,
-                            "p2_trigger_particle_id": 13,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                    ],
-                }
-            ),
-        },
-    )
 
     ## TT singletau trigger
-    configuration.add_config_parameters(
-        ["tt"],
-        {
-            "singletau_trigger_leading": EraModifier(
-                {
-                    "2018": [
-                        {
-                            "flagname": "trg_single_tau180_1",
-                            "hlt_path": "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1",
-                            "ptcut": 180,
-                            "etacut": 2.1,
-                            "filterbit": 5,
-                            "trigger_particle_id": 15,
-                            "max_deltaR_triggermatch": 0.4,
-                        }
-                    ],
-                    "2017": [
-                        {
-                            "flagname": "trg_single_tau180_1",
-                            "hlt_path": "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1",
-                            "ptcut": 180,
-                            "etacut": 2.1,
-                            "filterbit": 5,
-                            "trigger_particle_id": 15,
-                            "max_deltaR_triggermatch": 0.4,
-                        }
-                    ],
-                    "2016postVFP": [
-                        {
-                            "flagname": "trg_single_tau120_1",
-                            "hlt_path": "HLT_VLooseIsoPFTau120_Trk50_eta2p1",
-                            "ptcut": 120,
-                            "etacut": 2.1,
-                            "filterbit": 5,
-                            "trigger_particle_id": 15,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                        {
-                            "flagname": "trg_single_tau140_1",
-                            "hlt_path": "HLT_VLooseIsoPFTau140_Trk50_eta2p1",
-                            "ptcut": 140,
-                            "etacut": 2.1,
-                            "filterbit": 5,
-                            "trigger_particle_id": 15,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                    ],
-                    "2016preVFP": [
-                        {
-                            "flagname": "trg_single_tau120_1",
-                            "hlt_path": "HLT_VLooseIsoPFTau120_Trk50_eta2p1",
-                            "ptcut": 120,
-                            "etacut": 2.1,
-                            "filterbit": 5,
-                            "trigger_particle_id": 15,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                        {
-                            "flagname": "trg_single_tau140_1",
-                            "hlt_path": "HLT_VLooseIsoPFTau140_Trk50_eta2p1",
-                            "ptcut": 140,
-                            "etacut": 2.1,
-                            "filterbit": 5,
-                            "trigger_particle_id": 15,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                    ],
-                }
-            )
-        },
-    )
+    # configuration.add_config_parameters(
+    #     ["tt"],
+    #     {
+    #         "singletau_trigger_leading": EraModifier(
+    #             {
+    #                 "2018": [
+    #                     {
+    #                         "flagname": "trg_single_tau180_1",
+    #                         "hlt_path": "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1",
+    #                         "ptcut": 180,
+    #                         "etacut": 2.1,
+    #                         "filterbit": 5,
+    #                         "trigger_particle_id": 15,
+    #                         "max_deltaR_triggermatch": 0.4,
+    #                     }
+    #                 ],
+    #                 "2017": [
+    #                     {
+    #                         "flagname": "trg_single_tau180_1",
+    #                         "hlt_path": "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1",
+    #                         "ptcut": 180,
+    #                         "etacut": 2.1,
+    #                         "filterbit": 5,
+    #                         "trigger_particle_id": 15,
+    #                         "max_deltaR_triggermatch": 0.4,
+    #                     }
+    #                 ],
+    #                 "2016postVFP": [
+    #                     {
+    #                         "flagname": "trg_single_tau120_1",
+    #                         "hlt_path": "HLT_VLooseIsoPFTau120_Trk50_eta2p1",
+    #                         "ptcut": 120,
+    #                         "etacut": 2.1,
+    #                         "filterbit": 5,
+    #                         "trigger_particle_id": 15,
+    #                         "max_deltaR_triggermatch": 0.4,
+    #                     },
+    #                     {
+    #                         "flagname": "trg_single_tau140_1",
+    #                         "hlt_path": "HLT_VLooseIsoPFTau140_Trk50_eta2p1",
+    #                         "ptcut": 140,
+    #                         "etacut": 2.1,
+    #                         "filterbit": 5,
+    #                         "trigger_particle_id": 15,
+    #                         "max_deltaR_triggermatch": 0.4,
+    #                     },
+    #                 ],
+    #                 "2016preVFP": [
+    #                     {
+    #                         "flagname": "trg_single_tau120_1",
+    #                         "hlt_path": "HLT_VLooseIsoPFTau120_Trk50_eta2p1",
+    #                         "ptcut": 120,
+    #                         "etacut": 2.1,
+    #                         "filterbit": 5,
+    #                         "trigger_particle_id": 15,
+    #                         "max_deltaR_triggermatch": 0.4,
+    #                     },
+    #                     {
+    #                         "flagname": "trg_single_tau140_1",
+    #                         "hlt_path": "HLT_VLooseIsoPFTau140_Trk50_eta2p1",
+    #                         "ptcut": 140,
+    #                         "etacut": 2.1,
+    #                         "filterbit": 5,
+    #                         "trigger_particle_id": 15,
+    #                         "max_deltaR_triggermatch": 0.4,
+    #                     },
+    #                 ],
+    #             }
+    #         )
+    #     },
+    # )
 
     ## trailing singletau trigger
-    configuration.add_config_parameters(
-        ["et", "mt", "tt"],
-        {
-            "singletau_trigger_trailing": EraModifier(
-                {
-                    "2018": [
-                        {
-                            "flagname": "trg_single_tau180_2",
-                            "hlt_path": "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1",
-                            "ptcut": 180,
-                            "etacut": 2.1,
-                            "filterbit": 5,
-                            "trigger_particle_id": 15,
-                            "max_deltaR_triggermatch": 0.4,
-                        }
-                    ],
-                    "2017": [
-                        {
-                            "flagname": "trg_single_tau180_2",
-                            "hlt_path": "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1",
-                            "ptcut": 180,
-                            "etacut": 2.1,
-                            "filterbit": 5,
-                            "trigger_particle_id": 15,
-                            "max_deltaR_triggermatch": 0.4,
-                        }
-                    ],
-                    "2016postVFP": [
-                        {
-                            "flagname": "trg_single_tau120_2",
-                            "hlt_path": "HLT_VLooseIsoPFTau120_Trk50_eta2p1_v",
-                            "ptcut": 120,
-                            "etacut": 2.1,
-                            "filterbit": 5,
-                            "trigger_particle_id": 15,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                        {
-                            "flagname": "trg_single_tau140_2",
-                            "hlt_path": "HLT_VLooseIsoPFTau140_Trk50_eta2p1_v",
-                            "ptcut": 140,
-                            "etacut": 2.1,
-                            "filterbit": 5,
-                            "trigger_particle_id": 15,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                    ],
-                    "2016preVFP": [
-                        {
-                            "flagname": "trg_single_tau120_2",
-                            "hlt_path": "HLT_VLooseIsoPFTau120_Trk50_eta2p1_v",
-                            "ptcut": 120,
-                            "etacut": 2.1,
-                            "filterbit": 5,
-                            "trigger_particle_id": 15,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                        {
-                            "flagname": "trg_single_tau140_2",
-                            "hlt_path": "HLT_VLooseIsoPFTau140_Trk50_eta2p1_v",
-                            "ptcut": 140,
-                            "etacut": 2.1,
-                            "filterbit": 5,
-                            "trigger_particle_id": 15,
-                            "max_deltaR_triggermatch": 0.4,
-                        },
-                    ],
-                }
-            )
-        },
-    )
-
-    ### doubleelectron trigger
-    configuration.add_config_parameters(
-        ["ee"],
-        {
-            "doubleelectron_trigger": EraModifier(
-                {
-                    "2018": [
-                        {
-                            "flagname": "trg_double_ele24",
-                            "hlt_path": "HLT_DoubleEle24_eta2p1_WPTight_Gsf",
-                            "p1_ptcut": 24,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 4,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 24,
-                            "p2_etacut": 2.1,
-                            "p2_filterbit": 4,
-                            "p2_trigger_particle_id": 11,
-                            "max_deltaR_triggermatch": 0.4,
-                        }
-                    ],
-                    "2017": [
-                        {
-                            "flagname": "trg_double_ele24",
-                            "hlt_path": "HLT_DoubleEle24_eta2p1_WPTight_Gsf",
-                            "p1_ptcut": 24,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 4,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 24,
-                            "p2_etacut": 2.1,
-                            "p2_filterbit": 4,
-                            "p2_trigger_particle_id": 11,
-                            "max_deltaR_triggermatch": 0.4,
-                        }
-                    ],
-                    "2016postVFP": [
-                        {
-                            "flagname": "trg_double_ele24",
-                            "hlt_path": "HLT_DoubleEle24_eta2p1_WPTight_Gsf",
-                            "p1_ptcut": 24,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 4,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 24,
-                            "p2_etacut": 2.1,
-                            "p2_filterbit": 4,
-                            "p2_trigger_particle_id": 11,
-                            "max_deltaR_triggermatch": 0.4,
-                        }
-                    ],
-                    "2016preVFP": [
-                        {
-                            "flagname": "trg_double_ele24",
-                            "hlt_path": "HLT_DoubleEle24_eta2p1_WPTight_Gsf",
-                            "p1_ptcut": 24,
-                            "p1_etacut": 2.1,
-                            "p1_filterbit": 4,
-                            "p1_trigger_particle_id": 11,
-                            "p2_ptcut": 24,
-                            "p2_etacut": 2.1,
-                            "p2_filterbit": 4,
-                            "p2_trigger_particle_id": 11,
-                            "max_deltaR_triggermatch": 0.4,
-                        }
-                    ],
-                }
-            )
-        },
-    )
+    # configuration.add_config_parameters(
+    #     ["et", "mt", "tt"],
+    #     {
+    #         "singletau_trigger_trailing": EraModifier(
+    #             {
+    #                 "2018": [
+    #                     {
+    #                         "flagname": "trg_single_tau180_2",
+    #                         "hlt_path": "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1",
+    #                         "ptcut": 180,
+    #                         "etacut": 2.1,
+    #                         "filterbit": 5,
+    #                         "trigger_particle_id": 15,
+    #                         "max_deltaR_triggermatch": 0.4,
+    #                     }
+    #                 ],
+    #                 "2017": [
+    #                     {
+    #                         "flagname": "trg_single_tau180_2",
+    #                         "hlt_path": "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1",
+    #                         "ptcut": 180,
+    #                         "etacut": 2.1,
+    #                         "filterbit": 5,
+    #                         "trigger_particle_id": 15,
+    #                         "max_deltaR_triggermatch": 0.4,
+    #                     }
+    #                 ],
+    #                 "2016postVFP": [
+    #                     {
+    #                         "flagname": "trg_single_tau120_2",
+    #                         "hlt_path": "HLT_VLooseIsoPFTau120_Trk50_eta2p1_v",
+    #                         "ptcut": 120,
+    #                         "etacut": 2.1,
+    #                         "filterbit": 5,
+    #                         "trigger_particle_id": 15,
+    #                         "max_deltaR_triggermatch": 0.4,
+    #                     },
+    #                     {
+    #                         "flagname": "trg_single_tau140_2",
+    #                         "hlt_path": "HLT_VLooseIsoPFTau140_Trk50_eta2p1_v",
+    #                         "ptcut": 140,
+    #                         "etacut": 2.1,
+    #                         "filterbit": 5,
+    #                         "trigger_particle_id": 15,
+    #                         "max_deltaR_triggermatch": 0.4,
+    #                     },
+    #                 ],
+    #                 "2016preVFP": [
+    #                     {
+    #                         "flagname": "trg_single_tau120_2",
+    #                         "hlt_path": "HLT_VLooseIsoPFTau120_Trk50_eta2p1_v",
+    #                         "ptcut": 120,
+    #                         "etacut": 2.1,
+    #                         "filterbit": 5,
+    #                         "trigger_particle_id": 15,
+    #                         "max_deltaR_triggermatch": 0.4,
+    #                     },
+    #                     {
+    #                         "flagname": "trg_single_tau140_2",
+    #                         "hlt_path": "HLT_VLooseIsoPFTau140_Trk50_eta2p1_v",
+    #                         "ptcut": 140,
+    #                         "etacut": 2.1,
+    #                         "filterbit": 5,
+    #                         "trigger_particle_id": 15,
+    #                         "max_deltaR_triggermatch": 0.4,
+    #                     },
+    #                 ],
+    #             }
+    #         )
+    #     },
+    # )
 
     return configuration

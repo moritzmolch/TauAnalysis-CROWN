@@ -585,7 +585,7 @@ UnrollboostedMuLV1 = ProducerGroup(
         boosted_muon_dz_1,
         boosted_muon_q_1,
         boosted_muon_iso_1,
-        boosted_muon_is_global_1,
+        # boosted_muon_is_global_1,
     ],
 )
 UnrollboostedElLV1 = ProducerGroup(
@@ -664,10 +664,10 @@ boostedMTDiTauPairQuantities = ProducerGroup(
         boosted_p4_tautaubb,
         boosted_pt_tautaubb,
         boosted_mass_tautaubb,
-        boosted_pt_add,
-        boosted_eta_add,
-        boosted_phi_add,
-        boosted_mass_add,
+        # boosted_pt_add,
+        # boosted_eta_add,
+        # boosted_phi_add,
+        # boosted_mass_add,
     ],
 )
 boostedETDiTauPairQuantities = ProducerGroup(
@@ -689,10 +689,10 @@ boostedETDiTauPairQuantities = ProducerGroup(
         boosted_p4_tautaubb,
         boosted_pt_tautaubb,
         boosted_mass_tautaubb,
-        boosted_pt_add,
-        boosted_eta_add,
-        boosted_phi_add,
-        boosted_mass_add,
+        # boosted_pt_add,
+        # boosted_eta_add,
+        # boosted_phi_add,
+        # boosted_mass_add,
     ],
 )
 boostedTTDiTauPairQuantities = ProducerGroup(

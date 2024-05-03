@@ -102,14 +102,6 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
         ),
     )
     configuration.add_modification_rule(
-        ["em"],
-        ReplaceProducer(
-            producers=[genparticles.EMGenPair, genparticles.EmbeddingGenPair],
-            samples=["embedding", "embedding_mc"],
-            scopes=["em"],
-        ),
-    )
-    configuration.add_modification_rule(
         ["mm"],
         ReplaceProducer(
             producers=[genparticles.MuMuGenPair, genparticles.EmbeddingGenPair],
@@ -117,17 +109,8 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             scopes=["mm"],
         ),
     )
-    configuration.add_modification_rule(
-        ["ee"],
-        ReplaceProducer(
-            producers=[genparticles.ElElGenPair, genparticles.EmbeddingGenPair],
-            samples=["embedding", "embedding_mc"],
-            scopes=["ee"],
-        ),
-    )
-
     configuration.add_config_parameters(
-        ["mt", "et", "tt", "em"],
+        ["mt", "et", "tt"],
         {
             "truegen_mother_pdgid": 23,
             "truegen_daughter_1_pdgid": 15,
@@ -140,14 +123,6 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             "truegen_mother_pdgid": 23,
             "truegen_daughter_1_pdgid": 13,
             "truegen_daugher_2_pdgid": 13,
-        },
-    )
-    configuration.add_config_parameters(
-        ["ee"],
-        {
-            "truegen_mother_pdgid": 23,
-            "truegen_daughter_1_pdgid": 11,
-            "truegen_daugher_2_pdgid": 11,
         },
     )
 
@@ -175,7 +150,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
     )
     # add muon scalefactors from embedding measurements
     configuration.add_config_parameters(
-        ["mt", "mm", "em"],
+        ["mt", "mm"],
         {
             "embedding_muon_sf_file": EraModifier(
                 {
@@ -193,7 +168,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
     )
     # add electron scalefactors from embedding measurements
     configuration.add_config_parameters(
-        ["et", "ee", "em"],
+        ["et"],
         {
             "embedding_electron_sf_file": EraModifier(
                 {
@@ -269,7 +244,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
     )
     # electron trigger SF settings from embedding measurements
     configuration.add_config_parameters(
-        ["et", "ee"],
+        ["et"],
         {
             "singlelectron_trigger_sf": EraModifier(
                 {
@@ -387,18 +362,6 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
         ),
     )
     configuration.add_modification_rule(
-        ["em"],
-        AppendProducer(
-            producers=[
-                embedding.TauEmbeddingElectronIDSF_1,
-                embedding.TauEmbeddingElectronIsoSF_1,
-                embedding.TauEmbeddingMuonIDSF_2,
-                embedding.TauEmbeddingMuonIsoSF_2,
-            ],
-            samples=["embedding"],
-        ),
-    )
-    configuration.add_modification_rule(
         ["mm"],
         AppendProducer(
             producers=[
@@ -407,19 +370,6 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                 embedding.TauEmbeddingMuonIDSF_2,
                 embedding.TauEmbeddingMuonIsoSF_2,
                 embedding.MTGenerateSingleMuonTriggerSF,
-            ],
-            samples=["embedding"],
-        ),
-    )
-    configuration.add_modification_rule(
-        ["ee"],
-        AppendProducer(
-            producers=[
-                embedding.TauEmbeddingElectronIDSF_1,
-                embedding.TauEmbeddingElectronIsoSF_1,
-                embedding.TauEmbeddingElectronIDSF_2,
-                embedding.TauEmbeddingElectronIsoSF_2,
-                embedding.ETGenerateSingleElectronTriggerSF,
             ],
             samples=["embedding"],
         ),
@@ -465,9 +415,9 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                             "p2_ptcut": 35,
                             "p1_etacut": 2.1,
                             "p2_etacut": 2.1,
-                            "p1_filterbit": 20,
+                            "p1_filterbit": -1,
                             "p1_trigger_particle_id": 15,
-                            "p2_filterbit": 20,
+                            "p2_filterbit": -1,
                             "p2_trigger_particle_id": 15,
                             "max_deltaR_triggermatch": 0.4,
                         },
@@ -477,9 +427,9 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                             "p2_ptcut": 40,
                             "p1_etacut": 2.1,
                             "p2_etacut": 2.1,
-                            "p1_filterbit": 20,
+                            "p1_filterbit": -1,
                             "p1_trigger_particle_id": 15,
-                            "p2_filterbit": 20,
+                            "p2_filterbit": -1,
                             "p2_trigger_particle_id": 15,
                             "max_deltaR_triggermatch": 0.4,
                         },
@@ -489,9 +439,9 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                             "p2_ptcut": 40,
                             "p1_etacut": 2.1,
                             "p2_etacut": 2.1,
-                            "p1_filterbit": 20,
+                            "p1_filterbit": -1,
                             "p1_trigger_particle_id": 15,
-                            "p2_filterbit": 20,
+                            "p2_filterbit": -1,
                             "p2_trigger_particle_id": 15,
                             "max_deltaR_triggermatch": 0.4,
                         },
@@ -501,9 +451,9 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                             "p2_ptcut": 35,
                             "p1_etacut": 2.1,
                             "p2_etacut": 2.1,
-                            "p1_filterbit": 20,
+                            "p1_filterbit": -1,
                             "p1_trigger_particle_id": 15,
-                            "p2_filterbit": 20,
+                            "p2_filterbit": -1,
                             "p2_trigger_particle_id": 15,
                             "max_deltaR_triggermatch": 0.4,
                         },
@@ -785,14 +735,14 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                     "vsjet_tau_id_WP": "{wp}".format(wp=wp),
                 }
                 for wp in [
-                    "VVVLoose",
-                    "VVLoose",
-                    "VLoose",
-                    "Loose",
+                    # "VVVLoose",
+                    # "VVLoose",
+                    # "VLoose",
+                    # "Loose",
                     "Medium",
                     "Tight",
-                    "VTight",
-                    "VVTight",
+                    # "VTight",
+                    # "VVTight",
                 ]
             ],
         },
@@ -838,14 +788,14 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                     "vsjet_tau_id_WP": "{wp}".format(wp=wp),
                 }
                 for wp in [
-                    "VVVLoose",
-                    "VVLoose",
-                    "VLoose",
-                    "Loose",
+                    # "VVVLoose",
+                    # "VVLoose",
+                    # "VLoose",
+                    # "Loose",
                     "Medium",
                     "Tight",
-                    "VTight",
-                    "VVTight",
+                    # "VTight",
+                    # "VVTight",
                 ]
             ],
         },
