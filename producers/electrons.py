@@ -16,6 +16,19 @@ ElectronPtCorrectionEmbedding = Producer(
     output=[q.Electron_pt_corrected],
     scopes=["global"],
 )
+ElectronPtCorrectionMC = Producer(
+    name="ElectronPtCorrectionMC",
+    call='physicsobject::electron::PtCorrectionMC({df}, {output}, {input}, {ele_es_era}, "{ele_es_variation}", {ele_es_file})',
+    input=[
+        nanoAOD.Electron_pt,
+        nanoAOD.Electron_eta,
+        nanoAOD.Electron_seedGain,
+        nanoAOD.Electron_dEsigmaUp,
+        nanoAOD.Electron_dEsigmaDown,
+    ],
+    output=[q.Electron_pt_corrected],
+    scopes=["global"],
+)
 
 RenameElectronPt = Producer(
     name="RenameElectronPt",

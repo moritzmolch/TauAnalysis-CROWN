@@ -1380,7 +1380,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             "global",
             ReplaceProducer(
                 producers=[
-                    electrons.RenameElectronPt,
+                    electrons.ElectronPtCorrectionMC,
                     electrons.ElectronPtCorrectionEmbedding,
                 ],
                 samples=["embedding"],
@@ -1430,7 +1430,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             "global",
             ReplaceProducer(
                 producers=[
-                    electrons.RenameElectronPt,
+                    electrons.ElectronPtCorrectionMC,
                     electrons.ElectronPtCorrectionEmbedding,
                 ],
                 samples=["embedding"],
