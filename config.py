@@ -184,10 +184,10 @@ def build_config(
             "ele_es_variation": "nom",
             "ele_es_file": EraModifier(
                 {
-                    "2016preVFP": '"data/electron_energy_scale_patch/2016preVFP_UL/EGM_ScaleUnc.json.gz"',
-                    "2016postVFP": '"data/electron_energy_scale_patch/2016postVFP_UL/EGM_ScaleUnc.json.gz"',
-                    "2017": '"data/electron_energy_scale_patch/2017_UL/EGM_ScaleUnc.json.gz"',
-                    "2018": '"data/electron_energy_scale_patch/2018_UL/EGM_ScaleUnc.json.gz"',
+                    "2016preVFP": '"data/electron_energy_scale/2016preVFP_UL/EGM_ScaleUnc.json.gz"',
+                    "2016postVFP": '"data/electron_energy_scale/2016postVFP_UL/EGM_ScaleUnc.json.gz"',
+                    "2017": '"data/electron_energy_scale/2017_UL/EGM_ScaleUnc.json.gz"',
+                    "2018": '"data/electron_energy_scale/2018_UL/EGM_ScaleUnc.json.gz"',
                 }
             ),
         },
