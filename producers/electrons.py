@@ -18,7 +18,7 @@ ElectronPtCorrectionEmbedding = Producer(
 )
 ElectronPtCorrectionMC = Producer(
     name="ElectronPtCorrectionMC",
-    call='physicsobject::electron::PtCorrectionMC({df}, {output}, {input}, {ele_es_era}, "{ele_es_variation}", {ele_es_patch_file})',
+    call='physicsobject::electron::PtCorrectionMC({df}, {output}, {input}, {ele_es_era}, "{ele_es_variation}", {ele_es_file})',
     input=[
         nanoAOD.Electron_pt,
         nanoAOD.Electron_eta,
