@@ -12,7 +12,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_hf"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -22,7 +27,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_hf"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -33,7 +43,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_hfstats1"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -43,7 +58,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_hfstats1"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -54,7 +74,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_hfstats2"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -64,7 +89,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_hfstats2"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -75,7 +105,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_lf"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -85,7 +120,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_lf"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -96,7 +136,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_lfstats1"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -106,7 +151,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_lfstats1"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -117,7 +167,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_lfstats2"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -127,7 +182,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_lfstats2"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -138,7 +198,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_cferr1"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -148,7 +213,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_cferr1"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -159,7 +229,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "up_cferr2"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
@@ -169,7 +244,12 @@ def add_btagVariations(configuration):
             shift_config={
                 ("mt", "et", "tt"): {"btag_sf_variation": "down_cferr2"},
             },
-            producers={("mt", "et", "tt"): scalefactors.btagging_SF},
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.btagging_SF,
+                    scalefactors.btagging_SF_boosted,
+                }
+            },
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
