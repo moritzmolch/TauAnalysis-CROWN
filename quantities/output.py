@@ -418,6 +418,8 @@ fj_Xbb_msoftdrop_boosted = Quantity("fj_Xbb_msoftdrop_boosted")
 fj_Xbb_particleNet_XbbvsQCD_boosted = Quantity("fj_Xbb_particleNet_XbbvsQCD_boosted")
 fj_Xbb_nsubjettiness_2over1_boosted = Quantity("fj_Xbb_nsubjettiness_2over1_boosted")
 fj_Xbb_nsubjettiness_3over2_boosted = Quantity("fj_Xbb_nsubjettiness_3over2_boosted")
+pNet_Xbb_weight = Quantity("pNet_Xbb_weight")
+pNet_Xbb_weight_boosted = Quantity("pNet_Xbb_weight_boosted")
 
 dielectron_veto = Quantity("dielectron_veto")
 dimuon_veto = Quantity("dimuon_veto")

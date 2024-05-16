@@ -179,6 +179,23 @@ def build_config(
             "max_ele_dz": 0.2,
             "max_ele_iso": 4.0,
             "ele_id": "Electron_mvaFall17V2noIso_WP90",
+            "ele_es_era": EraModifier(
+                {
+                    "2016preVFP": '"2016preVFP"',
+                    "2016postVFP": '"2016postVFP"',
+                    "2017": '2017"',
+                    "2018": '"2018"',
+                }
+            ),
+            "ele_es_variation": "nom",
+            "ele_es_patch_file": EraModifier(
+                {
+                    "2016preVFP": '"data/electron_energy_scale_patch/2016preVFP_UL/EGM_ScaleUnc.json.gz"',
+                    "2016postVFP": '"data/electron_energy_scale_patch/2016postVFP_UL/EGM_ScaleUnc.json.gz"',
+                    "2017": '"data/electron_energy_scale_patch/2017_UL/EGM_ScaleUnc.json.gz"',
+                    "2018": '"data/electron_energy_scale_patch/2018_UL/EGM_ScaleUnc.json.gz"',
+                }
+            ),
         },
     )
     # fatjet base selection:
@@ -308,6 +325,15 @@ def build_config(
             ),
             "btag_sf_variation": "central",
             "btag_corr_algo": "deepJet_shape",
+            "pNetXbb_sf_file": EraModifier(
+                {
+                    "2016preVFP": "",
+                    "2016postVFP": "",
+                    "2017": "",
+                    "2018": "payloads/particleNet/pNet_Xbb_SF_2018.json.gz",
+                }
+            ),
+            "pNetXbb_sf_variation": "nominal",
         },
     )
     # gen b pair for NMSSM analysis
@@ -663,9 +689,9 @@ def build_config(
                     "2018": "2018_UL",
                 }
             ),
-            "muon_reco_sf_varation": "nominal",  # "nominal" is nominal, "systup"/"systdown" are up/down variations
-            "muon_id_sf_varation": "sf",  # "sf" is nominal, "systup"/"systdown" are up/down variations
-            "muon_iso_sf_varation": "sf",  # "sf" is nominal, "systup"/"systdown" are up/down variations
+            "muon_reco_sf_variation": "nominal",  # "nominal" is nominal, "systup"/"systdown" are up/down variations
+            "muon_id_sf_variation": "sf",  # "sf" is nominal, "systup"/"systdown" are up/down variations
+            "muon_iso_sf_variation": "sf",  # "sf" is nominal, "systup"/"systdown" are up/down variations
         },
     )
     # electron scale factors configuration
@@ -689,7 +715,7 @@ def build_config(
                     "2018": "2018",
                 }
             ),
-            "ele_sf_varation": "sf",  # "sf" is nominal, "sfup"/"sfdown" are up/down variations
+            "ele_sf_variation": "sf",  # "sf" is nominal, "sfup"/"sfdown" are up/down variations
         },
     )
     # ET scope electron selection
@@ -789,7 +815,14 @@ def build_config(
     configuration.add_config_parameters(
         ["mt", "mm"],
         {
-            "mc_muon_sf_file": "data/embedding/muon_2018UL.json.gz",
+            "mc_muon_sf_file": EraModifier(
+                {
+                    "2016preVFP": "",
+                    "2016postVFP": "",
+                    "2017": "",
+                    "2018": "data/embedding/muon_2018UL.json.gz",
+                }
+            ),
             "mc_muon_id_sf": "ID_pt_eta_bins",
             "mc_muon_iso_sf": "Iso_pt_eta_bins",
             "mc_muon_id_extrapolation": 1.0,  # for nominal case
@@ -800,7 +833,14 @@ def build_config(
     configuration.add_config_parameters(
         ["et"],
         {
-            "mc_electron_sf_file": "data/embedding/electron_2018UL.json.gz",
+            "mc_electron_sf_file": EraModifier(
+                {
+                    "2016preVFP": "",
+                    "2016postVFP": "",
+                    "2017": "",
+                    "2018": "data/embedding/electron_2018UL.json.gz",
+                }
+            ),
             "mc_electron_id_sf": "ID90_pt_eta_bins",
             "mc_electron_iso_sf": "Iso_pt_eta_bins",
             "mc_electron_id_extrapolation": 1.0,  # for nominal case
@@ -837,12 +877,12 @@ def build_config(
                 {
                     "flagname": "trg_wgt_single_mu24_boosted",
                     "muon_trigger_sf_name": "NUM_IsoMu24_DEN_CutBasedIdTight_and_PFIsoTight",
-                    "muon_trg_sf_varation": "sf",  # "sf" is nominal, "systup"/"systdown" are up/down variations
+                    "muon_trg_sf_variation": "sf",  # "sf" is nominal, "systup"/"systdown" are up/down variations
                 },
                 {
                     "flagname": "trg_wgt_single_mu50_boosted",
                     "muon_trigger_sf_name": "NUM_Mu50_or_OldMu100_or_TkMu100_DEN_CutBasedIdGlobalHighPt_and_TkIsoLoose",
-                    "muon_trg_sf_varation": "sf",  # "sf" is nominal, "systup"/"systdown" are up/down variations
+                    "muon_trg_sf_variation": "sf",  # "sf" is nominal, "systup"/"systdown" are up/down variations
                 },
             ]
         },
@@ -875,6 +915,26 @@ def build_config(
             ]
         },
     )
+    configuration.add_config_parameters(
+        ["et"],
+        {
+            "ele_trg_sf_file": EraModifier(
+                {
+                    "2016preVFP": "payloads/electron_trigger/B2G-22-006_ElecTriggerSF_UL16preVFP.json.gz",
+                    "2016postVFP": "payloads/electron_trigger/B2G-22-006_ElecTriggerSF_UL16postVFP.json.gz",
+                    "2017": "payloads/electron_trigger/B2G-22-006_ElecTriggerSF_UL17.json.gz",
+                    "2018": "payloads/electron_trigger/B2G-22-006_ElecTriggerSF_UL18.json.gz",
+                }
+            ),
+            "boosted_singleelectron_trigger_sf_mc": [
+                {
+                    "flagname": "trg_wgt_single_ele_boosted",
+                    "ele_trg_sf_name": "ElectronTriggerSF",
+                    "ele_trg_sf_variation": "nominal",  # "nominal" is nominal, "up"/"down" are up/down variations
+                },
+            ]
+        },
+    )
     # ditau trigger SF settings for embedding
     configuration.add_config_parameters(
         ["tt"],
@@ -897,7 +957,8 @@ def build_config(
             event.PUweights,
             event.LHE_Scale_weight,
             muons.BaseMuons,
-            electrons.RenameElectronPt,
+            electrons.ElectronPtCorrectionMC,
+            # electrons.RenameElectronPt,
             electrons.BaseElectrons,
             fatjets.FatJetEnergyCorrection,
             fatjets.GoodFatJets,
@@ -948,6 +1009,8 @@ def build_config(
             fatjets.BasicXbbFatJetQuantities_boosted,
             scalefactors.btagging_SF,
             scalefactors.btagging_SF_boosted,
+            scalefactors.Xbb_tagging_SF,
+            scalefactors.Xbb_tagging_SF_boosted,
             met.MetCorrections,
             met.PFMetCorrections,
             met.MetCorrections_boosted,
@@ -1220,6 +1283,16 @@ def build_config(
             samples=["data"],
         ),
     )
+    configuration.add_modification_rule(
+        "global",
+        ReplaceProducer(
+            producers=[
+                electrons.ElectronPtCorrectionMC,
+                electrons.RenameElectronPt,
+            ],
+            samples=["data"],
+        ),
+    )
 
     configuration.add_modification_rule(
         "global",
@@ -1427,6 +1500,7 @@ def build_config(
         AppendProducer(
             producers=[
                 scalefactors.ETGenerateSingleElectronTriggerSF_MC,
+                scalefactors.BoostedETGenerateSingleElectronTriggerSF_MC,
             ],
             exclude_samples=["data", "embedding", "embedding_mc"],
         ),
@@ -1564,6 +1638,8 @@ def build_config(
             # q.btag_value_2,
             q.btag_weight,
             q.btag_weight_boosted,
+            q.pNet_Xbb_weight,
+            q.pNet_Xbb_weight_boosted,
             q.mass_1,
             q.mass_2,
             q.dxy_1,
@@ -2054,6 +2130,66 @@ def build_config(
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )
+    
+    #########################
+    # Electron energy correction shifts
+    #########################
+    configuration.add_shift(
+        SystematicShift(
+            name="eleEsResoUp",
+            shift_config={
+                ("global"): {"ele_es_variation": "resolutionUp"},
+            },
+            producers={
+                ("global"): [
+                    electrons.ElectronPtCorrectionMC,
+                ],
+            },
+        ),
+        exclude_samples=["data", "embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="eleEsResoDown",
+            shift_config={
+                ("global"): {"ele_es_variation": "resolutionDown"},
+            },
+            producers={
+                ("global"): [
+                    electrons.ElectronPtCorrectionMC,
+                ],
+            },
+        ),
+        exclude_samples=["data", "embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="eleEsScaleUp",
+            shift_config={
+                ("global"): {"ele_es_variation": "scaleUp"},
+            },
+            producers={
+                ("global"): [
+                    electrons.ElectronPtCorrectionMC,
+                ],
+            },
+        ),
+        exclude_samples=["data", "embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="eleEsScaleDown",
+            shift_config={
+                ("global"): {"ele_es_variation": "scaleDown"},
+            },
+            producers={
+                ("global"): [
+                    electrons.ElectronPtCorrectionMC,
+                ],
+            },
+        ),
+        exclude_samples=["data", "embedding", "embedding_mc"],
+    )
 
     #########################
     # MET Shifts
@@ -2102,6 +2238,39 @@ def build_config(
                 scopes=["global"],
             )
         )
+    #########################
+    # particleNet Xbb scale factor uncertainties
+    #########################
+    configuration.add_shift(
+        SystematicShift(
+            name="pNetXbbSFUp",
+            shift_config={
+                ("mt", "et", "tt"): {"pNetXbb_sf_variation": "up"},
+            },
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.Xbb_tagging_SF,
+                    scalefactors.Xbb_tagging_SF_boosted,
+                }
+            },
+        ),
+        exclude_samples=["data", "embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="pNetXbbSFDown",
+            shift_config={
+                ("mt", "et", "tt"): {"pNetXbb_sf_variation": "down"},
+            },
+            producers={
+                ("mt", "et", "tt"): {
+                    scalefactors.Xbb_tagging_SF,
+                    scalefactors.Xbb_tagging_SF_boosted,
+                }
+            },
+        ),
+        exclude_samples=["data", "embedding", "embedding_mc"],
+    )
     #########################
     # MET Recoil Shifts
     #########################
@@ -2288,7 +2457,7 @@ def build_config(
             name="boostedElectronIdSFUp",
             scopes=["et"],
             shift_config={
-                ("et"): {"ele_sf_varation": "sfup"},
+                ("et"): {"ele_sf_variation": "sfup"},
             },
             producers={
                 ("et"): [
@@ -2303,7 +2472,7 @@ def build_config(
             name="boostedElectronIdSFDown",
             scopes=["et"],
             shift_config={
-                ("et"): {"ele_sf_varation": "sfdown"},
+                ("et"): {"ele_sf_variation": "sfdown"},
             },
             producers={
                 ("et"): [
@@ -2383,7 +2552,7 @@ def build_config(
             name="boostedMuonRecoSFUp",
             scopes=["mt"],
             shift_config={
-                ("mt"): {"muon_reco_sf_varation": "systup"},
+                ("mt"): {"muon_reco_sf_variation": "systup"},
             },
             producers={
                 ("mt"): [
@@ -2398,7 +2567,7 @@ def build_config(
             name="boostedMuonRecoSFDown",
             scopes=["mt"],
             shift_config={
-                ("mt"): {"muon_reco_sf_varation": "systdown"},
+                ("mt"): {"muon_reco_sf_variation": "systdown"},
             },
             producers={
                 ("mt"): [
@@ -2413,7 +2582,7 @@ def build_config(
             name="boostedMuonIdSFUp",
             scopes=["mt"],
             shift_config={
-                ("mt"): {"muon_id_sf_varation": "systup"},
+                ("mt"): {"muon_id_sf_variation": "systup"},
             },
             producers={
                 ("mt"): [
@@ -2428,7 +2597,7 @@ def build_config(
             name="boostedMuonIdSFDown",
             scopes=["mt"],
             shift_config={
-                ("mt"): {"muon_id_sf_varation": "systdown"},
+                ("mt"): {"muon_id_sf_variation": "systdown"},
             },
             producers={
                 ("mt"): [
@@ -2443,7 +2612,7 @@ def build_config(
             name="boostedMuonIsoSFUp",
             scopes=["mt"],
             shift_config={
-                ("mt"): {"muon_iso_sf_varation": "systup"},
+                ("mt"): {"muon_iso_sf_variation": "systup"},
             },
             producers={
                 ("mt"): [
@@ -2458,7 +2627,7 @@ def build_config(
             name="boostedMuonIsoSFDown",
             scopes=["mt"],
             shift_config={
-                ("mt"): {"muon_iso_sf_varation": "systdown"},
+                ("mt"): {"muon_iso_sf_variation": "systdown"},
             },
             producers={
                 ("mt"): [
@@ -2604,12 +2773,12 @@ def build_config(
                         {
                             "flagname": "trg_wgt_single_mu24_boosted",
                             "muon_trigger_sf_name": "NUM_IsoMu24_DEN_CutBasedIdTight_and_PFIsoTight",
-                            "muon_trg_sf_varation": "systup",  # "sf" is nominal, "systup"/"systdown" are up/down variations
+                            "muon_trg_sf_variation": "systup",  # "sf" is nominal, "systup"/"systdown" are up/down variations
                         },
                         {
                             "flagname": "trg_wgt_single_mu50_boosted",
                             "muon_trigger_sf_name": "NUM_Mu50_or_OldMu100_or_TkMu100_DEN_CutBasedIdGlobalHighPt_and_TkIsoLoose",
-                            "muon_trg_sf_varation": "systup",  # "sf" is nominal, "systup"/"systdown" are up/down variations
+                            "muon_trg_sf_variation": "systup",  # "sf" is nominal, "systup"/"systdown" are up/down variations
                         },
                     ],
                 }
@@ -2627,17 +2796,53 @@ def build_config(
                         {
                             "flagname": "trg_wgt_single_mu24_boosted",
                             "muon_trigger_sf_name": "NUM_IsoMu24_DEN_CutBasedIdTight_and_PFIsoTight",
-                            "muon_trg_sf_varation": "systdown",  # "sf" is nominal, "systup"/"systdown" are up/down variations
+                            "muon_trg_sf_variation": "systdown",  # "sf" is nominal, "systup"/"systdown" are up/down variations
                         },
                         {
                             "flagname": "trg_wgt_single_mu50_boosted",
                             "muon_trigger_sf_name": "NUM_Mu50_or_OldMu100_or_TkMu100_DEN_CutBasedIdGlobalHighPt_and_TkIsoLoose",
-                            "muon_trg_sf_varation": "systdown",  # "sf" is nominal, "systup"/"systdown" are up/down variations
+                            "muon_trg_sf_variation": "systdown",  # "sf" is nominal, "systup"/"systdown" are up/down variations
                         },
                     ],
                 }
             },
             producers={("mt"): scalefactors.BoostedMTGenerateSingleMuonTriggerSF_MC},
+        ),
+        exclude_samples=["data", "embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="boostedSingleElectronTriggerSFUp",
+            shift_config={
+                ("et"): {
+                    "boosted_singleelectron_trigger_sf_mc": [
+                        {
+                            "flagname": "trg_wgt_single_ele_boosted",
+                            "ele_trg_sf_name": "ElectronTriggerSF",
+                            "ele_trg_sf_variation": "up",  
+                        },
+                    ],
+                }
+            },
+            producers={("et"): scalefactors.BoostedETGenerateSingleElectronTriggerSF_MC},
+        ),
+        exclude_samples=["data", "embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="boostedSingleElectronTriggerSFDown",
+            shift_config={
+                ("et"): {
+                    "boosted_singleelectron_trigger_sf_mc": [
+                        {
+                            "flagname": "trg_wgt_single_ele_boosted",
+                            "ele_trg_sf_name": "ElectronTriggerSF",
+                            "ele_trg_sf_variation": "down",  
+                        },
+                    ],
+                }
+            },
+            producers={("et"): scalefactors.BoostedETGenerateSingleElectronTriggerSF_MC},
         ),
         exclude_samples=["data", "embedding", "embedding_mc"],
     )

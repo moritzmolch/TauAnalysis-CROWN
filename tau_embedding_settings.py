@@ -264,11 +264,11 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
                             "embedding_trigger_sf": "Trg32_or_Trg35_Iso_pt_eta_bins",
                             "electron_trg_extrapolation": 1.0,  # for nominal case
                         },
-                        {
-                            "flagname": "trg_wgt_single_ele27orele32orele35",
-                            "embedding_trigger_sf": "Trg_Iso_pt_eta_bins",
-                            "electron_trg_extrapolation": 1.0,  # for nominal case
-                        },
+                        # {
+                        #     "flagname": "trg_wgt_single_ele27orele32orele35",
+                        #     "embedding_trigger_sf": "Trg_Iso_pt_eta_bins",
+                        #     "electron_trg_extrapolation": 1.0,  # for nominal case
+                        # },
                     ],
                     "2017": [
                         {
@@ -645,19 +645,19 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
     )
 
     # use other trigger flags for embedding samples
-    configuration.add_modification_rule(
-        "mt",
-        ReplaceProducer(
-            producers=[
-                triggers.MTGenerateCrossTriggerFlags,
-                triggers.MTGenerateCrossTriggerFlagsEmbedding,
-            ],
-            samples="embedding",
-        ),
-    )
-    configuration.add_outputs(
-        "mt", triggers.MTGenerateCrossTriggerFlagsEmbedding.output_group
-    )
+    # configuration.add_modification_rule(
+    #     "mt",
+    #     ReplaceProducer(
+    #         producers=[
+    #             triggers.MTGenerateCrossTriggerFlags,
+    #             triggers.MTGenerateCrossTriggerFlagsEmbedding,
+    #         ],
+    #         samples="embedding",
+    #     ),
+    # )
+    # configuration.add_outputs(
+    #     "mt", triggers.MTGenerateCrossTriggerFlagsEmbedding.output_group
+    # )
 
     ######################
     ## Tau ID SFs
@@ -1514,7 +1514,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             "global",
             ReplaceProducer(
                 producers=[
-                    electrons.RenameElectronPt,
+                    electrons.ElectronPtCorrectionMC,
                     electrons.ElectronPtCorrectionEmbedding,
                 ],
                 samples=["embedding"],
@@ -1564,7 +1564,7 @@ def setup_embedding(configuration: Configuration, scopes: List[str]):
             "global",
             ReplaceProducer(
                 producers=[
-                    electrons.RenameElectronPt,
+                    electrons.ElectronPtCorrectionMC,
                     electrons.ElectronPtCorrectionEmbedding,
                 ],
                 samples=["embedding"],

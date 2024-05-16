@@ -25,14 +25,14 @@ Muon_1_Iso_SF_RooWorkspace = Producer(
 )
 Muon_1_ID_SF = Producer(
     name="MuonID_SF",
-    call='scalefactor::muon::id({df}, {input}, "{muon_sf_year_id}", "{muon_id_sf_varation}", {output}, "{muon_sf_file}", "{muon_id_sf_name}")',
+    call='scalefactor::muon::id({df}, {input}, "{muon_sf_year_id}", "{muon_id_sf_variation}", {output}, "{muon_sf_file}", "{muon_id_sf_name}")',
     input=[q.pt_1, q.eta_1],
     output=[q.id_wgt_mu_1],
     scopes=["mt", "mm"],
 )
 Muon_1_Iso_SF = Producer(
     name="MuonIso_SF",
-    call='scalefactor::muon::iso({df}, {input}, "{muon_sf_year_id}", "{muon_iso_sf_varation}", {output}, "{muon_sf_file}", "{muon_iso_sf_name}")',
+    call='scalefactor::muon::iso({df}, {input}, "{muon_sf_year_id}", "{muon_iso_sf_variation}", {output}, "{muon_sf_file}", "{muon_iso_sf_name}")',
     input=[q.pt_1, q.eta_1],
     output=[q.iso_wgt_mu_1],
     scopes=["mt", "mm"],
@@ -53,14 +53,14 @@ Muon_2_Iso_SF_RooWorkspace = Producer(
 )
 Muon_2_ID_SF = Producer(
     name="MuonID_SF",
-    call='scalefactor::muon::id({df}, {input}, "{muon_sf_year_id}", "{muon_id_sf_varation}", {output}, "{muon_sf_file}", "{muon_id_sf_name}")',
+    call='scalefactor::muon::id({df}, {input}, "{muon_sf_year_id}", "{muon_id_sf_variation}", {output}, "{muon_sf_file}", "{muon_id_sf_name}")',
     input=[q.pt_2, q.eta_2],
     output=[q.id_wgt_mu_2],
     scopes=["em", "mm"],
 )
 Muon_2_Iso_SF = Producer(
     name="MuonIso_SF",
-    call='scalefactor::muon::iso({df}, {input}, "{muon_sf_year_id}", "{muon_iso_sf_varation}", {output}, "{muon_sf_file}", "{muon_iso_sf_name}")',
+    call='scalefactor::muon::iso({df}, {input}, "{muon_sf_year_id}", "{muon_iso_sf_variation}", {output}, "{muon_sf_file}", "{muon_iso_sf_name}")',
     input=[q.pt_2, q.eta_2],
     output=[q.iso_wgt_mu_2],
     scopes=["em", "mm"],
@@ -114,21 +114,21 @@ MuonIDIso_SF_RooWorkspace = ProducerGroup(
 
 Muon_1_Reco_SF_boosted = Producer(
     name="MuonReco_SF_boosted",
-    call='scalefactor::muon::reco({df}, {input}, "{muon_reco_sf_varation}", {output}, "{muon_sf_file}", "{muon_reco_sf_name}")',
+    call='scalefactor::muon::reco({df}, {input}, "{muon_reco_sf_variation}", {output}, "{muon_sf_file}", "{muon_reco_sf_name}")',
     input=[q.boosted_pt_1, q.boosted_eta_1],
     output=[q.reco_wgt_mu_boosted_1],
     scopes=["mt"],
 )
 Muon_1_ID_SF_boosted = Producer(
     name="MuonID_SF_boosted",
-    call='scalefactor::muon::id({df}, {input}, "{muon_sf_year_id}", "{muon_id_sf_varation}", {output}, "{muon_sf_file}", "{muon_id_sf_name}")',
+    call='scalefactor::muon::id({df}, {input}, "{muon_sf_year_id}", "{muon_id_sf_variation}", {output}, "{muon_sf_file}", "{muon_id_sf_name}")',
     input=[q.boosted_pt_1, q.boosted_eta_1],
     output=[q.id_wgt_mu_boosted_1],
     scopes=["mt"],
 )
 Muon_1_Iso_SF_boosted = Producer(
     name="MuonIso_SF_boosted",
-    call='scalefactor::muon::iso({df}, {input}, "{muon_sf_year_id}", "{muon_iso_sf_varation}", {output}, "{muon_sf_file}", "{muon_iso_sf_name}")',
+    call='scalefactor::muon::iso({df}, {input}, "{muon_sf_year_id}", "{muon_iso_sf_variation}", {output}, "{muon_sf_file}", "{muon_iso_sf_name}")',
     input=[q.boosted_pt_1, q.boosted_eta_1],
     output=[q.iso_wgt_mu_boosted_1],
     scopes=["mt"],
@@ -325,28 +325,28 @@ BoostedTauID_SF = ProducerGroup(
 #########################
 Ele_1_IDWP90_SF = Producer(
     name="Ele_IDWP90_SF",
-    call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "wp90noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "wp90noiso", "{ele_sf_variation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.pt_1, q.eta_1],
     output=[q.id_wgt_ele_wp90nonIso_1],
     scopes=["em", "ee", "et"],
 )
 Ele_2_IDWP90_SF = Producer(
     name="Ele_IDWP90_SF",
-    call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "wp90noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "wp90noiso", "{ele_sf_variation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.pt_2, q.eta_2],
     output=[q.id_wgt_ele_wp90nonIso_2],
     scopes=["ee"],
 )
 Ele_1_IDWP80_SF = Producer(
     name="Ele_IDWP80_SF",
-    call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "wp80noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "wp80noiso", "{ele_sf_variation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.pt_1, q.eta_1],
     output=[q.id_wgt_ele_wp80nonIso_1],
     scopes=["em", "ee", "et"],
 )
 Ele_2_IDWP80_SF = Producer(
     name="Ele_IDWP80_SF",
-    call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "wp80noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "wp80noiso", "{ele_sf_variation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.pt_2, q.eta_2],
     output=[q.id_wgt_ele_wp80nonIso_2],
     scopes=["ee"],
@@ -370,14 +370,14 @@ EleID_SF = ProducerGroup(
 )
 Ele_1_IDWP90_SF_boosted = Producer(
     name="Ele_IDWP90_SF_boosted",
-    call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "wp90noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "wp90noiso", "{ele_sf_variation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.boosted_pt_1, q.boosted_eta_1],
     output=[q.id_wgt_ele_boosted_wp90nonIso_1],
     scopes=["et"],
 )
 Ele_1_IDWP80_SF_boosted = Producer(
     name="Ele_IDWP80_SF_boosted",
-    call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "wp80noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "wp80noiso", "{ele_sf_variation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.boosted_pt_1, q.boosted_eta_1],
     output=[q.id_wgt_ele_boosted_wp80nonIso_1],
     scopes=["et"],
@@ -406,7 +406,7 @@ MTGenerateSingleMuonTriggerSF_MC = ExtendedVectorProducer(
 )
 BoostedMTGenerateSingleMuonTriggerSF_MC = ExtendedVectorProducer(
     name="BoostedMTGenerateSingleMuonTriggerSF_MC",
-    call='scalefactor::muon::trigger({df}, {input}, "{muon_sf_year_id}", "{muon_trg_sf_varation}", {output}, "{muon_sf_file}", "{muon_trigger_sf_name}")',
+    call='scalefactor::muon::trigger({df}, {input}, "{muon_sf_year_id}", "{muon_trg_sf_variation}", {output}, "{muon_sf_file}", "{muon_trigger_sf_name}")',
     input=[q.boosted_pt_1, q.boosted_eta_1],
     output="flagname",
     scope=["mt"],
@@ -421,6 +421,15 @@ ETGenerateSingleElectronTriggerSF_MC = ExtendedVectorProducer(
     scope=["et", "ee"],
     vec_config="singlelectron_trigger_sf_mc",
 )
+BoostedETGenerateSingleElectronTriggerSF_MC = ExtendedVectorProducer(
+    name="BoostedETGenerateSingleElectronTriggerSF_MC",
+    call='scalefactor::electron::trigger({df}, {input}, "{ele_trg_sf_variation}", {output}, "{ele_trg_sf_file}", "{ele_trg_sf_name}")',
+    input=[q.boosted_pt_1, q.boosted_eta_1],
+    output="flagname",
+    scope=["et"],
+    vec_config="boosted_singleelectron_trigger_sf_mc",
+)
+
 TTGenerateDoubleTauTriggerSF_MC_1 = Producer(
     name="TTGenerateDoubleTauTriggerSF_MC_1",
     call='scalefactor::embedding::ditau_trigger_sf({df}, {input}, {output}, "{ditau_trigger_wp}", "{tau_sf_file}", "tau_trigger", "{ditau_trigger_type}", "{ditau_trigger_corrtype}", "{ditau_trigger_syst}")',
@@ -577,5 +586,27 @@ btagging_SF_boosted = Producer(
         q.jet_overlap_veto_mask_boosted,
     ],
     output=[q.btag_weight_boosted],
+    scopes=["tt", "mt", "et", "mm", "em", "ee"],
+)
+
+#########################
+# particleNet tagging SF
+#########################
+Xbb_tagging_SF = Producer(
+    name="Xbb_tagging_SF",
+    call='scalefactor::fatjet::pNetXbbSF({df}, {input}, "{pNetXbb_sf_variation}", {output}, "{pNetXbb_sf_file}")',
+    input=[
+        q.fj_Xbb_pt,
+    ],
+    output=[q.pNet_Xbb_weight],
+    scopes=["tt", "mt", "et", "mm", "em", "ee"],
+)
+Xbb_tagging_SF_boosted = Producer(
+    name="Xbb_tagging_SF_boosted",
+    call='scalefactor::fatjet::pNetXbbSF({df}, {input}, "{pNetXbb_sf_variation}", {output}, "{pNetXbb_sf_file}")',
+    input=[
+        q.fj_Xbb_pt_boosted,
+    ],
+    output=[q.pNet_Xbb_weight_boosted],
     scopes=["tt", "mt", "et", "mm", "em", "ee"],
 )
