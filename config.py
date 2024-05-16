@@ -174,6 +174,23 @@ def build_config(
             "max_ele_dz": 0.2,
             "max_ele_iso": 0.3,
             "ele_id": "Electron_mvaFall17V2noIso_WP90",
+            "ele_es_era": EraModifier(
+                {
+                    "2016preVFP": '"2016preVFP"',
+                    "2016postVFP": '"2016postVFP"',
+                    "2017": '2017"',
+                    "2018": '"2018"',
+                }
+            ),
+            "ele_es_variation": "nom",
+            "ele_es_file": EraModifier(
+                {
+                    "2016preVFP": '"data/electron_energy_scale/2016preVFP_UL/EGM_ScaleUnc.json.gz"',
+                    "2016postVFP": '"data/electron_energy_scale/2016postVFP_UL/EGM_ScaleUnc.json.gz"',
+                    "2017": '"data/electron_energy_scale/2017_UL/EGM_ScaleUnc.json.gz"',
+                    "2018": '"data/electron_energy_scale/2018_UL/EGM_ScaleUnc.json.gz"',
+                }
+            ),
         },
     )
     # jet base selection:
@@ -778,7 +795,7 @@ def build_config(
             event.PUweights,
             event.LHE_Scale_weight,
             muons.BaseMuons,
-            electrons.RenameElectronPt,
+            electrons.ElectronPtCorrectionMC,
             electrons.BaseElectrons,
             jets.JetEnergyCorrection,
             jets.GoodJets,
@@ -1018,6 +1035,16 @@ def build_config(
         "global",
         ReplaceProducer(
             producers=[jets.JetEnergyCorrection, jets.JetEnergyCorrection_data],
+            samples="data",
+        ),
+    )
+    configuration.add_modification_rule(
+        "global",
+        ReplaceProducer(
+            producers=[
+                electrons.ElectronPtCorrectionMC,
+                electrons.RenameElectronPt,
+            ],
             samples="data",
         ),
     )
@@ -1623,6 +1650,66 @@ def build_config(
             ),
             exclude_samples=["data", "embedding", "embedding_mc"],
         )
+        
+    #########################
+    # Electron energy correction shifts
+    #########################
+    configuration.add_shift(
+        SystematicShift(
+            name="eleEsResoUp",
+            shift_config={
+                ("global"): {"ele_es_variation": "resolutionUp"},
+            },
+            producers={
+                ("global"): [
+                    electrons.ElectronPtCorrectionMC,
+                ],
+            },
+        ),
+        exclude_samples=["data", "embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="eleEsResoDown",
+            shift_config={
+                ("global"): {"ele_es_variation": "resolutionDown"},
+            },
+            producers={
+                ("global"): [
+                    electrons.ElectronPtCorrectionMC,
+                ],
+            },
+        ),
+        exclude_samples=["data", "embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="eleEsScaleUp",
+            shift_config={
+                ("global"): {"ele_es_variation": "scaleUp"},
+            },
+            producers={
+                ("global"): [
+                    electrons.ElectronPtCorrectionMC,
+                ],
+            },
+        ),
+        exclude_samples=["data", "embedding", "embedding_mc"],
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="eleEsScaleDown",
+            shift_config={
+                ("global"): {"ele_es_variation": "scaleDown"},
+            },
+            producers={
+                ("global"): [
+                    electrons.ElectronPtCorrectionMC,
+                ],
+            },
+        ),
+        exclude_samples=["data", "embedding", "embedding_mc"],
+    )
 
     #########################
     # MET Shifts
