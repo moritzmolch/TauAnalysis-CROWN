@@ -23,7 +23,7 @@ RunLumiEventFilter = VectorProducer(
 
 JSONFilter = BaseFilter(
     name="JSONFilter",
-    call='basefunctions::JSONFilter({df}, "{golden_json_file}", {input}, "GoldenJSONFilter")',
+    call='basefunctions::JSONFilter({df}, correctionManager, "{golden_json_file}", {input}, "GoldenJSONFilter")',
     input=[nanoAOD.run, nanoAOD.luminosityBlock],
     scopes=["global"],
 )
