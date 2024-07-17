@@ -25,7 +25,7 @@ ScalarHadRecoil_boosted = Producer(
 )
 VectorialHadRecoilP4 = Producer(
     name="VectorialHadRecoilP4",
-    call="hadrecoil::vectorial_mht({df}, {input}, {output})",
+    call="hadrecoil::vectorial_mht({df}, {output}, {input})",
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
@@ -36,7 +36,7 @@ VectorialHadRecoilP4 = Producer(
 )
 VectorialHadRecoilP4_boosted = Producer(
     name="VectorialHadRecoilP4_boosted",
-    call="hadrecoil::vectorial_mht({df}, {input}, {output})",
+    call="hadrecoil::vectorial_mht({df}, {output}, {input})",
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
