@@ -362,6 +362,35 @@ BasicFatJetQuantities = ProducerGroup(
     ],
 )
 
+BasicFatJetQuantitiesMuMu = ProducerGroup(
+    name="BasicFatJetQuantitiesMuMu",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mm"],
+    subproducers=[
+        LVFatJet1,
+        # LVFatJet2,
+        NumberOfFatJets,
+        fj_pt_1,
+        fj_eta_1,
+        fj_phi_1,
+        fj_mass_1,
+        fj_msoftdrop_1,
+        fj_particleNet_XbbvsQCD_1,
+        fj_nsubjettiness_2over1_1,
+        fj_nsubjettiness_3over2_1,
+        # fj_pt_2,
+        # fj_eta_2,
+        # fj_phi_2,
+        # fj_mass_2,
+        # fj_msoftdrop_2,
+        # fj_particleNet_XbbvsQCD_2,
+        # fj_nsubjettiness_2over1_2,
+        # fj_nsubjettiness_3over2_2,
+    ],
+)
+
 FindFatjetMatchingBjet = Producer(
     name="FindFatjetMatchingBjet",
     call="fatjet::FindFatjetMatchingBjet({df}, {output}, {input}, {fatjet_bpair_matching_max_dR})",

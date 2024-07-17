@@ -403,6 +403,27 @@ BasicJetQuantities = ProducerGroup(
         mjj,
     ],
 )
+BasicJetQuantitiesMuMu = ProducerGroup(
+    name="BasicJetQuantitiesMuMu",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mm"],
+    subproducers=[
+        LVJet1,
+        LVJet2,
+        NumberOfJets,
+        jpt_1,
+        jeta_1,
+        jphi_1,
+        jtag_value_1,
+        jpt_2,
+        jeta_2,
+        jphi_2,
+        jtag_value_2,
+        mjj,
+    ],
+)
 
 ##########################
 # Basic b-Jet Quantities
@@ -516,6 +537,26 @@ BasicBJetQuantities = ProducerGroup(
         # LVBJet2,
         NumberOfBJets,
         NumberOfBJets_boosted,
+        # bpt_1,
+        # beta_1,
+        # bphi_1,
+        # btag_value_1,
+        # bpt_2,
+        # beta_2,
+        # bphi_2,
+        # btag_value_2,
+    ],
+)
+BasicBJetQuantitiesMuMu = ProducerGroup(
+    name="BasicBJetQuantitiesMuMu",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mm"],
+    subproducers=[
+        # LVBJet1,
+        # LVBJet2,
+        NumberOfBJets,
         # bpt_1,
         # beta_1,
         # bphi_1,
