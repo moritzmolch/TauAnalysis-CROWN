@@ -48,40 +48,28 @@ VectorialHadRecoilP4_boosted = Producer(
 VectorialHadRecoilPt = Producer(
     name="VectorialHadRecoilPt",
     call="quantities::pt({df}, {output}, {input})",
-    input=[
-        q.mht_p4,
-
-    ],
+    input=[q.mht_p4],
     output=[q.mht_pt],
     scopes=["et", "mt", "tt", "em", "ee", "mm"],
 )
 VectorialHadRecoilPt_boosted = Producer(
     name="VectorialHadRecoilPt_boosted",
     call="quantities::pt({df}, {output}, {input})",
-    input=[
-        q.mht_p4_boosted,
-
-    ],
+    input=[q.mht_p4_boosted],
     output=[q.mht_pt_boosted],
     scopes=["et", "mt", "tt", "em", "ee", "mm"],
 )
 VectorialHadRecoilPhi = Producer(
     name="VectorialHadRecoilPhi",
     call="quantities::phi({df}, {output}, {input})",
-    input=[
-        q.mht_p4,
-
-    ],
+    input=[q.mht_p4],
     output=[q.mht_phi],
     scopes=["et", "mt", "tt", "em", "ee", "mm"],
 )
 VectorialHadRecoilPhi_boosted = Producer(
     name="VectorialHadRecoilPhi_boosted",
     call="quantities::phi({df}, {output}, {input})",
-    input=[
-        q.mht_p4_boosted,
-
-    ],
+    input=[q.mht_p4_boosted],
     output=[q.mht_phi_boosted],
     scopes=["et", "mt", "tt", "em", "ee", "mm"],
 )
