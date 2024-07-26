@@ -5,7 +5,7 @@ from code_generation.producer import Producer, ProducerGroup
 
 ScalarHadRecoil = Producer(
     name="ScalarHadRecoil",
-    call="hadrecoil::scalar_ht({df}, {output}, {input})",
+    call="basefunctions::SumPerEvent<Float_t>({df}, {output}, {input})",
     input=[
         q.Jet_pt_corrected,
         q.good_jet_collection,
@@ -15,7 +15,7 @@ ScalarHadRecoil = Producer(
 )
 ScalarHadRecoil_boosted = Producer(
     name="ScalarHadRecoil_boosted",
-    call="hadrecoil::scalar_ht({df}, {output}, {input})",
+    call="basefunctions::SumPerEvent<Float_t>({df}, {output}, {input})",
     input=[
         q.Jet_pt_corrected,
         q.good_jet_collection_boosted,
@@ -23,51 +23,95 @@ ScalarHadRecoil_boosted = Producer(
     output=[q.ht_boosted],
     scopes=["et", "mt", "tt", "em", "ee", "mm"],
 )
-VectorialHadRecoilP4 = Producer(
-    name="VectorialHadRecoilP4",
-    call="hadrecoil::vectorial_mht({df}, {output}, {input})",
+GoodJetsP4 = Producer(
+    name="GoodJetsP4",
+    call="basefunctions::BuildP4Collection({df}, {output}, {input})",
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        q.Jet_mass_corrected,
         q.good_jet_collection,
     ],
-    output=[q.mht_p4],
+    output=[],
     scopes=["et", "mt", "tt", "em", "ee", "mm"],
 )
-VectorialHadRecoilP4_boosted = Producer(
-    name="VectorialHadRecoilP4_boosted",
-    call="hadrecoil::vectorial_mht({df}, {output}, {input})",
+GoodJetsP4_boosted = Producer(
+    name="GoodJetsP4_boosted",
+    call="basefunctions::BuildP4Collection({df}, {output}, {input})",
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
+        nanoAOD.Jet_phi,
+        q.Jet_mass_corrected,
         q.good_jet_collection_boosted,
     ],
-    output=[q.mht_p4_boosted],
+    output=[],
     scopes=["et", "mt", "tt", "em", "ee", "mm"],
 )
-VectorialHadRecoilPt = Producer(
-    name="VectorialHadRecoilPt",
+VectorialHadRecoilP4 = ProducerGroup(
+    name="VectorialHadRecoilP4",
+    call="basefunctions::SumPerEvent<ROOT::Math::PtEtaPhiMVector>({df}, {output}, {input}, ROOT::Math::PtEtaPhiMVector(0., 0., 0., 0.))",
+    input=[],
+    output=[],
+    scopes=["et", "mt", "tt", "em", "ee", "mm"],
+    subproducers=[
+        GoodJetsP4,
+    ]
+)
+VectorialHadRecoilP4_boosted = ProducerGroup(
+    name="VectorialHadRecoilP4_boosted",
+    call="basefunctions::SumPerEvent<ROOT::Math::PtEtaPhiMVector>({df}, {output}, {input}, ROOT::Math::PtEtaPhiMVector(0., 0., 0., 0.))",
+    input=[],
+    output=[],
+    scopes=["et", "mt", "tt", "em", "ee", "mm"],
+    subproducers=[
+        GoodJetsP4_boosted,
+    ]
+)
+MissingHadRecoilP4 = ProducerGroup(
+    name="MissingHadRecoilP4",
+    call="basefunctions::Negative<ROOT::Math::PtEtaPhiMVector>({df}, {output}, {input})",
+    input=[],
+    output=[q.mht_p4],
+    scopes=["et", "mt", "tt", "em", "ee", "mm"],
+    subproducers=[
+        VectorialHadRecoilP4,
+    ]
+)
+MissingHadRecoilP4_boosted = ProducerGroup(
+    name="MissingHadRecoilP4_boosted",
+    call="basefunctions::Negative<ROOT::Math::PtEtaPhiMVector>({df}, {output}, {input})",
+    input=[],
+    output=[q.mht_p4_boosted],
+    scopes=["et", "mt", "tt", "em", "ee", "mm"],
+    subproducers=[
+        VectorialHadRecoilP4,
+    ]
+)
+MissingHadRecoilPt = Producer(
+    name="MissingHadRecoilPt",
     call="quantities::pt({df}, {output}, {input})",
     input=[q.mht_p4],
     output=[q.mht_pt],
     scopes=["et", "mt", "tt", "em", "ee", "mm"],
 )
-VectorialHadRecoilPt_boosted = Producer(
-    name="VectorialHadRecoilPt_boosted",
+MissingHadRecoilPt_boosted = Producer(
+    name="MissingHadRecoilPt_boosted",
     call="quantities::pt({df}, {output}, {input})",
     input=[q.mht_p4_boosted],
     output=[q.mht_pt_boosted],
     scopes=["et", "mt", "tt", "em", "ee", "mm"],
 )
-VectorialHadRecoilPhi = Producer(
-    name="VectorialHadRecoilPhi",
+MissingHadRecoilPhi = Producer(
+    name="MissingHadRecoilPhi",
     call="quantities::phi({df}, {output}, {input})",
     input=[q.mht_p4],
     output=[q.mht_phi],
     scopes=["et", "mt", "tt", "em", "ee", "mm"],
 )
-VectorialHadRecoilPhi_boosted = Producer(
-    name="VectorialHadRecoilPhi_boosted",
+MissingHadRecoilPhi_boosted = Producer(
+    name="MissingHadRecoilPhi_boosted",
     call="quantities::phi({df}, {output}, {input})",
     input=[q.mht_p4_boosted],
     output=[q.mht_phi_boosted],
@@ -95,9 +139,9 @@ HadRecoilQuantities = ProducerGroup(
     scopes=["et", "mt", "tt", "em", "ee", "mm"],
     subproducers=[
         ScalarHadRecoil,
-        VectorialHadRecoilP4,
-        VectorialHadRecoilPt,
-        VectorialHadRecoilPhi,
+        MissingHadRecoilP4,
+        MissingHadRecoilPt,
+        MissingHadRecoilPhi,
         SoftActivityJetHT,
         SoftActivityJetHT10,
     ],
@@ -110,8 +154,8 @@ HadRecoilQuantities_boosted = ProducerGroup(
     scopes=["et", "mt", "tt", "em", "ee", "mm"],
     subproducers=[
         ScalarHadRecoil_boosted,
-        VectorialHadRecoilP4_boosted,
-        VectorialHadRecoilPt_boosted,
-        VectorialHadRecoilPhi_boosted,
+        MissingHadRecoilP4_boosted,
+        MissingHadRecoilPt_boosted,
+        MissingHadRecoilPhi_boosted,
     ],
 )
