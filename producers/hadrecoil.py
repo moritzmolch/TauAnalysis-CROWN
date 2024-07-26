@@ -25,7 +25,7 @@ ScalarHadRecoil_boosted = Producer(
 )
 GoodJetsP4 = Producer(
     name="GoodJetsP4",
-    call="basefunctions::BuildP4Collection({df}, {output}, {input})",
+    call="lorentzvectors::BuildP4Collection({df}, {output}, {input})",
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
@@ -38,7 +38,7 @@ GoodJetsP4 = Producer(
 )
 GoodJetsP4_boosted = Producer(
     name="GoodJetsP4_boosted",
-    call="basefunctions::BuildP4Collection({df}, {output}, {input})",
+    call="lorentzvectors::BuildP4Collection({df}, {output}, {input})",
     input=[
         q.Jet_pt_corrected,
         nanoAOD.Jet_eta,
@@ -86,7 +86,7 @@ MissingHadRecoilP4_boosted = ProducerGroup(
     output=[q.mht_p4_boosted],
     scopes=["et", "mt", "tt", "em", "ee", "mm"],
     subproducers=[
-        VectorialHadRecoilP4,
+        VectorialHadRecoilP4_boosted,
     ]
 )
 MissingHadRecoilPt = Producer(
